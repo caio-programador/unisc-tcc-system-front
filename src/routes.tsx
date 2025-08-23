@@ -1,13 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthProvider from "./context/auth";
 import { RoutesUrl, type Router } from "./types/Router";
+import HomeController from "./pages/home/controller/home.controller";
 import LoginController from "./pages/login/controller/login.controller";
 
 export const AppRouterProvider = () => {
   const routes: Router[] = [
     {
       path: RoutesUrl.HOME,
-      element: <a href="/login"></a>
+      element: <HomeController />
     },
     {
       path: RoutesUrl.LOGIN,
