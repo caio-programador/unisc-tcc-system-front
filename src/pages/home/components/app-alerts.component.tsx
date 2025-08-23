@@ -19,6 +19,7 @@ export const AppAlerts = () => {
         <Heading size="md" mb={4}>Notificações</Heading>
         {mockedNotifications.map((notification) => (
             <Alert.Root 
+              key={notification.id}
               status={notification.status as "warning" | "error"} 
               borderRadius="md" 
               onClick={() => alert(notification.message)}
