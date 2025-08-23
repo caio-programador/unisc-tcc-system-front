@@ -43,11 +43,11 @@ const customConfig = {
     // Estilos para placeholders
     "input::placeholder, textarea::placeholder": {
       color: "textSecondary !important",
-      opacity: "0.7",
+      opacity: "0.6",
     },
     ".chakra-input::placeholder, .chakra-textarea::placeholder": {
       color: "textSecondary !important",
-      opacity: "0.7",
+      opacity: "0.6",
     },
   },
 };

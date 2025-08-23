@@ -2,7 +2,7 @@ import { Center, Box, Stack, Heading, Button } from "@chakra-ui/react";
 import type { LoginProps } from "../types";
 import { LabelInput } from "../components/label-input.component";
 
-export default function Login({ errors, onSubmit, register }: LoginProps) {
+export default function Login({ errors, onSubmit, register, handleRedirectRegister }: LoginProps) {
   return (
     <Center h="100vh">
       <Box p="6" borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md">
@@ -41,9 +41,9 @@ export default function Login({ errors, onSubmit, register }: LoginProps) {
             color="ButtonShadow"
             size="xs" 
             width="full"
-            marginTop={2}
+            onClick={handleRedirectRegister}
           >
-            Já possui uma conta? Clique aqui para entrar
+            Não possui uma conta? Clique aqui para cadastrar
           </Button>
         </Stack>
       </Box>

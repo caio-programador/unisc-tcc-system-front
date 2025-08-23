@@ -17,7 +17,8 @@ export default function LoginController() {
   const onSubmit = useCallback((values: FormData) => {
     // TODO: Implement login logic
     console.log(values);
-  }, []);
+    redirect(RoutesUrl.HOME);
+  }, [redirect]);
 
   const handleRedirectRegister = useCallback(() => {
     redirect(RoutesUrl.REGISTER)
