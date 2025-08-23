@@ -1,4 +1,4 @@
-import { Alert, VStack } from "@chakra-ui/react";
+import { Alert, Heading, VStack } from "@chakra-ui/react";
 import { CiCircleAlert } from "react-icons/ci";
 
 export const AppAlerts = () => {
@@ -16,6 +16,7 @@ export const AppAlerts = () => {
     ]
     return (
       <VStack align="stretch" mb={6}>
+        <Heading size="md" mb={4}>Notificações</Heading>
         {mockedNotifications.map((notification) => (
             <Alert.Root 
               status={notification.status as "warning" | "error"} 

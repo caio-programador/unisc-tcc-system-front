@@ -25,7 +25,7 @@ export const Home = ({redirect}: HomeProps) => {
                 
             <Mosaic redirect={redirect} />
 
-            <Flex marginTop="10" direction="column" gap={6} flex="2" justify="flex-start" >
+            <Flex direction="column" gap={6} flex="2" justify="flex-start" >
               <AppAlerts />
               <QuickSchedule />
             </Flex>

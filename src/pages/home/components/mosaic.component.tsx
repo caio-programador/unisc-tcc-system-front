@@ -3,16 +3,20 @@ import { FaUser, FaFileAlt, FaTasks, FaPlusCircle, FaCalendar } from "react-icon
 import type { MosaicProps } from "../types";
 import { ActionCard } from "./action-card.component";
 import { RoutesUrl } from "../../../types/Router";
+import { useScreenSize } from "../hooks/use-screen-size";
 
 export const Mosaic = ({ redirect }: MosaicProps) => {
+  const { isMobile } = useScreenSize();
+
     return (
       <Box flex="4">
         <Grid
-            templateColumns="repeat(5, 1fr)"
-            templateRows="repeat(3, 200px)"
+            templateColumns={`repeat(${isMobile ? '': '5'}, 1fr)`}
+            templateRows={`repeat(${isMobile ? '': '3'}, 200px)`}
             gap={6}
+            h="100%"
           >
-            <GridItem colSpan={2}>
+            <GridItem colSpan={isMobile ? 5 : 2} marginTop={1}>
               <ActionCard
                 icon={<FaUser />}
                 title="Meu Perfil"
@@ -20,7 +24,7 @@ export const Mosaic = ({ redirect }: MosaicProps) => {
                 onClick={() => redirect(RoutesUrl.PROFILE)}
               />
             </GridItem>
-            <GridItem colSpan={3}>
+            <GridItem colSpan={isMobile ? 5 : 3}>
               <ActionCard
                 icon={<FaTasks />}
                 title="Gerenciar TCC"
@@ -29,7 +33,7 @@ export const Mosaic = ({ redirect }: MosaicProps) => {
               />
             </GridItem>
 
-            <GridItem colSpan={3}>
+            <GridItem colSpan={isMobile ? 5 : 3}>
               <ActionCard
                 icon={<FaFileAlt />}
                 title="Trabalhos"
@@ -38,7 +42,7 @@ export const Mosaic = ({ redirect }: MosaicProps) => {
               />
             </GridItem>
 
-            <GridItem colSpan={2}>
+            <GridItem colSpan={isMobile ? 5 : 2}>
               <ActionCard
                 icon={<FaCalendar />}
                 title="Reuniões"
