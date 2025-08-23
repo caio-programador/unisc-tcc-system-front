@@ -1,6 +1,7 @@
 import { Box, VStack, Heading, Button, Text } from "@chakra-ui/react";
+import type { ActionCardProps } from "../types";
 
-export const ActionCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => {
+export const ActionCard = ({ icon, title, description }: ActionCardProps) => {
   return (
     <Box
       borderWidth="1px"
