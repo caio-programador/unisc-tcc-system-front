@@ -15,7 +15,18 @@ export const ActionCard = ({ icon, title, description }: ActionCardProps) => {
         <Box fontSize="3xl">{icon}</Box>
         <Heading size="md">{title}</Heading>
         <Text textAlign="center">{description}</Text>
-        <Button colorScheme="blue" size="sm">Acessar</Button>
+        <Button 
+          backgroundColor={"textPrimary"} 
+          color={"background"} 
+          size="sm"
+          fontSize={"sm"}
+          fontWeight={'normal'}
+          paddingX="10px"
+          marginTop={"10px"}
+          height={"30px"}
+        >
+          Acessar
+        </Button>
       </VStack>
     </Box>
   );
