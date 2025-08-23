@@ -7,7 +7,7 @@ const customConfig = {
       colors: {
         darkBlue: {
           50: "#E0F2F7",
-          100: "#B3DCEB", 
+          100: "#B3DCEB",
           200: "#80C5DE",
           300: "#4DAECF",
           400: "#1A97C0",
@@ -16,7 +16,10 @@ const customConfig = {
           700: "#004D68",
           800: "#003649",
           900: "#001F2B",
-        }
+        },
+        gray: {
+          150: "#bcbcbc", 
+        },
       },
       fonts: {
         body: "system-ui, sans-serif",
@@ -29,6 +32,7 @@ const customConfig = {
         background: { value: "{colors.darkBlue.900}" },
         textPrimary: { value: "{colors.darkBlue.50}" },
         textSecondary: { value: "{colors.darkBlue.200}" },
+        textWithGray: { value: "{colors.gray.150}" },
         info: { value: "{colors.darkBlue.500}" },
       },
     },

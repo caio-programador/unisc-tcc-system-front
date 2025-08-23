@@ -1,0 +1,16 @@
+import type { RouteUrl } from "../../types/Router";
+
+export interface HomeProps {
+  redirect: (path: RouteUrl) => void;
+}
+
+export interface MosaicProps {
+  redirect: (path: RouteUrl) => void;
+}
+
+export interface ActionCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  onClick: () => void;
+}
