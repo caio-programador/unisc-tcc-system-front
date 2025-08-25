@@ -1,7 +1,7 @@
 import { Box, VStack, Heading, Button, Text } from "@chakra-ui/react";
 import type { ActionCardProps } from "../types";
 
-export const ActionCard = ({ icon, title, description }: ActionCardProps) => {
+export const ActionCard = ({ icon, title, description, onClick }: ActionCardProps) => {
   return (
     <Box
       borderWidth="1px"
@@ -24,6 +24,7 @@ export const ActionCard = ({ icon, title, description }: ActionCardProps) => {
           paddingX="10px"
           marginTop={"10px"}
           height={"30px"}
+          onClick={onClick}
         >
           Acessar
         </Button>

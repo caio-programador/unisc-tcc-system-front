@@ -4,6 +4,7 @@ import { RoutesUrl, type Router } from "./types/Router";
 import HomeController from "./pages/home/controller/home.controller";
 import LoginController from "./pages/login/controller/login.controller";
 import RegisterController from "./pages/register/controller/register.controller";
+import ProfileController from "./pages/profile/controller/profile.controller";
 
 export const AppRouterProvider = () => {
   const routes: Router[] = [
@@ -18,6 +19,10 @@ export const AppRouterProvider = () => {
     {
       path: RoutesUrl.REGISTER,
       element: <RegisterController />
+    },
+    {
+      path: RoutesUrl.PROFILE,
+      element: <ProfileController />
     }
   ]
   return (
