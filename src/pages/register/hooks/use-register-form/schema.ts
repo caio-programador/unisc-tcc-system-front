@@ -6,7 +6,7 @@ export const registerSchema = z.object({
   email: z.email("E-mail inválido"),
   password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
   confirmPassword: z.string().min(1, "Confirmação de senha é obrigatória"),
-  role: z.enum(["student", "teacher", "coordinator"], {
+  role: z.enum(['ALUNO', 'PROFESSOR', 'COORDENADOR'], {
     error: "Selecione um tipo de usuário",
   }),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -17,7 +17,7 @@ export const registerSchema = z.object({
 export type FormData = z.infer<typeof registerSchema>;
 
 export const roleOptions = createListCollection({items: [
-  { value: "student", label: "Aluno" },
-  { value: "teacher", label: "Professor" },
-  { value: "coordinator", label: "Coordenador" },
+  { value: "ALUNO", label: "Aluno" },
+  { value: "PROFESSOR", label: "Professor" },
+  { value: "COORDENADOR", label: "Coordenador" },
 ]});

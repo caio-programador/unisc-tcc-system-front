@@ -1,7 +1,9 @@
+import type { User } from "../../types";
 import type { RouteUrl } from "../../types/Router";
 
 export interface HomeProps {
   redirect: (path: RouteUrl) => void;
+  user?: User; 
 }
 
 export interface MosaicProps {

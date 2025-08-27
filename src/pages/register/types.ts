@@ -7,7 +7,7 @@ export interface RegisterProps {
   register: UseFormRegister<FormData>;
   control: Control<FormData>;
   errors: FieldErrors<FormData>;
-  handleRedirectLogin: () => void;
+  isPending: boolean;
 }
 
 export interface LabelInputProps {
