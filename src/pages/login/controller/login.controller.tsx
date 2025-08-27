@@ -4,30 +4,55 @@ import Login from "../view/login.view";
 import type { FormData } from "../hooks/use-login-form/schema";
 import { useAppNavigation } from "../../../hooks/use-app-navigation";
 import { RoutesUrl } from "../../../types/Router";
+import { useLogin } from "../hooks/use-login";
+import { toaster } from "../../../utils/toaster";
+import type { AuthResponse } from "../../../types";
+import { TOKEN_COOKIE_NAME } from "../../../config/const";
 
 export default function LoginController() {
-  const { 
-    register, 
-    handleSubmit, 
+  const {
+    register,
+    handleSubmit,
     formState: { errors },
   } = useLoginForm();
+  const { mutate: doLogin, isPending } = useLogin();
 
   const { redirect } = useAppNavigation();
 
-  const onSubmit = useCallback((values: FormData) => {
-    // TODO: Implement login logic
-    console.log(values);
-    redirect(RoutesUrl.HOME);
-  }, [redirect]);
+  const handleSuccessLogin = useCallback(
+    (data: AuthResponse) => {
+      window.cookieStore.set(TOKEN_COOKIE_NAME, data.token);
+      redirect(RoutesUrl.HOME);
+    },
+    [redirect]
+  );
 
-  const handleRedirectRegister = useCallback(() => {
-    redirect(RoutesUrl.REGISTER)
-  }, [redirect]);
+  const handleErrorLogin = useCallback(() => {
+    toaster.create({
+      closable: true,
+      description:
+        "Ocorreu um erro ao realizar o login, verifique suas credenciais e tente novamente",
+      type: "error",
+      title: "Erro ao realizar login",
+    });
+  }, []);
 
-  return <Login 
-    errors={errors} 
-    onSubmit={handleSubmit(onSubmit)} 
-    register={register} 
-    handleRedirectRegister={handleRedirectRegister}
-  />;
+  const onSubmit = useCallback(
+    (values: FormData) => {
+      doLogin(values, {
+        onSuccess: handleSuccessLogin,
+        onError: handleErrorLogin,
+      });
+    },
+    [doLogin, handleErrorLogin, handleSuccessLogin]
+  );
+
+  return (
+    <Login
+      errors={errors}
+      isPending={isPending}
+      onSubmit={handleSubmit(onSubmit)}
+      register={register}
+    />
+  );
 }

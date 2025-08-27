@@ -5,6 +5,7 @@ import HomeController from "./pages/home/controller/home.controller";
 import LoginController from "./pages/login/controller/login.controller";
 import RegisterController from "./pages/register/controller/register.controller";
 import ProfileController from "./pages/profile/controller/profile.controller";
+import { Toaster } from "./components/ui/toaster";
 
 export const AppRouterProvider = () => {
   const routes: Router[] = [
@@ -33,6 +34,7 @@ export const AppRouterProvider = () => {
             <Route key={route.path} path={route.path} element={route.element} />
           ))}
         </Routes>
+        <Toaster />
       </AuthProvider>
     </BrowserRouter>
   )

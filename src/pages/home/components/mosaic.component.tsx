@@ -4,6 +4,7 @@ import type { MosaicProps } from "../types";
 import { ActionCard } from "./action-card.component";
 import { RoutesUrl } from "../../../types/Router";
 import { useScreenSize } from "../hooks/use-screen-size";
+import { HiUserAdd } from "react-icons/hi";
 
 export const Mosaic = ({ redirect }: MosaicProps) => {
   const { isMobile } = useScreenSize();
@@ -51,12 +52,23 @@ export const Mosaic = ({ redirect }: MosaicProps) => {
               />
             </GridItem>
 
+
             <GridItem colSpan={5}>
               <ActionCard
                 icon={<FaPlusCircle />}
                 title="Nova Proposta"
                 description="Crie e envie sua proposta."
                 onClick={() => redirect(RoutesUrl.NEW_TCC)}
+              />
+            </GridItem>
+
+            
+            <GridItem colSpan={5} >
+              <ActionCard
+                icon={<HiUserAdd />}
+                title="Cadastre Alunos/Professores"
+                description="Crie novos usuários"
+                onClick={() => redirect(RoutesUrl.REGISTER)}
               />
             </GridItem>
           </Grid>

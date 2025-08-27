@@ -8,7 +8,7 @@ export default function Register({
   onSubmit, 
   register, 
   control,
-  handleRedirectLogin 
+  isPending,
 }: RegisterProps) {
   return (
     <Center minH="100vh" py={8}>
@@ -67,22 +67,12 @@ export default function Register({
                 size="lg" 
                 width="full"
                 mt={4}
+                loading={isPending}
               >
                 Cadastrar
               </Button>
             </VStack>
           </form>
-
-          <Button 
-            variant="plain"
-            _hover={{ textDecoration: "underline" }}
-            color="ButtonShadow"
-            size="xs" 
-            width="full"
-            onClick={handleRedirectLogin}
-          >
-            Já possui uma conta? Clique aqui para entrar
-          </Button>
         </Stack>
       </Box>
     </Center>

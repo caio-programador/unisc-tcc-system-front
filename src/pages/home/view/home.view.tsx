@@ -12,12 +12,12 @@ import type { HomeProps } from "../types";
 import { Mosaic } from "../components/mosaic.component";
 
 
-export const Home = ({redirect}: HomeProps) => {
+export const Home = ({redirect, user}: HomeProps) => {
     return (
       <Container maxW={1300}>
         <Box p={6}>
           <Center>
-            <Heading mb={6}>Bem vindo ao Dashboard TCC, Aluno <Em>Caio</Em></Heading>
+            <Heading mb={6}>Bem vindo ao Dashboard TCC, Aluno <Em>{user?.name}</Em></Heading>
           </Center>
 
 

@@ -4,9 +4,9 @@ import type { FormEventHandler } from "react";
 
 export interface LoginProps {
   errors: FieldErrors<FormData>;
+  isPending: boolean;
   onSubmit: FormEventHandler<HTMLFormElement>;
   register: UseFormRegister<FormData>;
-  handleRedirectRegister: () => void;
 }
 
 export interface LabelInputProps {
