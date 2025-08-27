@@ -4,7 +4,7 @@ export const RoutesUrl = {
   REGISTER: '/register',
   PROFILE: '/profile',
   TCC_LIST: '/tcc-list',
-  TCC_DETAILS: '/profile/tcc/',
+  TCC_DETAILS: '/tcc-details',
   NEW_TCC: '/profile/tcc/new',
   MEETINGS: '/meetings',
 } as const ;

@@ -1,11 +1,12 @@
 import type { FieldErrors } from "react-hook-form";
 import type { RouteUrl } from "../../types/Router";
 import type { FormData } from "./hooks/use-update-form/schema";
+import type { User } from "../../types";
 
 export interface ProfileProps {
   errors: FieldErrors<FormData>; 
   hasValues: boolean;
-  user: FormData;
+  user: User;
   redirect: (path: RouteUrl) => void;
   onSubmit: () => void;
   setValue: (name: keyof FormData, value: string) => void;
@@ -14,7 +15,7 @@ export interface ProfileProps {
 export interface PersonalInfoProps {
   errors: FieldErrors<FormData>;
   hasValues: boolean;
-  user: FormData;
+  user: User;
   setValue: (name: keyof FormData, value: string) => void;
   onSubmit: () => void;
 }
@@ -22,7 +23,7 @@ export interface PersonalInfoProps {
 export interface UpdateInfoFormProps {
   errors: FieldErrors<FormData>;
   hasValues: boolean;
-  user: FormData;
+  user: User;
   setValue: (name: keyof FormData, value: string) => void;
   onSubmit: () => void;
 }
@@ -39,3 +40,6 @@ export interface QuickLinksProps {
   redirect: (path: RouteUrl) => void;
 }
 
+export interface HeaderProfileProps {
+  user: User;
+}

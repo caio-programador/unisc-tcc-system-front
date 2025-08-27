@@ -22,7 +22,7 @@ export const Profile = ({
           links={[{ label: "Home", navigate: () => redirect(RoutesUrl.HOME) }]}
           currentLinkLabel="Perfil"
         />
-        <HeaderProfile />
+        <HeaderProfile user={user} />
 
         <PersonalInfo
           user={user}
