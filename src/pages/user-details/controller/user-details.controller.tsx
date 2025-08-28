@@ -5,7 +5,6 @@ import type { CreateRelationFormData } from "../hooks/use-create-relation-form/s
 
 export const UserDetailsController = () => {
   const {
-    register,
     handleSubmit,
     formState: { errors },
     control,
@@ -18,7 +17,6 @@ export const UserDetailsController = () => {
 
   return (
     <UserDetails
-      register={register}
       handleSubmit={handleSubmit(onSubmit)}
       errors={errors}
       control={control}

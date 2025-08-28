@@ -1,9 +1,21 @@
-import type { Control, FieldErrors, UseFormRegister } from "react-hook-form";
+import type { Control, FieldErrors } from "react-hook-form";
 import type { CreateRelationFormData } from "./hooks/use-create-relation-form/schema";
 
 export interface UserDetailsProps {
-  register: UseFormRegister<CreateRelationFormData>;
   handleSubmit: () => void;
   errors: FieldErrors<CreateRelationFormData>;
   control: Control<CreateRelationFormData>;
+}
+
+export interface SelectAdvisorProps {
+  errors: FieldErrors<CreateRelationFormData>;
+  control: Control<CreateRelationFormData>;
+}
+
+export interface DateFieldInputProps {
+  label: string;
+  isError: boolean;
+  errorMessage?: string;
+  control: Control<CreateRelationFormData>;
+  controlName: Exclude<keyof CreateRelationFormData, "orientador">;
 }

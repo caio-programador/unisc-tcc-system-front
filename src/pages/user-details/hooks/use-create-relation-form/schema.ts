@@ -1,20 +1,8 @@
 import { z } from "zod";
-import type { User } from "../../../../types";
 
 export const createRelationSchema = z
   .object({
-    orientador: z.object(
-      {
-        id: z.number(),
-        name: z.string().min(1, "Nome do orientador é obrigatório"),
-        email: z.email("Email inválido"),
-        role: z.enum(["PROFESSOR", "COORDENADOR"]),
-      },
-      {
-        error: "Orientador é obrigatório",
-      }
-    ),
-
+    orientador: z.string().min(3, "Orientador é obrigatório"),
     dataFinalEntregaProposta: z.date({
       error: "Data final da proposta é obrigatória",
     }),
@@ -49,23 +37,8 @@ export const createRelationSchema = z
 
 export type CreateRelationFormData = z.infer<typeof createRelationSchema>;
 
-export const mockOrientadores: User[] = [
-  {
-    id: 1,
-    name: "Prof. João Silva",
-    email: "joao.silva@unisc.br",
-    role: "PROFESSOR",
-  },
-  {
-    id: 2,
-    name: "Prof. Maria Santos",
-    email: "maria.santos@unisc.br",
-    role: "PROFESSOR",
-  },
-  {
-    id: 3,
-    name: "Prof. Carlos Oliveira",
-    email: "carlos.oliveira@unisc.br",
-    role: "COORDENADOR",
-  },
+export const mockOrientadores = [
+  "Prof. João Silva",
+  "Prof. Maria Santos", 
+  "Prof. Carlos Oliveira"
 ];

@@ -1,130 +1,68 @@
 import {
   Box,
-  Text,
   Heading,
   VStack,
-  HStack,
-  Select,
-  Input,
   Button,
   Separator,
-  Field,
-  createListCollection,
-  Portal,
+  Container,
 } from "@chakra-ui/react";
-import { Controller } from "react-hook-form";
 import { AppBreadcrumbs } from "../../../components/global/app-breadcrumbs";
 import type { UserDetailsProps } from "../types";
-
-const mockProfessores = createListCollection({
-  items: [
-    { id: 1, name: "Professor A" },
-    { id: 2, name: "Professor B" },
-    { id: 3, name: "Professor C" },
-  ],
-});
+import { Profile } from "../components/profile.component";
+import { SelectAdvisor } from "../components/select-advisor.component";
+import { DateFieldInput } from "../components/date-field-input.component";
 
 export const UserDetails = ({
   control,
   errors,
   handleSubmit,
-  register,
 }: UserDetailsProps) => {
   return (
-    <Box p={8}>
-      <AppBreadcrumbs
-        links={[{ label: "Home", navigate: () => {} }]}
-        currentLinkLabel="Detalhes do Usuário"
-      />
-      {/* Título */}
-      <Heading size="lg" mb={6} textAlign="left">
-        Perfil do Usuário
-      </Heading>
+    <Container maxW="1000px">
+      <Box p={8}>
+        <AppBreadcrumbs
+          links={[{ label: "Home", navigate: () => {} }]}
+          currentLinkLabel="Detalhes do Usuário"
+        />
 
-      {/* Informações básicas (somente leitura) */}
-      <VStack gap={4} align="stretch" mb={8}>
-        <HStack>
-          <Text fontWeight="bold">Nome:</Text>
-          <Text>Fulano da Silva</Text>
-        </HStack>
+        <Heading size="3xl" mb={6} mt={12} textAlign="left">
+          Perfil do Aluno
+        </Heading>
 
-        <HStack>
-          <Text fontWeight="bold">Email:</Text>
-          <Text>fulano@email.com</Text>
-        </HStack>
+        <Profile />
 
-        <HStack>
-          <Text fontWeight="bold">Role:</Text>
-          <Text>Aluno</Text>
-        </HStack>
-      </VStack>
+        <Separator mb={6} />
 
-      <Separator mb={6} />
+        <VStack as="form" gap={6} align="stretch" onSubmit={handleSubmit}>
+          <SelectAdvisor errors={errors} control={control} />
 
-      {/* Formulário editável */}
-      <VStack as="form" gap={6} align="stretch">
-        <Field.Root invalid={false}>
-          <Field.Label>Orientador:</Field.Label>
-
-          <Controller
+          <DateFieldInput
+            label="Data final da proposta"
             control={control}
-            name="orientador"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Select.Root
-                collection={mockProfessores}
-                size="md"
-                onValueChange={(details) => onChange(details.value[0])}
-                onBlur={onBlur}
-                value={value ? [value.name] : []}
-              >
-                <Select.Control>
-                  <Select.Trigger>
-                    <Select.ValueText
-                      color={value ? "textPrimary" : "textSecondary"}
-                      opacity={value ? 1 : 0.6}
-                      placeholder="Selecione o orientador"
-                    />
-                  </Select.Trigger>
-
-                  <Select.IndicatorGroup>
-                    <Select.Indicator />
-                  </Select.IndicatorGroup>
-                </Select.Control>
-                <Portal>
-                  <Select.Positioner>
-                    <Select.Content
-                      backgroundColor={"background"}
-                      border={"1px solid"}
-                      borderColor={"darkBlue.700"}
-                      boxShadow="lg"
-                    >
-                      {mockProfessores.items.map((option) => (
-                        <Select.Item key={option.id} item={option.id}>
-                          <Select.ItemText>{option.name}</Select.ItemText>
-                        </Select.Item>
-                      ))}
-                    </Select.Content>
-                  </Select.Positioner>
-                </Portal>
-              </Select.Root>
-            )}
+            controlName="dataFinalEntregaProposta"
+            isError={!!errors.dataFinalEntregaProposta}
+            errorMessage={errors?.dataFinalEntregaProposta?.message}
           />
-        </Field.Root>
 
-        <Field.Root>
-          <Field.Label>Data final da proposta</Field.Label>
-          <Input type="date" />
-        </Field.Root>
+          <DateFieldInput
+            label="Data final do TCC"
+            control={control}
+            controlName="dataFinalEntregaTCC"
+            isError={!!errors.dataFinalEntregaTCC}
+            errorMessage={errors?.dataFinalEntregaTCC?.message}
+          />
 
-        <Field.Root>
-          <Field.Label>Data final do TCC</Field.Label>
-          <Input type="date" />
-        </Field.Root>
-
-        <Button colorScheme="blue" alignSelf="flex-start">
-          Salvar Alterações
-        </Button>
-      </VStack>
-    </Box>
+          <Button
+            type="submit"
+            mt={6}
+            alignSelf="flex-start"
+            backgroundColor="textPrimary"
+            color="background"
+          >
+            Salvar Alterações
+          </Button>
+        </VStack>
+      </Box>
+    </Container>
   );
 };
