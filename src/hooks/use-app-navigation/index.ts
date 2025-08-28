@@ -18,9 +18,14 @@ export const useAppNavigation = () => {
         window.open(path, "_blank");
     }, []);
 
+    const back = useCallback(() => {
+        navigate(-1);
+    }, [navigate]);
+
     return {
         redirect,
         replace,
-        openWindow
+        openWindow,
+        back,
     };
 };
