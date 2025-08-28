@@ -7,6 +7,7 @@ import RegisterController from "./pages/register/controller/register.controller"
 import ProfileController from "./pages/profile/controller/profile.controller";
 import { Toaster } from "./components/ui/toaster";
 import TCCDetailsController from "./pages/tcc-details/controller/tcc-details.controller";
+import { UserDetailsController } from "./pages/user-details/controller/user-details.controller";
 
 export const AppRouterProvider = () => {
   const routes: Router[] = [
@@ -29,6 +30,10 @@ export const AppRouterProvider = () => {
     {
       path: RoutesUrl.TCC_DETAILS,
       element: <TCCDetailsController />
+    },
+    {
+      path: RoutesUrl.USER_DETAILS,
+      element: <UserDetailsController />
     }
   ]
   return (
