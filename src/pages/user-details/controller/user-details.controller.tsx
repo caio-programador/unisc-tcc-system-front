@@ -4,7 +4,7 @@ import { UserDetails } from "../view/user-details.view";
 import type { CreateRelationFormData } from "../hooks/use-create-relation-form/schema";
 import { useAppNavigation } from "../../../hooks/use-app-navigation";
 
-export const UserDetailsController = () => {
+export default function UserDetailsController() {
   const {
     handleSubmit,
     formState: { errors },

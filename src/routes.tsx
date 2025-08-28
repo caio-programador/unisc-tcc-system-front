@@ -1,13 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthProvider from "./context/auth";
 import { RoutesUrl, type Router } from "./types/Router";
-import HomeController from "./pages/home/controller/home.controller";
-import LoginController from "./pages/login/controller/login.controller";
-import RegisterController from "./pages/register/controller/register.controller";
-import ProfileController from "./pages/profile/controller/profile.controller";
 import { Toaster } from "./components/ui/toaster";
-import TCCDetailsController from "./pages/tcc-details/controller/tcc-details.controller";
-import { UserDetailsController } from "./pages/user-details/controller/user-details.controller";
+import ErrorController from "./pages/error";
+import HomeController from "./pages/home";
+import LoginController from "./pages/login";
+import ProfileController from "./pages/profile";
+import RegisterController from "./pages/register";
+import TCCDetailsController from "./pages/tcc-details";
+import UserDetailsController from "./pages/user-details";
 
 export const AppRouterProvider = () => {
   const routes: Router[] = [
@@ -34,6 +35,10 @@ export const AppRouterProvider = () => {
     {
       path: RoutesUrl.USER_DETAILS,
       element: <UserDetailsController />
+    },
+    {
+      path: RoutesUrl.ERROR,
+      element: <ErrorController />
     }
   ]
   return (
