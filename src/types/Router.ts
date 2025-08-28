@@ -7,6 +7,7 @@ export const RoutesUrl = {
   TCC_DETAILS: '/tcc-details',
   NEW_TCC: '/profile/tcc/new',
   MEETINGS: '/meetings',
+  ERROR: '/error',
 } as const ;
 
 export type RouteUrl = typeof RoutesUrl[keyof typeof RoutesUrl];
