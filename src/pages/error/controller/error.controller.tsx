@@ -4,11 +4,11 @@ import { RoutesUrl } from "../../../types/Router";
 import { useCallback } from "react";
 
 export default function ErrorController() {
-  const { redirect } = useAppNavigation();
+  const { redirect, back } = useAppNavigation();
 
   const handleTryAgain = useCallback(() => {
-    alert("Botão 'Tentar Novamente' está funcionando!");
-  }, [redirect]);
+    back();
+  }, [back]);
 
   const handleGoHome = useCallback(() => {
     redirect(RoutesUrl.HOME);
