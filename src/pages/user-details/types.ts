@@ -1,7 +1,9 @@
 import type { Control, FieldErrors } from "react-hook-form";
 import type { CreateRelationFormData } from "./hooks/use-create-relation-form/schema";
+import type { RouteUrl } from "../../types/Router";
 
 export interface UserDetailsProps {
+  redirect: (path: RouteUrl) => void;
   handleSubmit: () => void;
   errors: FieldErrors<CreateRelationFormData>;
   control: Control<CreateRelationFormData>;

@@ -11,17 +11,19 @@ import type { UserDetailsProps } from "../types";
 import { Profile } from "../components/profile.component";
 import { SelectAdvisor } from "../components/select-advisor.component";
 import { DateFieldInput } from "../components/date-field-input.component";
+import { RoutesUrl } from "../../../types/Router";
 
 export const UserDetails = ({
   control,
   errors,
   handleSubmit,
+  redirect,
 }: UserDetailsProps) => {
   return (
     <Container maxW="1000px">
       <Box p={8}>
         <AppBreadcrumbs
-          links={[{ label: "Home", navigate: () => {} }]}
+          links={[{ label: "Home", navigate: () => redirect(RoutesUrl.HOME) }]}
           currentLinkLabel="Detalhes do Usuário"
         />
 

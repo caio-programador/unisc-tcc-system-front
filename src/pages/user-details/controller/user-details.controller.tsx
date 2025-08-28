@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useCreateRelationForm } from "../hooks/use-create-relation-form";
 import { UserDetails } from "../view/user-details.view";
 import type { CreateRelationFormData } from "../hooks/use-create-relation-form/schema";
+import { useAppNavigation } from "../../../hooks/use-app-navigation";
 
 export const UserDetailsController = () => {
   const {
@@ -9,6 +10,7 @@ export const UserDetailsController = () => {
     formState: { errors },
     control,
   } = useCreateRelationForm();
+  const { redirect } = useAppNavigation();
 
   const onSubmit = useCallback((data: CreateRelationFormData) => {
     // Lógica para submissão do formulário
@@ -17,6 +19,7 @@ export const UserDetailsController = () => {
 
   return (
     <UserDetails
+      redirect={redirect}
       handleSubmit={handleSubmit(onSubmit)}
       errors={errors}
       control={control}
