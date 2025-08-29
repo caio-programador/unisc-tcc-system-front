@@ -2,6 +2,7 @@ import { Field, Input } from "@chakra-ui/react";
 import { Controller } from "react-hook-form";
 import type { DateFieldInputProps } from "../types";
 import { useCallback } from "react";
+import { FaCalendar } from "react-icons/fa";
 
 export const DateFieldInput = ({
   control,

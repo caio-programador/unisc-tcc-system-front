@@ -6,25 +6,9 @@ import {
   Badge,
   Button,
 } from "@chakra-ui/react";
-import { Card } from "@chakra-ui/react";
 import type { UserCardProps } from "../types";
 
 export const UserCard = ({ user, onUserClick, onDeleteUser }: UserCardProps) => {
-  const bgColor = "textPrimary";
-  const borderColor = "black";
-
-  const getRoleColor = (role: string) => {
-    switch (role) {
-      case "ALUNO":
-        return "blue";
-      case "PROFESSOR":
-        return "green";
-      case "COORDENADOR":
-        return "purple";
-      default:
-        return "gray";
-    }
-  };
 
   const getRoleLabel = (role: string) => {
     switch (role) {
@@ -40,85 +24,85 @@ export const UserCard = ({ user, onUserClick, onDeleteUser }: UserCardProps) => 
   };
 
   return (
-    <Card.Root
-      bg={bgColor}
-      border="1px"
-      borderColor={borderColor}
+    <Box
+      border="1px solid"
+      borderColor="textPrimary"
       borderRadius="lg"
       cursor="pointer"
       transition="all 0.2s"
+      bg="transparent"
+      p={6}
       _hover={{
         transform: "translateY(-2px)",
         boxShadow: "lg",
       }}
       onClick={() => onUserClick(user)}
     >
-      <Card.Body p={6}>
-        <VStack align="stretch" gap={4}>
-          {/* Header com nome e badge de role */}
-          <HStack justify="space-between" align="start">
-            <Text
-              fontSize="lg"
-              fontWeight="bold"
-              color="black"
-            >
-              {user.name}
-            </Text>
-            <Badge
-              colorScheme={getRoleColor(user.role)}
-              variant="solid"
-              fontSize="sm"
-              px={2}
-              py={1}
-              borderRadius="full"
-            >
-              {getRoleLabel(user.role)}
-            </Badge>
-          </HStack>
-
-          {/* Email */}
+      <VStack align="stretch" gap={4}>
+        {/* Header com nome e badge de role */}
+        <HStack justify="space-between" align="start">
           <Text
-            fontSize="sm"
-            color="gray.600"
-            wordBreak="break-all"
+            fontSize="lg"
+            fontWeight="bold"
+            color="textPrimary"
           >
-            {user.email}
+            {user.name}
           </Text>
-
-          {/* Informações adicionais para alunos */}
-          {user.role === "ALUNO" && (
-            <Box
-              p={3}
-              bg="gray.50"
-              borderRadius="md"
-              border="1px"
-              borderColor="blue.200"
-            >
-                <Text fontSize="sm" fontWeight="medium" color="gray.700">
-                Orientador: Prof. Pedro Oliveira
-              </Text>
-            </Box>
-          )}
-
-          {/* Botão de deletar */}
-          <Button
-            size="sm"
-            variant="outline"
-            backgroundColor="black"
-            color="white"
-            onClick={(e) => {
-              e.stopPropagation();
-              onDeleteUser(user.id);
-            }}
-            _hover={{
-                transform: "scale(1.03)",
-                backgroundColor: "textPrimaryHover",
-            }}
+          <Badge
+            variant="solid"
+            fontSize="sm"
+            px={2}
+            py={1}
+            borderRadius="full"
+            bg="textPrimary"
+            color="darkBlue.900"
           >
-            Deletar
-          </Button>
-        </VStack>
-      </Card.Body>
-    </Card.Root>
+            {getRoleLabel(user.role)}
+          </Badge>
+        </HStack>
+
+        {/* Email */}
+        <Text
+          fontSize="sm"
+          color="textSecondary"
+          wordBreak="break-all"
+        >
+          {user.email}
+        </Text>
+
+        {/* Informações adicionais para alunos */}
+        {user.role === "ALUNO" && (
+          <Box
+            p={3}
+            borderRadius="md"
+            border="1px solid"
+            borderColor="textPrimary"
+            bg="transparent"
+          >
+              <Text fontSize="sm" fontWeight="medium" color="textPrimary">
+              Orientador: Prof. Pedro Oliveira
+            </Text>
+          </Box>
+        )}
+
+        {/* Botão de deletar */}
+        <Button
+          size="sm"
+          bg="textPrimary"
+          color="darkBlue.900"
+          border="1px solid"
+          borderColor="textPrimary"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDeleteUser(user.id);
+          }}
+          _hover={{
+              transform: "scale(1.03)",
+          }}
+        >
+          Deletar
+        </Button>
+      </VStack>
+    </Box>
   );
 };

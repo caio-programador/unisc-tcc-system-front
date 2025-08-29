@@ -27,9 +27,7 @@ export const UserListView = ({
   onDeleteUser,
   redirect,
 }: UserListProps) => {
-  const bgColor = useColorModeValue("white", "gray.800");
   const borderColor = useColorModeValue("gray.200", "gray.700");
-  const textColor = useColorModeValue("black", "white");
 
   const roleOptions = createListCollection({
     items: [
@@ -63,13 +61,8 @@ export const UserListView = ({
               </Text>
               <Input
                 placeholder="Digite para pesquisar..."
-                style={{ color: 'black' }}
                 value={searchTerm}
                 onChange={(e) => onSearchChange(e.target.value)}
-                bg={bgColor}
-                borderColor={borderColor}
-                _hover={{ borderColor: "textPrimary" }}
-                _placeholder={{ color: 'black' }}
               />
             </Box>
             
@@ -84,30 +77,27 @@ export const UserListView = ({
               >
                 <Select.Control>
                   <Select.Trigger
-                    bg={bgColor}
                     borderColor={borderColor}
                     _hover={{ borderColor: "textPrimary" }}
-                    className="custom-focus"
                   >
                     <Select.ValueText 
                       placeholder="Selecione um tipo"
-                      style={{ color: 'black' }}
                     />
                   </Select.Trigger>
                 </Select.Control>
                 <Select.Positioner>
                   <Select.Content>
                     <Select.Item item="">
-                      <Select.ItemText style={{ color: 'black' }}>Todos</Select.ItemText>
+                      <Select.ItemText>Todos</Select.ItemText>
                     </Select.Item>
                     <Select.Item item="ALUNO">
-                      <Select.ItemText style={{ color: 'black' }}>Alunos</Select.ItemText>
+                      <Select.ItemText color="textPrimary">Alunos</Select.ItemText>
                     </Select.Item>
                     <Select.Item item="PROFESSOR">
-                      <Select.ItemText style={{ color: 'black' }}>Professores</Select.ItemText>
+                      <Select.ItemText color="textPrimary">Professores</Select.ItemText>
                     </Select.Item>
                     <Select.Item item="COORDENADOR">
-                      <Select.ItemText style={{ color: 'black' }}>Coordenadores</Select.ItemText>
+                      <Select.ItemText color="textPrimary">Coordenadores</Select.ItemText>
                     </Select.Item>
                   </Select.Content>
                 </Select.Positioner>
@@ -120,13 +110,13 @@ export const UserListView = ({
             <Box
               p={8}
               textAlign="center"
-              bg={useColorModeValue("textPrimary", "textPrimary")}
-              border="1px"
-              borderColor={borderColor}
+              bg="transparent"
+              border="1px solid"
+              borderColor="textPrimary"
               borderRadius="lg"
             >
-              <Text fontSize="lg" color="gray.700">
-                Nenhum usuário encontrado com os filtros aplicados.
+              <Text fontSize="lg" color="textPrimary">
+                Nenhum usuário encontrado.
               </Text>
             </Box>
           ) : (

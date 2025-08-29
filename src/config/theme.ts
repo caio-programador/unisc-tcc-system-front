@@ -37,6 +37,7 @@ const customConfig = {
         placeholder: { value: "{colors.gray.150}" },
       },
     },
+    cssVarsRoot: ":host, :root",
   },
   globalCss: {
     "html, body": {
@@ -45,6 +46,34 @@ const customConfig = {
       backgroundColor: "background",
       color: "textPrimary",
     },
+    // Estilos para placeholders do Chakra UI
+    ".chakra-input::placeholder": {
+      color: "textPrimary !important",
+      opacity: "0.8 !important",
+    },
+    // Estilos para Select.ItemText - sempre darkBlue
+    ".chakra-select__itemText": {
+      color: "darkBlue.900 !important",
+    },
+    // Estilos para o valor do select - cor do texto
+    ".chakra-select__valueText": {
+      color: "textPrimary !important",
+    },
+    // Estilos para a setinha do select - cor da borda
+    ".chakra-select__indicator": {
+      color: "textPrimary !important",
+    },
+    "[data-part='indicator']": {
+      color: "textPrimary !important",
+    },
+    // Estilos para ícone do calendário - cor da borda
+    "input[type='date']::-webkit-calendar-picker-indicator": {
+      filter: "invert(1) brightness(0.8)",
+    },
+    "input[type='date']::-webkit-calendar-picker-indicator:hover": {
+      filter: "invert(1) brightness(1)",
+    },
+
   },
 };
 
