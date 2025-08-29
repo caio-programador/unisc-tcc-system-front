@@ -2,7 +2,9 @@ import { z } from "zod";
 
 export const createRelationSchema = z
   .object({
-    orientador: z.string().min(3, "Orientador é obrigatório"),
+    orientador: z.string().refine((val) => val.trim() !== "", {
+      message: "Orientador é obrigatório",
+    }),
     dataFinalEntregaProposta: z.date({
       error: "Data final da proposta é obrigatória",
     }),

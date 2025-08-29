@@ -25,8 +25,8 @@ export const SelectRole = ({ label, control, errors }: SelectRoleProps) => {
             <Select.Control>
               <Select.Trigger>
                 <Select.ValueText 
-                  color={value ? "textPrimary" : "textSecondary"}
-                  opacity={value ? 1 : 0.6}
+                  color={value ? "#000000" : "#666666"}
+                  opacity={value ? 1 : 1}
                   placeholder="Selecione o tipo de usuário"
                 />
               </Select.Trigger>
@@ -37,7 +37,7 @@ export const SelectRole = ({ label, control, errors }: SelectRoleProps) => {
             </Select.Control>
             <Portal>
               <Select.Positioner>
-                <Select.Content backgroundColor={'background'} border={'1px solid'} borderColor={'darkBlue.700'} boxShadow="lg">
+                <Select.Content>
                   {roleOptions.items.map((option) => (
                     <Select.Item key={option.value} item={option.value}>
                       <Select.ItemText>{option.label}</Select.ItemText>

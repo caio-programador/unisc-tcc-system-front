@@ -28,8 +28,8 @@ export const SelectAdvisor = ({control, errors}: SelectAdvisorProps) => {
                 <Select.Control>
                   <Select.Trigger>
                     <Select.ValueText
-                      color={value ? "textPrimary" : "textSecondary"}
-                      opacity={value ? 1 : 0.6}
+                      color={"textPrimary"}
+                      opacity={value ? 1 : 1}
                       placeholder="Selecione o orientador"
                     />
                   </Select.Trigger>
@@ -40,15 +40,10 @@ export const SelectAdvisor = ({control, errors}: SelectAdvisorProps) => {
                 </Select.Control>
                 <Portal>
                   <Select.Positioner>
-                    <Select.Content
-                      backgroundColor={"background"}
-                      border={"1px solid"}
-                      borderColor={"darkBlue.700"}
-                      boxShadow="lg"
-                    >
+                    <Select.Content>
                       {orientadoresCollection.items.map((option) => (
                         <Select.Item key={option.value} item={option.value}>
-                          <Select.ItemText>{option.label}</Select.ItemText>
+                          <Select.ItemText style={{ color: 'black' }}>{option.label}</Select.ItemText>
                         </Select.Item>
                       ))}
                     </Select.Content>

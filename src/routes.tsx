@@ -9,6 +9,7 @@ import ProfileController from "./pages/profile";
 import RegisterController from "./pages/register";
 import TCCDetailsController from "./pages/tcc-details";
 import UserDetailsController from "./pages/user-details";
+import UserListController from "./pages/user-list";
 
 export const AppRouterProvider = () => {
   const routes: Router[] = [
@@ -35,6 +36,10 @@ export const AppRouterProvider = () => {
     {
       path: RoutesUrl.USER_DETAILS,
       element: <UserDetailsController />
+    },
+    {
+      path: RoutesUrl.USER_LIST,
+      element: <UserListController />
     },
     {
       path: RoutesUrl.ERROR,

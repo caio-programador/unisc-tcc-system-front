@@ -34,6 +34,7 @@ const customConfig = {
         textSecondary: { value: "{colors.darkBlue.200}" },
         textWithGray: { value: "{colors.gray.150}" },
         info: { value: "{colors.darkBlue.500}" },
+        placeholder: { value: "{colors.gray.150}" },
       },
     },
   },
@@ -43,15 +44,6 @@ const customConfig = {
       padding: 0,
       backgroundColor: "background",
       color: "textPrimary",
-    },
-    // Estilos para placeholders
-    "input::placeholder, textarea::placeholder": {
-      color: "textSecondary !important",
-      opacity: "0.6",
-    },
-    ".chakra-input::placeholder, .chakra-textarea::placeholder": {
-      color: "textSecondary !important",
-      opacity: "0.6",
     },
   },
 };

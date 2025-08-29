@@ -55,10 +55,10 @@ export const Mosaic = ({ redirect }: MosaicProps) => {
 
             <GridItem colSpan={5}>
               <ActionCard
-                icon={<FaPlusCircle />}
-                title="Nova Proposta"
-                description="Crie e envie sua proposta."
-                onClick={() => redirect(RoutesUrl.NEW_TCC)}
+                icon={<FaUser />}
+                title="Listagem de Usuários"
+                description="Visualize todos os usuários do sistema"
+                onClick={() => redirect(RoutesUrl.USER_LIST)}
               />
             </GridItem>
 
