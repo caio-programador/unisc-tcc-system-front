@@ -12,9 +12,11 @@ const orientadoresCollection = createListCollection({
 export const SelectAdvisor = ({control, errors}: SelectAdvisorProps) => {
   return (
     <Field.Root invalid={!!errors.orientador}>
-          <Field.Label>Orientador:</Field.Label>
+      <Field.Label>Orientador:</Field.Label>
+      
 
-          <Controller
+
+      <Controller
             control={control}
             name="orientador"
             render={({ field: { onChange, onBlur, value } }) => (
@@ -28,8 +30,7 @@ export const SelectAdvisor = ({control, errors}: SelectAdvisorProps) => {
                 <Select.Control>
                   <Select.Trigger>
                     <Select.ValueText
-                      color={value ? "textPrimary" : "textSecondary"}
-                      opacity={value ? 1 : 0.6}
+                      opacity={value ? 1 : 1}
                       placeholder="Selecione o orientador"
                     />
                   </Select.Trigger>
@@ -40,12 +41,7 @@ export const SelectAdvisor = ({control, errors}: SelectAdvisorProps) => {
                 </Select.Control>
                 <Portal>
                   <Select.Positioner>
-                    <Select.Content
-                      backgroundColor={"background"}
-                      border={"1px solid"}
-                      borderColor={"darkBlue.700"}
-                      boxShadow="lg"
-                    >
+                    <Select.Content>
                       {orientadoresCollection.items.map((option) => (
                         <Select.Item key={option.value} item={option.value}>
                           <Select.ItemText>{option.label}</Select.ItemText>

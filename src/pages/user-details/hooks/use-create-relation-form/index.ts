@@ -5,5 +5,10 @@ import { type CreateRelationFormData, createRelationSchema } from "./schema"
 export const useCreateRelationForm = () => {
   return useForm<CreateRelationFormData>({
     resolver: zodResolver(createRelationSchema),
+    defaultValues: {
+      orientador: "",
+      dataFinalEntregaProposta: undefined,
+      dataFinalEntregaTCC: undefined,
+    },
   })
-}
+}   
