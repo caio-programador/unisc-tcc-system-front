@@ -12,10 +12,13 @@ import { Profile } from "../components/profile.component";
 import { SelectAdvisor } from "../components/select-advisor.component";
 import { DateFieldInput } from "../components/date-field-input.component";
 import { RoutesUrl } from "../../../types/Router";
+import { UserDetailsSkeleton } from "../components/user-details-skeleton.component";
 
 export const UserDetails = ({
   control,
   errors,
+  user,
+  isLoadingUser,
   handleSubmit,
   redirect,
 }: UserDetailsProps) => {
@@ -33,11 +36,17 @@ export const UserDetails = ({
           currentLinkLabel="Detalhes do Usuário"
         />
 
-        <Heading size="3xl" mb={6} mt={12} textAlign="left">
-          Perfil do Aluno
-        </Heading>
+        {isLoadingUser ? (
+          <UserDetailsSkeleton />
+        ) : (
+          <>
+            <Heading size="3xl" mb={6} mt={12} textAlign="left">
+              Perfil do {user?.name}
+            </Heading>
 
-        <Profile />
+            <Profile user={user} />
+          </>
+        )}
 
         <Separator mb={6} />
 

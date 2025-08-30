@@ -23,3 +23,9 @@ export interface UserRequest {
   role: Role;
 }
 
+export interface UserRequestGetAll {
+  role?: Role;
+  size?: number;
+  page?: number;
+  name?: string;
+}

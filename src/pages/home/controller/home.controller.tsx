@@ -4,7 +4,13 @@ import { Home } from "../view/home.view";
 
 export default function HomeController() {
   const { redirect } = useAppNavigation();
-  const { data } = usePersonalInfo();
+  const { data, isLoading: isLoadingPersonalInfo } = usePersonalInfo();
 
-  return <Home redirect={redirect} user={data} />
-};
+  return (
+    <Home
+      redirect={redirect}
+      user={data}
+      isLoadingPersonalInfo={isLoadingPersonalInfo}
+    />
+  );
+}

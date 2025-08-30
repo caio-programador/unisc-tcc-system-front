@@ -1,17 +1,10 @@
 import axios, { type AxiosResponse } from "axios";
 import type { AuthRequest, AuthResponse, User, UserRequest } from "../types";
+import { getAuthorizationHeader } from "../utils/get-authorization-header";
 
 const configURL = import.meta.env.VITE_API_URL;
-const TOKEN_COOKIE_NAME = import.meta.env.VITE_COOKIE_KEY;
 
 export class AuthAPI {
-  private static getAuthorizationHeader = async () => {
-    const cookieToken = await window.cookieStore.get(TOKEN_COOKIE_NAME);
-    return {
-      Authorization: `Bearer ${cookieToken?.value}`,
-    };
-  };
-
   static login = async (data: AuthRequest): Promise<AuthResponse> => {
     const response = (await axios.post(
       `${configURL}/auth/login`,
@@ -21,7 +14,7 @@ export class AuthAPI {
   };
 
   static getPersonalInfo = async (): Promise<User> => {
-    const headers = await this.getAuthorizationHeader();
+    const headers = await getAuthorizationHeader();
     const response = (await axios.get(`${configURL}/auth/me`, {
       headers,
     })) as AxiosResponse<User>;
@@ -29,7 +22,7 @@ export class AuthAPI {
   };
 
   static register = async (userBody: UserRequest): Promise<void> => {
-    const headers = await this.getAuthorizationHeader();
+    const headers = await getAuthorizationHeader();
     await axios.post(`${configURL}/auth/register`, userBody, {
       headers,
     });

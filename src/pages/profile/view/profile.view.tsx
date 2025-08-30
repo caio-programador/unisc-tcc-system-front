@@ -11,13 +11,14 @@ export const Profile = ({
   errors,
   hasValues,
   user,
+  isPending,
   onSubmit,
   redirect,
   setValue,
 }: ProfileProps) => {
   return (
     <Container maxW="600px">
-      <Box p={4} >
+      <Box p={4}>
         <AppBreadcrumbs
           links={[{ label: "Home", navigate: () => redirect(RoutesUrl.HOME) }]}
           currentLinkLabel="Perfil"
@@ -25,6 +26,7 @@ export const Profile = ({
         <HeaderProfile user={user} />
 
         <PersonalInfo
+          isPending={isPending}
           user={user}
           hasValues={hasValues}
           errors={errors}

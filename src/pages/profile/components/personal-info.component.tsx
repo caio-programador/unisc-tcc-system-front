@@ -6,6 +6,7 @@ export const PersonalInfo = ({
   errors,
   hasValues,
   user,
+  isPending,
   onSubmit,
   setValue,
 }: PersonalInfoProps) => {
@@ -18,6 +19,7 @@ export const PersonalInfo = ({
         </Text>
       </Card.Header>
       <UpdateInfoForm
+        isPending={isPending}
         user={user}
         setValue={setValue}
         hasValues={hasValues}

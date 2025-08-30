@@ -52,7 +52,7 @@ export const Mosaic = ({ redirect, user }: MosaicProps) => {
           </GridItem>
         )}
 
-        <GridItem colSpan={isMobile ? 5 : 2}>
+        <GridItem colSpan={isMobile ? 5 : 3}>
           <ActionCard
             icon={<FaCalendar />}
             title="Reuniões"
@@ -61,11 +61,11 @@ export const Mosaic = ({ redirect, user }: MosaicProps) => {
           />
         </GridItem>
 
-        <GridItem colSpan={isMobile ? 5 : 3}>
+        <GridItem colSpan={isMobile ? 5 : 2}>
           <ActionCard
             icon={<FaUser />}
             title="Listagem de Usuários"
-            description="Visualize todos os usuários do sistema"
+            description="Visualize os usuários do sistema"
             onClick={() => redirect(RoutesUrl.USER_LIST)}
           />
         </GridItem>

@@ -38,14 +38,14 @@ export const TCCList = ({ redirect, user }: TCCListProps) => {
               />
             </Box>
           </HStack>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
+            <TCCCard user={user} redirect={redirect} />
+            <TCCCard user={user} redirect={redirect} />
+            <TCCCard user={user} redirect={redirect} />
+            <TCCCard user={user} redirect={redirect} />
+            <TCCCard user={user} redirect={redirect} />
+          </SimpleGrid>
         </VStack>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
-          <TCCCard user={user} redirect={redirect} />
-          <TCCCard user={user} redirect={redirect} />
-          <TCCCard user={user} redirect={redirect} />
-          <TCCCard user={user} redirect={redirect} />
-          <TCCCard user={user} redirect={redirect} />
-        </SimpleGrid>
       </Box>
     </Container>
   );

@@ -1,15 +1,11 @@
-import {
-  Box,
-  VStack,
-  HStack,
-  Text,
-  Badge,
-  Button,
-} from "@chakra-ui/react";
+import { Box, VStack, HStack, Text, Badge, Button } from "@chakra-ui/react";
 import type { UserCardProps } from "../types";
 
-export const UserCard = ({ user, onUserClick, onDeleteUser }: UserCardProps) => {
-
+export const UserCard = ({
+  user,
+  onUserClick,
+  onDeleteUser,
+}: UserCardProps) => {
   const getRoleLabel = (role: string) => {
     switch (role) {
       case "ALUNO":
@@ -36,16 +32,11 @@ export const UserCard = ({ user, onUserClick, onDeleteUser }: UserCardProps) => 
         transform: "translateY(-2px)",
         boxShadow: "lg",
       }}
-      onClick={() => onUserClick(user)}
+      onClick={() => onUserClick(user.id)}
     >
       <VStack align="stretch" gap={4}>
-
         <HStack justify="space-between" align="start">
-          <Text
-            fontSize="lg"
-            fontWeight="bold"
-            color="textPrimary"
-          >
+          <Text fontSize="lg" fontWeight="bold" color="textPrimary">
             {user.name}
           </Text>
           <Badge
@@ -61,31 +52,13 @@ export const UserCard = ({ user, onUserClick, onDeleteUser }: UserCardProps) => 
           </Badge>
         </HStack>
 
-   
-        <Text
-          fontSize="sm"
-          color="textSecondary"
-          wordBreak="break-all"
-        >
+        <Text fontSize="sm" color="textSecondary" wordBreak="break-all">
           {user.email}
         </Text>
 
-        {user.role === "ALUNO" && (
-          <Box
-            p={3}
-            borderRadius="md"
-            border="1px solid"
-            borderColor="textPrimary"
-            bg="transparent"
-          >
-              <Text fontSize="sm" fontWeight="medium" color="textPrimary">
-              Orientador: Prof. Pedro Oliveira
-            </Text>
-          </Box>
-        )}
-
         <Button
           size="sm"
+          mt={8}
           bg="textPrimary"
           color="darkBlue.900"
           border="1px solid"
@@ -95,7 +68,7 @@ export const UserCard = ({ user, onUserClick, onDeleteUser }: UserCardProps) => 
             onDeleteUser(user.id);
           }}
           _hover={{
-              transform: "scale(1.03)",
+            transform: "scale(1.03)",
           }}
         >
           Deletar

@@ -1,19 +1,20 @@
-import type { User } from "../../types/User";
+import type { Role, User } from "../../types/User";
 import type { RouteUrl } from "../../types/Router";
 
 export interface UserListProps {
-  filteredUsers: User[];
-  searchTerm: string;
-  selectedRole: string;
+  filteredUsers?: User[];
+  searchTerm?: string;
+  selectedRole?: Role;
+  isLoading: boolean;
   onSearchChange: (value: string) => void;
-  onRoleChange: (value: string) => void;
-  onUserClick: (user: User) => void;
+  onRoleChange: (value: Role) => void;
+  onUserClick: (userId: number) => void;
   onDeleteUser: (userId: number) => void;
   redirect: (path: RouteUrl) => void;
 }
 
 export interface UserCardProps {
   user: User;
-  onUserClick: (user: User) => void;
+  onUserClick: (userId: number) => void;
   onDeleteUser: (userId: number) => void;
 }
