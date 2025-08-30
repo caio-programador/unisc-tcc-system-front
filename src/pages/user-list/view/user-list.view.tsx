@@ -53,11 +53,10 @@ export const UserListView = ({
         </Heading>
 
         <VStack gap={6} align="stretch">
-          {/* Filtros */}
           <HStack gap={4} wrap="wrap">
             <Box flex="1" minW="300px">
               <Text mb={2} fontWeight="medium">
-                Pesquisar por nome ou email:
+                Pesquisar por nome:
               </Text>
               <Input
                 placeholder="Digite para pesquisar..."

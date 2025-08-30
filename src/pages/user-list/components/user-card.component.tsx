@@ -39,7 +39,7 @@ export const UserCard = ({ user, onUserClick, onDeleteUser }: UserCardProps) => 
       onClick={() => onUserClick(user)}
     >
       <VStack align="stretch" gap={4}>
-        {/* Header com nome e badge de role */}
+
         <HStack justify="space-between" align="start">
           <Text
             fontSize="lg"
@@ -61,7 +61,7 @@ export const UserCard = ({ user, onUserClick, onDeleteUser }: UserCardProps) => 
           </Badge>
         </HStack>
 
-        {/* Email */}
+   
         <Text
           fontSize="sm"
           color="textSecondary"
@@ -70,7 +70,6 @@ export const UserCard = ({ user, onUserClick, onDeleteUser }: UserCardProps) => 
           {user.email}
         </Text>
 
-        {/* Informações adicionais para alunos */}
         {user.role === "ALUNO" && (
           <Box
             p={3}
@@ -85,7 +84,6 @@ export const UserCard = ({ user, onUserClick, onDeleteUser }: UserCardProps) => 
           </Box>
         )}
 
-        {/* Botão de deletar */}
         <Button
           size="sm"
           bg="textPrimary"
