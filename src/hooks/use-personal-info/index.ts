@@ -26,7 +26,10 @@ export const usePersonalInfo = () => {
         type: "error",
         title: "Erro ao acessar a home",
       });
+    }else {
+      redirect(RoutesUrl.ERROR);
     }
+    
   }, [error, redirect]);
 
   return { data, isLoading, isError };

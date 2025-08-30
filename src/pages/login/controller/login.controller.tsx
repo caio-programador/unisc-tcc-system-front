@@ -7,7 +7,7 @@ import { RoutesUrl } from "../../../types/Router";
 import { useLogin } from "../hooks/use-login";
 import { toaster } from "../../../utils/toaster";
 import type { AuthResponse } from "../../../types";
-import { TOKEN_COOKIE_NAME } from "../../../config/const";
+const TOKEN_COOKIE_NAME = import.meta.env.VITE_COOKIE_KEY;
 
 export default function LoginController() {
   const {

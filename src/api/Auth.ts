@@ -1,8 +1,8 @@
 import axios, { type AxiosResponse } from "axios";
 import type { AuthRequest, AuthResponse, User, UserRequest } from "../types";
-import { TOKEN_COOKIE_NAME } from "../config/const";
 
-const configURL = "http://localhost:8080";
+const configURL = import.meta.env.VITE_API_URL;
+const TOKEN_COOKIE_NAME = import.meta.env.VITE_COOKIE_KEY;
 
 export class AuthAPI {
   private static getAuthorizationHeader = async () => {

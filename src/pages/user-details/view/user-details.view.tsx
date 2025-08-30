@@ -23,7 +23,13 @@ export const UserDetails = ({
     <Container maxW="1000px">
       <Box p={8}>
         <AppBreadcrumbs
-          links={[{ label: "Home", navigate: () => redirect(RoutesUrl.HOME) }]}
+          links={[
+            { label: "Home", navigate: () => redirect(RoutesUrl.HOME) },
+            {
+              label: "Listagem de Usuários",
+              navigate: () => redirect(RoutesUrl.USER_LIST),
+            },
+          ]}
           currentLinkLabel="Detalhes do Usuário"
         />
 

@@ -8,6 +8,7 @@ export interface HomeProps {
 
 export interface MosaicProps {
   redirect: (path: RouteUrl) => void;
+  user?: User; 
 }
 
 export interface ActionCardProps {

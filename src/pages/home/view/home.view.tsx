@@ -23,7 +23,7 @@ export const Home = ({redirect, user}: HomeProps) => {
 
           <Flex marginTop={18} width={"100%"} gap={20} direction={{ base: "column", lg: "row" }}>
                 
-            <Mosaic redirect={redirect} />
+            <Mosaic redirect={redirect} user={user} />
 
             <Flex direction="column" gap={6} flex="2" justify="flex-start" >
               <AppAlerts />
