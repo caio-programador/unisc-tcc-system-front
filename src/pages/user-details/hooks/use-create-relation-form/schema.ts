@@ -2,9 +2,7 @@ import { z } from "zod";
 
 export const createRelationSchema = z
   .object({
-    orientador: z.string().refine((val) => val.trim() !== "", {
-      message: "Orientador é obrigatório",
-    }),
+    orientador: z.string().min(1, "Orientador é obrigatório"),
     dataFinalEntregaProposta: z.date({
       error: "Data final da proposta é obrigatória",
     }),
@@ -38,9 +36,3 @@ export const createRelationSchema = z
   );
 
 export type CreateRelationFormData = z.infer<typeof createRelationSchema>;
-
-export const mockOrientadores = [
-  "Prof. João Silva",
-  "Prof. Maria Santos", 
-  "Prof. Carlos Oliveira"
-];

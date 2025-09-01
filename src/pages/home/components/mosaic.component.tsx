@@ -10,6 +10,7 @@ import { ActionCard } from "./action-card.component";
 import { RoutesUrl } from "../../../types/Router";
 import { useScreenSize } from "../hooks/use-screen-size";
 import { HiUserAdd } from "react-icons/hi";
+import { PiUsersThreeFill } from "react-icons/pi";
 
 export const Mosaic = ({ redirect, user }: MosaicProps) => {
   const { isMobile } = useScreenSize();
@@ -24,7 +25,7 @@ export const Mosaic = ({ redirect, user }: MosaicProps) => {
       >
         <GridItem colSpan={isMobile ? 5 : 2} marginTop={1}>
           <ActionCard
-            icon={<FaUser />}
+            icon={<FaUser size={24} />}
             title="Meu Perfil"
             description="Veja e edite suas informações."
             onClick={() => redirect(RoutesUrl.PROFILE)}
@@ -34,7 +35,7 @@ export const Mosaic = ({ redirect, user }: MosaicProps) => {
         {user?.role === "ALUNO" && (
           <GridItem colSpan={isMobile ? 5 : 3}>
             <ActionCard
-              icon={<FaTasks />}
+              icon={<FaTasks size={24}  />}
               title="Gerenciar TCC"
               description="Acompanhe o progresso do seu trabalho."
               onClick={() => redirect(RoutesUrl.TCC_DETAILS)}
@@ -44,7 +45,7 @@ export const Mosaic = ({ redirect, user }: MosaicProps) => {
         {(user?.role === "COORDENADOR" || user?.role === "PROFESSOR") && (
           <GridItem colSpan={isMobile ? 5 : 3}>
             <ActionCard
-              icon={<FaFileAlt />}
+              icon={<FaFileAlt size={24} />}
               title="Trabalhos"
               description="Consulte os TCCs disponíveis."
               onClick={() => redirect(RoutesUrl.TCC_LIST)}
@@ -54,7 +55,7 @@ export const Mosaic = ({ redirect, user }: MosaicProps) => {
 
         <GridItem colSpan={isMobile ? 5 : 3}>
           <ActionCard
-            icon={<FaCalendar />}
+            icon={<FaCalendar size={24} />}
             title="Reuniões"
             description="Veja e edite suas reuniões."
             onClick={() => redirect(RoutesUrl.MEETINGS)}
@@ -63,7 +64,7 @@ export const Mosaic = ({ redirect, user }: MosaicProps) => {
 
         <GridItem colSpan={isMobile ? 5 : 2}>
           <ActionCard
-            icon={<FaUser />}
+            icon={<PiUsersThreeFill size={24} />}
             title="Listagem de Usuários"
             description="Visualize os usuários do sistema"
             onClick={() => redirect(RoutesUrl.USER_LIST)}
@@ -72,7 +73,7 @@ export const Mosaic = ({ redirect, user }: MosaicProps) => {
         {user?.role === "COORDENADOR" && (
           <GridItem colSpan={5}>
             <ActionCard
-              icon={<HiUserAdd />}
+              icon={<HiUserAdd size={24} />}
               title="Cadastre Alunos/Professores"
               description="Crie novos usuários"
               onClick={() => redirect(RoutesUrl.REGISTER)}

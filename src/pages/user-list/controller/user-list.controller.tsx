@@ -60,7 +60,6 @@ export default function UserListController() {
         onError: handleErrorDeleteUser,
         onSuccess: handleSuccessDeleteUser,
       });
-      console.log("Deletar usuário:", userId);
     },
     [deleteUser, handleErrorDeleteUser, handleSuccessDeleteUser]
   );

@@ -20,7 +20,7 @@ export const useHandleError = (
         type: "error",
         title: "Erro ao acessar a home",
       });
-    } else {
+    } else if (error.status !== 404) {
       redirect(RoutesUrl.ERROR);
     }
   }, [error, redirect]);

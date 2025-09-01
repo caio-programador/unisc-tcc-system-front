@@ -1,8 +1,13 @@
-import { Box, VStack, HStack, Badge, Button, Text } from "@chakra-ui/react";
+import { Box, VStack, HStack, Button, Text, Em } from "@chakra-ui/react";
 import type { TCCCardProps } from "../types";
 import { RoutesUrl } from "../../../types/Router";
 
-export const TCCCard = ({ user, redirect }: TCCCardProps) => {
+export const TCCCard = ({
+  user,
+  tcc,
+  redirect,
+  handleDeleteTCC,
+}: TCCCardProps) => {
   return (
     <Box
       border="1px solid"
@@ -21,34 +26,27 @@ export const TCCCard = ({ user, redirect }: TCCCardProps) => {
       <VStack align="stretch" gap={4}>
         <HStack justify="space-between" align="start">
           <Text fontSize="lg" fontWeight="bold" color="textPrimary">
-            TCC
+            {tcc?.tccTitle ?? "Sem título defindo ainda"}
           </Text>
-          <Badge
-            variant="solid"
-            fontSize="sm"
-            px={2}
-            py={1}
-            borderRadius="full"
-            bg="textPrimary"
-            color="darkBlue.900"
-          >
-            teste
-          </Badge>
         </HStack>
 
-        <Text fontSize="sm" color="textSecondary" wordBreak="break-all">
-          teste
+        <Text
+          fontSize="md"
+          fontWeight="medium"
+          color="textSecondary"
+          wordBreak="break-all"
+        >
+          Feito por: {tcc?.student.name}
         </Text>
 
-        <Box
-          p={3}
-          borderRadius="md"
-          border="1px solid"
-          borderColor="textPrimary"
-          bg="transparent"
-        >
-          <Text fontSize="sm" fontWeight="medium" color="textPrimary">
-            Orientador: Prof. Pedro Oliveira
+        <Box paddingY={2} borderRadius="md" bg="transparent">
+          <Text
+            textAlign="left"
+            fontSize="sm"
+            fontWeight="medium"
+            color="textPrimary"
+          >
+            Orientador: <Em>{tcc?.professor.name}</Em>
           </Text>
         </Box>
 
@@ -61,6 +59,7 @@ export const TCCCard = ({ user, redirect }: TCCCardProps) => {
             borderColor="textPrimary"
             onClick={(e) => {
               e.stopPropagation();
+              handleDeleteTCC(tcc!.id);
             }}
             _hover={{
               transform: "scale(1.03)",

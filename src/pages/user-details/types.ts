@@ -1,7 +1,7 @@
 import type { Control, FieldErrors } from "react-hook-form";
 import type { CreateRelationFormData } from "./hooks/use-create-relation-form/schema";
 import type { RouteUrl } from "../../types/Router";
-import type { User } from "../../types";
+import type { TCCCreate, TCCResponse, User } from "../../types";
 
 export interface UserDetailsProps {
   redirect: (path: RouteUrl) => void;
@@ -10,6 +10,12 @@ export interface UserDetailsProps {
   isLoadingUser: boolean;
   errors: FieldErrors<CreateRelationFormData>;
   control: Control<CreateRelationFormData>;
+  tccData?: TCCResponse;
+  isLoadingTCC: boolean;
+  professors?: User[];
+  currentUser?: User;
+  isPendingCreatingUpdatingTCC: boolean;
+  tccIsCreated: boolean;
 }
 
 export interface ProfileProps {
@@ -19,6 +25,8 @@ export interface ProfileProps {
 export interface SelectAdvisorProps {
   errors: FieldErrors<CreateRelationFormData>;
   control: Control<CreateRelationFormData>;
+  advisor: string;
+  professors?: User[];
 }
 
 export interface DateFieldInputProps {
@@ -26,5 +34,14 @@ export interface DateFieldInputProps {
   isError: boolean;
   errorMessage?: string;
   control: Control<CreateRelationFormData>;
+  dateFieldValue: string;
   controlName: Exclude<keyof CreateRelationFormData, "orientador">;
+}
+
+
+
+export interface UpdateOrCreateTCCProps {
+  isCreated: boolean;
+  body: Partial<TCCCreate> | TCCCreate;
+  id?: number;
 }

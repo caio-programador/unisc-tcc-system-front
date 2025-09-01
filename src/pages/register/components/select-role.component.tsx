@@ -26,7 +26,7 @@ export const SelectRole = ({ label, control, errors }: SelectRoleProps) => {
               <Select.Trigger>
                 <Select.ValueText 
                   color={value ? "#000000" : "#666666"}
-                  opacity={value ? 1 : 1}
+                  opacity={1}
                   placeholder="Selecione o tipo de usuário"
                 />
               </Select.Trigger>

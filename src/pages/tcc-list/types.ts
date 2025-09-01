@@ -1,12 +1,19 @@
-import type { User } from "../../types";
+import type { TCCResponse, User } from "../../types";
+import type { PageableResponse } from "../../types/Pageable";
 import type { RouteUrl } from "../../types/Router";
 
 export interface TCCListProps {
-  redirect: (path: RouteUrl) => void;
+  tccData?: PageableResponse<TCCResponse>
   user?: User;
+  isLoadingTCCData: boolean;
+  redirect: (path: RouteUrl) => void;
+  handleChangeSearchTerm: (value: string) => void; 
+  handleDeleteTCC: (tccId: number) => void;
 }
 
 export interface TCCCardProps {
-  redirect: (path: RouteUrl) => void;
+  tcc?: TCCResponse;
   user?: User;
+  redirect: (path: RouteUrl) => void;
+  handleDeleteTCC: (tccId: number) => void;
 }
