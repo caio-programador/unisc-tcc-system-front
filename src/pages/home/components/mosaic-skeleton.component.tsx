@@ -1,5 +1,5 @@
 import { Box, Grid, GridItem, Skeleton } from "@chakra-ui/react";
-import { useScreenSize } from "../hooks/use-screen-size";
+import { useScreenSize } from "../../../hooks/use-screen-size";
 
 export const MosaicSkeleton = () => {
   const { isMobile } = useScreenSize();

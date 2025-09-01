@@ -8,7 +8,7 @@ import {
 import type { MosaicProps } from "../types";
 import { ActionCard } from "./action-card.component";
 import { RoutesUrl } from "../../../types/Router";
-import { useScreenSize } from "../hooks/use-screen-size";
+import { useScreenSize } from "../../../hooks/use-screen-size";
 import { HiUserAdd } from "react-icons/hi";
 import { PiUsersThreeFill } from "react-icons/pi";
 

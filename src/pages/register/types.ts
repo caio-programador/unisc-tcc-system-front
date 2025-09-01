@@ -1,10 +1,12 @@
 import type { FieldErrors, UseFormRegister, Control } from "react-hook-form";
 import type { FormEventHandler } from "react";
 import type { FormData } from "./hooks/use-register-form/schema";
+import type { RouteUrl } from "../../types/Router";
 
 export interface RegisterProps {
   onSubmit: FormEventHandler<HTMLFormElement>;
   register: UseFormRegister<FormData>;
+  redirect: (path: RouteUrl) => void;
   control: Control<FormData>;
   errors: FieldErrors<FormData>;
   isPending: boolean;

@@ -20,6 +20,7 @@ const customConfig = {
         },
         gray: {
           150: "#bcbcbc", 
+          900: "#9b9b9bff",
         },
       },
       fonts: {
@@ -74,6 +75,10 @@ const customConfig = {
     },
     "input[type='date']::-webkit-calendar-picker-indicator:hover": {
       filter: "invert(1) brightness(1)",
+    },
+    ".chakra-button:hover": {
+      backgroundColor: "gray.900 !important",
+      transition: "0.5s !important",
     },
 
   },

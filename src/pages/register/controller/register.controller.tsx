@@ -62,6 +62,7 @@ export default function RegisterController() {
       isPending={isPending}
       onSubmit={handleSubmit(onSubmit)}
       register={register}
+      redirect={redirect}
       control={control}
     />
   );

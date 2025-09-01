@@ -12,11 +12,6 @@ import { useCreateUpdateTCC } from "../hooks/use-create-update-tcc";
 import { toaster } from "../../../utils/toaster";
 
 export default function UserDetailsController() {
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useCreateRelationForm();
   const { redirect } = useAppNavigation();
   const [searchParams] = useSearchParams();
   const userId = searchParams.get("userId");
@@ -35,6 +30,20 @@ export default function UserDetailsController() {
   const { mutate: createUpdateTCC, isPending: isPendingCreatingUpdatingTCC } =
     useCreateUpdateTCC();
   const tccIsCreated = useMemo(() => Boolean(tccData), [tccData]);
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useCreateRelationForm({
+    dataFinalEntregaProposta: tccData?.proposalDeliveryDate
+      ? new Date(tccData.proposalDeliveryDate)
+      : undefined,
+    dataFinalEntregaTCC: tccData?.tccDeliveryDate
+      ? new Date(tccData.tccDeliveryDate)
+      : undefined,
+    orientador: String(tccData?.professor?.id),
+  });
 
   const handleErrorTCC = useCallback(() => {
     const description = tccIsCreated

@@ -48,7 +48,7 @@ export const UserDetails = ({
         ) : (
           <>
             <Heading size="3xl" mb={6} mt={12} textAlign="left">
-              Perfil do {user?.name}
+              Perfil de {user?.name}
             </Heading>
 
             <Profile user={user} />
@@ -57,7 +57,7 @@ export const UserDetails = ({
 
         <Separator mb={10} />
 
-        {(!professors || professors.length === 0) && (
+        {!isLoadingTCC && (!professors || professors.length === 0) && (
           <Box textAlign="center" py={10}>
             <Heading size="lg">Nenhum orientador disponível</Heading>
           </Box>
@@ -75,7 +75,7 @@ export const UserDetails = ({
               <SelectAdvisor
                 errors={errors}
                 control={control}
-                advisor={tccData?.professor.name ?? ""}
+                advisor={tccData?.professor?.name ?? ""}
                 professors={professors}
               />
 
