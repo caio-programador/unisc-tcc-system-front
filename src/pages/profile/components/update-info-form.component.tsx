@@ -1,8 +1,4 @@
-import {
-  Card,
-  Stack,
-  Button,
-} from "@chakra-ui/react";
+import { Card, Stack, Button } from "@chakra-ui/react";
 import type { UpdateInfoFormProps } from "../types";
 import { LabelInput } from "./label-input.component";
 
@@ -10,6 +6,7 @@ export const UpdateInfoForm = ({
   errors,
   hasValues,
   user,
+  isPending,
   setValue,
   onSubmit,
 }: UpdateInfoFormProps) => {
@@ -17,7 +14,7 @@ export const UpdateInfoForm = ({
     <Card.Body>
       <Stack gap={4}>
         <form onSubmit={onSubmit}>
-          <LabelInput 
+          <LabelInput
             defaultValue={user.name}
             errors={errors}
             setValue={setValue}
@@ -32,7 +29,13 @@ export const UpdateInfoForm = ({
             label="Email"
           />
           {hasValues && (
-            <Button mt={5} type="submit" backgroundColor="primary" color="textPrimary">
+            <Button
+              loading={isPending}
+              mt={5}
+              type="submit"
+              backgroundColor="primary"
+              color="textPrimary"
+            >
               Atualizar
             </Button>
           )}

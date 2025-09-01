@@ -16,9 +16,11 @@ const customConfig = {
           700: "#004D68",
           800: "#003649",
           900: "#001F2B",
+          1000: "#020e13ff",
         },
         gray: {
           150: "#bcbcbc", 
+          900: "#9b9b9bff",
         },
       },
       fonts: {
@@ -35,6 +37,7 @@ const customConfig = {
         textWithGray: { value: "{colors.gray.150}" },
         info: { value: "{colors.darkBlue.500}" },
         placeholder: { value: "{colors.gray.150}" },
+        skeleton: {value: "{colors.darkBlue.1000}"}
       },
     },
     cssVarsRoot: ":host, :root",
@@ -72,6 +75,10 @@ const customConfig = {
     },
     "input[type='date']::-webkit-calendar-picker-indicator:hover": {
       filter: "invert(1) brightness(1)",
+    },
+    ".chakra-button:hover": {
+      backgroundColor: "gray.900 !important",
+      transition: "0.5s !important",
     },
 
   },

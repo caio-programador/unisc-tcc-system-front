@@ -7,6 +7,7 @@ export interface ProfileProps {
   errors: FieldErrors<FormData>; 
   hasValues: boolean;
   user: User;
+  isPending: boolean;
   redirect: (path: RouteUrl) => void;
   onSubmit: () => void;
   setValue: (name: keyof FormData, value: string) => void;
@@ -18,6 +19,7 @@ export interface PersonalInfoProps {
   user: User;
   setValue: (name: keyof FormData, value: string) => void;
   onSubmit: () => void;
+  isPending: boolean;
 }
 
 export interface UpdateInfoFormProps {
@@ -26,6 +28,7 @@ export interface UpdateInfoFormProps {
   user: User;
   setValue: (name: keyof FormData, value: string) => void;
   onSubmit: () => void;
+  isPending: boolean;
 }
 
 export interface LabelInputProps {

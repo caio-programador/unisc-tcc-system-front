@@ -2,12 +2,12 @@ import { Field, Input } from "@chakra-ui/react";
 import { Controller } from "react-hook-form";
 import type { DateFieldInputProps } from "../types";
 import { useCallback } from "react";
-import { FaCalendar } from "react-icons/fa";
 
 export const DateFieldInput = ({
   control,
   label,
   controlName,
+  dateFieldValue,
   isError,
   errorMessage,
 }: DateFieldInputProps) => {
@@ -39,6 +39,8 @@ export const DateFieldInput = ({
             value={
               value && value instanceof Date && !isNaN(value.getTime())
                 ? value.toISOString().split("T")[0]
+                : dateFieldValue
+                ? new Date(dateFieldValue).toISOString().split("T")[0]
                 : ""
             }
           />

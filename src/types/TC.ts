@@ -1,10 +1,27 @@
 import type { User } from ".";
 
-export interface TCResponse {
+export interface TCCResponse {
   id: number;
-  title: string;
-  advisor: User;
+  tccTitle: string;
+  proposalDeliveryDate: string;
+  tccDeliveryDate: string;
+  proposalAssessmentDate: string;
+  tccAssessmentDate: string;
+  professor: User;
   student: User;
+}
+
+export interface TCCRequest {
+  name?: string;
+  page?: number;
+  size?: number;
+}
+
+export interface TCCCreate {
+  proposalDeliveryDate: string;
+  tccDeliveryDate: string;
+  professorId: number;
+  studentId: number;
 }
 
 export type DeliveryType = 'PROPOSTA' | 'TC' | 'REELABORACAO_PROPOSTA' | 'REELABORACAO_TC';
@@ -12,7 +29,7 @@ export type DeliveryType = 'PROPOSTA' | 'TC' | 'REELABORACAO_PROPOSTA' | 'REELAB
 export type DeliveryStatus = 'PENDENTE' | 'APROVADO' | 'REPROVADO' | 'AGUARDANDO_AVALIACAO';
 
 export interface DeliveryTC {
-  TC: TCResponse;
+  TC: TCCResponse;
   deliveryType: DeliveryType;
   deliveryDate: string;
   filePath: string;

@@ -1,78 +1,75 @@
-import { useCallback, useState, useMemo } from "react";
+import { useCallback, useState } from "react";
 import { UserListView } from "../view/user-list.view";
-import type { User } from "../../../types/User";
+import type { Role } from "../../../types/User";
 import { useAppNavigation } from "../../../hooks/use-app-navigation";
-import { RoutesUrl } from "../../../types/Router";
+import { RoutesUrl, type RouteUrl } from "../../../types/Router";
+import { useUsers } from "../../../hooks/use-users";
+import { useDeleteUser } from "../hooks/use-delete-user";
+import { toaster } from "../../../utils/toaster";
 
 export default function UserListController() {
   const { redirect } = useAppNavigation();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedRole, setSelectedRole] = useState("");
-
-  const users: User[] = [
-    {
-      id: 1,
-      name: "João Silva",
-      email: "joao.silva@email.com",
-      role: "ALUNO"
-    },
-    {
-      id: 2,
-      name: "Maria Santos",
-      email: "maria.santos@email.com",
-      role: "ALUNO"
-    },
-    {
-      id: 3,
-      name: "Pedro Oliveira",
-      email: "pedro.oliveira@email.com",
-      role: "PROFESSOR"
-    },
-    {
-      id: 4,
-      name: "Ana Costa",
-      email: "ana.costa@email.com",
-      role: "PROFESSOR"
-    },
-    {
-      id: 5,
-      name: "Carlos Ferreira",
-      email: "carlos.ferreira@email.com",
-      role: "COORDENADOR"
-    }
-  ];
-
-  const filteredUsers = useMemo(() => {
-    return users.filter(user => {
-      const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           user.email.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesRole = selectedRole === "" || user.role === selectedRole;
-      return matchesSearch && matchesRole;
-    });
-  }, [users, searchTerm, selectedRole]);
+  const [searchTerm, setSearchTerm] = useState<string>();
+  const [selectedRole, setSelectedRole] = useState<Role>();
+  const { data: users, isLoading } = useUsers({
+    name: searchTerm,
+    role: selectedRole,
+  });
+  const { mutate: deleteUser } = useDeleteUser();
 
   const handleSearchChange = useCallback((value: string) => {
     setSearchTerm(value);
   }, []);
 
-  const handleRoleChange = useCallback((value: string) => {
+  const handleRoleChange = useCallback((value: Role) => {
     setSelectedRole(value);
   }, []);
 
-  const handleUserClick = useCallback((user: User) => {
-    redirect(RoutesUrl.USER_DETAILS);
-  }, [redirect]);
+  const handleUserClick = useCallback(
+    (userId: number) => {
+      redirect(`${RoutesUrl.USER_DETAILS}?userId=${userId}` as RouteUrl);
+    },
+    [redirect]
+  );
 
-  const handleDeleteUser = useCallback((userId: number) => {
-    // Lógica para deletar usuário
-    console.log("Deletar usuário:", userId);
+  const handleErrorDeleteUser = useCallback(() => {
+    toaster.create({
+      closable: true,
+      title: "Erro ao deletar usuário",
+      description: "Tente novamente mais tarde",
+      type: "error",
+    });
+    setSearchTerm(undefined);
+    setSelectedRole(undefined);
   }, []);
+
+  const handleSuccessDeleteUser = useCallback(() => {
+    toaster.create({
+      closable: true,
+      title: "Usuário deletado com sucesso",
+      description: "O usuário foi removido da lista",
+      type: "success",
+    });
+    setSearchTerm(undefined);
+    setSelectedRole(undefined);
+  }, []);
+
+  const handleDeleteUser = useCallback(
+    (userId: number) => {
+      deleteUser(userId, {
+        onError: handleErrorDeleteUser,
+        onSuccess: handleSuccessDeleteUser,
+      });
+    },
+    [deleteUser, handleErrorDeleteUser, handleSuccessDeleteUser]
+  );
 
   return (
     <UserListView
-      filteredUsers={filteredUsers}
+      filteredUsers={users?.content}
       searchTerm={searchTerm}
       selectedRole={selectedRole}
+      isLoading={isLoading}
       onSearchChange={handleSearchChange}
       onRoleChange={handleRoleChange}
       onUserClick={handleUserClick}

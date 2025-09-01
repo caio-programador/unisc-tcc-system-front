@@ -16,11 +16,14 @@ import { AppBreadcrumbs } from "../../../components/global/app-breadcrumbs";
 import { UserCard } from "../components/user-card.component";
 import type { UserListProps } from "../types";
 import { RoutesUrl } from "../../../types/Router";
+import type { Role } from "../../../types";
+import { UserSkeleton } from "../components/user-skeleton.component";
 
 export const UserListView = ({
   filteredUsers,
   searchTerm,
   selectedRole,
+  isLoading,
   onSearchChange,
   onRoleChange,
   onUserClick,
@@ -53,11 +56,10 @@ export const UserListView = ({
         </Heading>
 
         <VStack gap={6} align="stretch">
-          {/* Filtros */}
           <HStack gap={4} wrap="wrap">
             <Box flex="1" minW="300px">
               <Text mb={2} fontWeight="medium">
-                Pesquisar por nome ou email:
+                Pesquisar por nome:
               </Text>
               <Input
                 placeholder="Digite para pesquisar..."
@@ -73,7 +75,7 @@ export const UserListView = ({
               <Select.Root
                 collection={roleOptions}
                 value={selectedRole ? [selectedRole] : []}
-                onValueChange={(details) => onRoleChange(details.value[0] || "")}
+                onValueChange={(details) => onRoleChange(details.value[0] as Role || "")}
               >
                 <Select.Control>
                   <Select.Trigger
@@ -105,8 +107,7 @@ export const UserListView = ({
             </Box>
           </HStack>
 
-          {/* Lista de usuários */}
-          {filteredUsers.length === 0 ? (
+          {(!filteredUsers || filteredUsers?.length === 0) && !isLoading ? (
             <Box
               p={8}
               textAlign="center"
@@ -121,7 +122,7 @@ export const UserListView = ({
             </Box>
           ) : (
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
-              {filteredUsers.map((user) => (
+              {filteredUsers?.map((user) => (
                 <UserCard
                   key={user.id}
                   user={user}
@@ -131,6 +132,11 @@ export const UserListView = ({
               ))}
             </SimpleGrid>
           )}
+
+          {isLoading && (
+            <UserSkeleton />
+          )}
+
         </VStack>
       </Box>
     </Container>

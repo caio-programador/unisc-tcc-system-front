@@ -3,11 +3,13 @@ import type { RouteUrl } from "../../types/Router";
 
 export interface HomeProps {
   redirect: (path: RouteUrl) => void;
+  isLoadingPersonalInfo: boolean;
   user?: User; 
 }
 
 export interface MosaicProps {
   redirect: (path: RouteUrl) => void;
+  user?: User; 
 }
 
 export interface ActionCardProps {
