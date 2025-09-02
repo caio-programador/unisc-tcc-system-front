@@ -6,6 +6,11 @@ export interface UserListProps {
   searchTerm?: string;
   selectedRole?: Role;
   isLoading: boolean;
+  pageSize: number;
+  currentPage: number;
+  totalElements?: number;
+  changePage: (page: number) => void;
+  changePageSize: (pageSize: number) => void;
   onSearchChange: (value: string) => void;
   onRoleChange: (value: Role) => void;
   onUserClick: (userId: number) => void;

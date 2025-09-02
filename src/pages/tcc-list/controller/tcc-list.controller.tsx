@@ -11,8 +11,12 @@ export default function TCCListController() {
   const { data: currentUser } = usePersonalInfo();
   const { redirect } = useAppNavigation();
   const [searchTerm, setSearchTerm] = useState<string>();
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const { data: tccData, isLoading: isLoadingTCCData } = useTCCs({
     name: searchTerm,
+    page: currentPage - 1,
+    size: pageSize,
   });
   const { mutate: deleteTCC } = useDeleteTCC();
 
@@ -51,9 +55,13 @@ export default function TCCListController() {
       user={currentUser}
       tccData={tccData}
       isLoadingTCCData={isLoadingTCCData}
+      pageSize={pageSize}
+      currentPage={currentPage}
       handleChangeSearchTerm={handleSearchChange}
       redirect={redirect}
       handleDeleteTCC={handleDeleteTCC}
+      changePage={setCurrentPage}
+      changePageSize={setPageSize}
     />
   );
 }

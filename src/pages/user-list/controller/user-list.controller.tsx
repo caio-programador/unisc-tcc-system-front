@@ -11,9 +11,13 @@ export default function UserListController() {
   const { redirect } = useAppNavigation();
   const [searchTerm, setSearchTerm] = useState<string>();
   const [selectedRole, setSelectedRole] = useState<Role>();
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const { data: users, isLoading } = useUsers({
     name: searchTerm,
     role: selectedRole,
+    page: currentPage - 1,
+    size: pageSize,
   });
   const { mutate: deleteUser } = useDeleteUser();
 
@@ -70,11 +74,16 @@ export default function UserListController() {
       searchTerm={searchTerm}
       selectedRole={selectedRole}
       isLoading={isLoading}
+      pageSize={pageSize}
+      currentPage={currentPage}
       onSearchChange={handleSearchChange}
       onRoleChange={handleRoleChange}
       onUserClick={handleUserClick}
       onDeleteUser={handleDeleteUser}
       redirect={redirect}
+      changePage={setCurrentPage}
+      changePageSize={setPageSize}
+      totalElements={users?.totalElements}
     />
   );
 }
