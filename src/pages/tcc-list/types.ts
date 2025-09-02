@@ -6,6 +6,10 @@ export interface TCCListProps {
   tccData?: PageableResponse<TCCResponse>
   user?: User;
   isLoadingTCCData: boolean;
+  pageSize: number;
+  currentPage: number;
+  changePage: (page: number) => void;
+  changePageSize: (pageSize: number) => void;
   redirect: (path: RouteUrl) => void;
   handleChangeSearchTerm: (value: string) => void; 
   handleDeleteTCC: (tccId: number) => void;

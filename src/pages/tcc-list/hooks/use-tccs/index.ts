@@ -13,6 +13,7 @@ export const useTCCs = (params: TCCRequest) => {
   >({
     queryKey: [AppQueryKeys, params],
     queryFn: () => TCCRelationshipsAPI.getAllTCCRelationships(params),
+    enabled: params.size !== 0,
   });
 
   useHandleError(error);

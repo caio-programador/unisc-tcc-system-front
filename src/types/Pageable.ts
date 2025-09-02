@@ -7,6 +7,6 @@ export interface PageableResponse<T> {
   content: T[];
   pageable: Pageable;
   totalElements: number;
-  totalPages: number;
+  totalElements: number;
   size: number;
 }

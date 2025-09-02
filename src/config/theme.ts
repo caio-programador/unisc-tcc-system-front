@@ -80,6 +80,9 @@ const customConfig = {
       backgroundColor: "gray.900 !important",
       transition: "0.5s !important",
     },
+    ".css-k68odi": {
+      stroke: "textPrimary !important",
+    }
 
   },
 };

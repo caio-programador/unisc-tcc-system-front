@@ -14,7 +14,7 @@ export const ActionCard = ({ icon, title, description, onClick }: ActionCardProp
       <VStack columnGap="3" rowGap="3">
         <Box fontSize="3xl">{icon}</Box>
         <Heading size="md">{title}</Heading>
-        <Text textAlign="center">{description}</Text>
+        <Text textAlign="center" fontSize="smaller">{description}</Text>
         <Button 
           backgroundColor={"textPrimary"} 
           color={"background"} 

@@ -10,7 +10,11 @@ export const useUsers = (params: UserRequestGetAll) => {
   const { data, isLoading, error, refetch } = useQuery<
     PageableResponse<User>,
     AxiosError
-  >({ queryKey: [AppQueryKeys.USERS, params], queryFn: () => UserAPI.getAll(params) });
+  >({
+    queryKey: [AppQueryKeys.USERS, params],
+    queryFn: () => UserAPI.getAll(params),
+    enabled: params.size !== 0,
+  });
 
   useHandleError(error);
 

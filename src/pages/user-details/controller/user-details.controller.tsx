@@ -26,6 +26,7 @@ export default function UserDetailsController() {
   } = useTCCRelationship(Number(userId), userData?.role === "ALUNO");
   const { data: professors, isLoading: isLoadingProfessor } = useUsers({
     role: "PROFESSOR",
+    size: 1000,
   });
   const { mutate: createUpdateTCC, isPending: isPendingCreatingUpdatingTCC } =
     useCreateUpdateTCC();
