@@ -4,7 +4,7 @@ import { useScreenSize } from "../../../hooks/use-screen-size";
 export const MosaicSkeleton = () => {
   const { isMobile } = useScreenSize();
   return (
-    <Box flex="4">
+    <Box flex="6">
       <Grid
         templateColumns={`repeat(${isMobile ? "" : "5"}, 1fr)`}
         templateRows={`repeat(${isMobile ? "" : "3"}, 200px)`}

@@ -1,19 +1,39 @@
-import { Box, Heading, Center, Container, Flex, Em } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Container,
+  Flex,
+  Em,
+  Button,
+} from "@chakra-ui/react";
 import { AppAlerts } from "../components/app-alerts.component";
 import { QuickSchedule } from "../components/quick-schedule.component";
 import type { HomeProps } from "../types";
 import { Mosaic } from "../components/mosaic.component";
 import { MosaicSkeleton } from "../components/mosaic-skeleton.component";
 
-export const Home = ({ redirect, user, isLoadingPersonalInfo }: HomeProps) => {
+export const Home = ({ redirect, user, isLoadingPersonalInfo, logout }: HomeProps) => {
   return (
     <Container maxW={1300}>
       <Box p={6}>
-        <Center>
+        <Flex padding="2%" justifyContent="space-between" alignItems="start">
           <Heading mb={6}>
-            Bem vindo ao Dashboard TCC, Aluno <Em>{user?.name}</Em>
+            Bem vindo ao Dashboard TCC, {user?.role} <Em>{user?.name}</Em>
           </Heading>
-        </Center>
+          <Button
+            onClick={logout}
+            backgroundColor={"textPrimary"}
+            color={"background"}
+            size="sm"
+            fontSize={"sm"}
+            fontWeight={"normal"}
+            paddingX="10px"
+            marginTop={"10px"}
+            height={"30px"}
+          >
+            Logout
+          </Button>
+        </Flex>
 
         <Flex
           marginTop={18}
@@ -21,8 +41,12 @@ export const Home = ({ redirect, user, isLoadingPersonalInfo }: HomeProps) => {
           gap={20}
           direction={{ base: "column", lg: "row" }}
         >
-          {isLoadingPersonalInfo ? <MosaicSkeleton /> : <Mosaic redirect={redirect} user={user} />}
-          
+          {isLoadingPersonalInfo ? (
+            <MosaicSkeleton />
+          ) : (
+            <Mosaic redirect={redirect} user={user} />
+          )}
+
           <Flex direction="column" gap={6} flex="2" justify="flex-start">
             <AppAlerts />
             <QuickSchedule />

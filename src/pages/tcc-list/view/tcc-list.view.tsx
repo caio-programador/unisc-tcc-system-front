@@ -21,6 +21,7 @@ export const TCCList = ({
   tccData,
   currentPage,
   pageSize,
+  isProfessor,
   redirect,
   handleChangeSearchTerm,
   handleDeleteTCC,
@@ -32,11 +33,11 @@ export const TCCList = ({
       <Box p={8}>
         <AppBreadcrumbs
           links={[{ label: "Home", navigate: () => redirect(RoutesUrl.HOME) }]}
-          currentLinkLabel="Todos os TCCs"
+          currentLinkLabel={isProfessor ? "Meus TCCs" : "Todos os TCCs"}
         />
 
         <Heading size="3xl" mb={8} mt={12} textAlign="left">
-          Listagem de Usuários
+          {isProfessor ? "Meus TCCs" : "Todos os TCCs"}
         </Heading>
 
         <VStack gap={6} align="stretch">

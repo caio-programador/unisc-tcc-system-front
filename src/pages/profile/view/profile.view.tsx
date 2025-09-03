@@ -23,17 +23,21 @@ export const Profile = ({
           links={[{ label: "Home", navigate: () => redirect(RoutesUrl.HOME) }]}
           currentLinkLabel="Perfil"
         />
-        <HeaderProfile user={user} />
+        {user && (
+          <>
+            <HeaderProfile user={user} />
 
-        <PersonalInfo
-          isPending={isPending}
-          user={user}
-          hasValues={hasValues}
-          errors={errors}
-          onSubmit={onSubmit}
-          setValue={setValue}
-        />
-        <QuickLinks redirect={redirect} />
+            <PersonalInfo
+              isPending={isPending}
+              user={user}
+              hasValues={hasValues}
+              errors={errors}
+              onSubmit={onSubmit}
+              setValue={setValue}
+            />
+            <QuickLinks redirect={redirect} user={user} />
+          </>
+        )}
       </Box>
     </Container>
   );
