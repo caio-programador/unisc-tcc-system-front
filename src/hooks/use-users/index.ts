@@ -16,7 +16,7 @@ export const useUsers = (params: UserRequestGetAll) => {
     enabled: params.size !== 0,
   });
 
-  useHandleError(error);
+  //useHandleError(error);
 
   return { data, isLoading, error, refetch };
 };

@@ -16,7 +16,7 @@ export const useTCCs = (params: TCCRequest) => {
     enabled: params.size !== 0,
   });
 
-  useHandleError(error);
+  //useHandleError(error);
 
   return { isLoading, data };
 };

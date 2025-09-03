@@ -12,7 +12,7 @@ export const useTCCRelationship = (studentId: number, enabled: boolean) => {
     enabled,
   });
 
-  useHandleError(error);
+  //useHandleError(error);
 
   return { data, isLoading, refetch };
 };
