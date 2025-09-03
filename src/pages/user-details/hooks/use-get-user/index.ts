@@ -11,7 +11,7 @@ export const useGetUser = (userId: number) => {
     queryFn: () => UserAPI.getOneUser(userId),
   });
 
-  //useHandleError(error);
+  useHandleError(error);
 
   return { data, isLoading };
 };

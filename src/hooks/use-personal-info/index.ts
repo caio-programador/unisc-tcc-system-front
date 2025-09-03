@@ -14,7 +14,7 @@ export const usePersonalInfo = () => {
     queryFn: AuthAPI.getPersonalInfo,
   });
 
-  //useHandleError(error);
+  useHandleError(error);
 
   return { data, isLoading, isError, refetch };
 };
