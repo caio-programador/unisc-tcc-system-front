@@ -3,6 +3,7 @@ import type { RouteUrl } from "../../types/Router";
 
 export interface HomeProps {
   redirect: (path: RouteUrl) => void;
+  logout: () => void;
   isLoadingPersonalInfo: boolean;
   user?: User; 
 }

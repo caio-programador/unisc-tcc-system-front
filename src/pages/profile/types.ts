@@ -40,6 +40,7 @@ export interface LabelInputProps {
 }
 
 export interface QuickLinksProps {
+  user: User;
   redirect: (path: RouteUrl) => void;
 }
 

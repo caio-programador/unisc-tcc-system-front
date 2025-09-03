@@ -38,6 +38,15 @@ export class TCCRelationshipsAPI {
     return response.data;
   }
 
+  static async getTCCsByProfessor(params: TCCRequest): Promise<PageableResponse<TCCResponse>> {
+    const headers = await getAuthorizationHeader();
+    const response = await axios.get(`${configURL}/relationships/professor/my-tccs`, {
+      headers,
+      params
+    });
+    return response.data;
+  }
+
   static async deleteTCCRelationship(tccRelationshipId: number): Promise<void> {
     const headers = await getAuthorizationHeader();
     await axios.delete(`${configURL}/relationships/${tccRelationshipId}`, {

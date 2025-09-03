@@ -8,6 +8,7 @@ export interface TCCListProps {
   isLoadingTCCData: boolean;
   pageSize: number;
   currentPage: number;
+  isProfessor: boolean;
   changePage: (page: number) => void;
   changePageSize: (pageSize: number) => void;
   redirect: (path: RouteUrl) => void;

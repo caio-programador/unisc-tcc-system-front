@@ -1,8 +1,8 @@
 import { Card, Heading, VStack, Link } from "@chakra-ui/react";
 import type { QuickLinksProps } from "../types";
-import { RoutesUrl } from "../../../types/Router";
+import { RoutesUrl, type RouteUrl } from "../../../types/Router";
 
-export const QuickLinks = ({ redirect }: QuickLinksProps) => {
+export const QuickLinks = ({ redirect, user }: QuickLinksProps) => {
   return (
     <Card.Root maxW="md" mx="auto">
       <Card.Header>
@@ -10,9 +10,24 @@ export const QuickLinks = ({ redirect }: QuickLinksProps) => {
       </Card.Header>
       <Card.Body>
         <VStack align="start" gap={3}>
-          <Link onClick={() => redirect(RoutesUrl.TCC_LIST)} color="blue.400">
-            Meus TCC
-          </Link>
+          {user.role === "PROFESSOR" && (
+            <Link
+              onClick={() =>
+                redirect(`${RoutesUrl.TCC_LIST}?isProfessor=true` as RouteUrl)
+              }
+              color="blue.400"
+            >
+              Meus TCCs
+            </Link>
+          )}
+          {user.role === "ALUNO" && (
+            <Link
+              onClick={() => redirect(RoutesUrl.TCC_DETAILS)}
+              color="blue.400"
+            >
+              Meu TCC
+            </Link>
+          )}
           <Link onClick={() => redirect(RoutesUrl.MEETINGS)} color="blue.400">
             Reuniões
           </Link>
