@@ -22,6 +22,9 @@ const customConfig = {
           150: "#bcbcbc", 
           900: "#9b9b9bff",
         },
+        red: {
+          500: "#ff0000",
+        },
       },
       fonts: {
         body: "system-ui, sans-serif",
@@ -82,7 +85,11 @@ const customConfig = {
     },
     ".css-k68odi": {
       stroke: "textPrimary !important",
-    }
+    },
+    ".remove-file-button:hover": {
+      color: "textPrimary !important",
+      backgroundColor: "red.700 !important",
+    },
 
   },
 };
