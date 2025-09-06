@@ -31,17 +31,26 @@ export type DeliveryType =
   | "REELABORACAO_TC";
 
 export type DeliveryStatus =
-  | "PENDENTE"
   | "APROVADO"
+  | "ADMISSIBILIDADE_REPROVADA"
+  | "AGUARDANDO_ADMISSIBILIDADE"
   | "REPROVADO"
   | "AGUARDANDO_AVALIACAO";
 
 export interface DeliveryTC {
+  id: number;
   TC: TCCResponse;
   deliveryType: DeliveryType;
   deliveryDate: string;
-  filePath: string;
+  bucketFileKey: string;
   deliveryStatus: DeliveryStatus;
+}
+
+export interface CreateDeliveryTC {
+  title: string;
+  file: File;
+  deliveryType: DeliveryType;
+  tccRelationshipId: number;
 }
 
 export type OpinionStatus = "FAVORAVEL" | "DESFAVORAVEL" | "REVISAR";

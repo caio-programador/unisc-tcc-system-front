@@ -3,32 +3,29 @@ import {
   Button,
   Card,
   Field,
-  Heading,
   Input,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useFormContext } from "react-hook-form";
-import type { ProposalFormData } from "../hooks/use-proposal-form/schema";
 import { FaRegTrashAlt } from "react-icons/fa";
-import type { ProposalFormProps } from "../types";
+import type { DeliveryFormProps } from "../types";
 
-export const ProposalForm = ({
+export const DeliveryForm = ({
   onSubmit,
   isLoading = false,
   selectedFileName,
-  onFileChange,
   onRemoveFile,
-}: ProposalFormProps) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useFormContext<ProposalFormData>();
+  onFileChange,
+  descriptionText,
+  buttonText,
+  disabledSomeAssets,
+  deliveryData,
+  deliveryType,
+  deliveryForm,
+}: DeliveryFormProps) => {
 
-  const handleFormSubmit = (data: ProposalFormData) => {
-    onSubmit(data);
-  };
+  const { formState: { errors }, handleSubmit, setValue, getValues } = deliveryForm;
+
 
   return (
     <Card.Root
@@ -38,24 +35,23 @@ export const ProposalForm = ({
       borderRadius="lg"
     >
       <Card.Header>
-        <Heading size="md" color="textPrimary">
-          Publicar Proposta
-        </Heading>
         <Text color="textPrimary" fontSize="sm" mt={2}>
-          Preencha os dados abaixo para publicar sua proposta de TCC
+          {!disabledSomeAssets ? descriptionText : "Arquivos do TCC"}
         </Text>
       </Card.Header>
       <Card.Body>
-        <Box as="form" onSubmit={handleSubmit(handleFormSubmit)}>
+        <Box as="form" onSubmit={handleSubmit((data) => onSubmit(data, deliveryType, deliveryData?.id))}>
           <VStack gap={4} align="stretch">
             <Field.Root invalid={Boolean(errors.title)}>
               <Field.Label htmlFor="title" color="textPrimary">
                 Título do TCC
               </Field.Label>
               <Input
+                disabled={disabledSomeAssets}
                 id="title"
+                defaultValue={getValues("title")}
                 placeholder="Digite o título do seu TCC"
-                {...register("title")}
+                onChange={(e) => setValue("title", e.target.value)}
                 color="textPrimary"
               />
               {errors.title && (
@@ -65,10 +61,10 @@ export const ProposalForm = ({
 
             <Field.Root invalid={Boolean(errors.file)}>
               <Field.Label htmlFor="file" color="textPrimary">
-                Arquivo da Proposta
+                Arquivo
               </Field.Label>
-              <Box position="relative" width="100%" height="100px">
-                <Input
+              <Input
+                  disabled={disabledSomeAssets}
                   id="file"
                   type="file"
                   accept=".pdf,.doc,.docx"
@@ -79,8 +75,10 @@ export const ProposalForm = ({
                   width="100%"
                   height="80px"
                   cursor="pointer"
-                  zIndex={2}
+                  zIndex={5}
                 />
+              <Box position="relative" width="100%" height="100px">
+                
                 <Box
                   as="div"
                   bg="background"
@@ -106,27 +104,25 @@ export const ProposalForm = ({
                       >
                         {selectedFileName}
                       </Text>
-                      <Button
-                        className="remove-file-button"
-                        onClick={onRemoveFile}
-                        variant="ghost"
-                        size="sm"
-                        color="textPrimary"
-                        position="absolute"
-                        right={0}
-                        top={4.5}
-                        zIndex={3}
-                        p={0.5}
-                        m={0.5}
-                        _hover={{
-                          color: "red.500",
-                          backgroundColor: "red.500",
-                        }}
-                        alignItems="center"
-                        justifyContent="center"
-                      >
-                        <FaRegTrashAlt />
-                      </Button>
+                      {!disabledSomeAssets && (
+                        <Button
+                          className="remove-file-button"
+                          onClick={onRemoveFile}
+                          variant="ghost"
+                          size="sm"
+                          color="textPrimary"
+                          position="absolute"
+                          right={0}
+                          top={4.5}
+                          zIndex={3}
+                          p={0.5}
+                          m={0.5}
+                          alignItems="center"
+                          justifyContent="center"
+                        >
+                          <FaRegTrashAlt />
+                        </Button>
+                      )}
                     </>
                   ) : (
                     <VStack gap={1}>
@@ -142,21 +138,22 @@ export const ProposalForm = ({
               </Box>
               {errors.file && (
                 <Field.ErrorText mt={"-1.4em"} pt={0}>
-                  {errors.file.message}
+                  {errors.file.message?.toString()}
                 </Field.ErrorText>
               )}
             </Field.Root>
-
-            <Button
-              type="submit"
-              loading={isLoading}
-              loadingText="Publicando..."
-              bg="textPrimary"
-              color="background"
-              _hover={{ transform: "scale(1.03)" }}
-            >
-              Publicar Proposta
-            </Button>
+            {Boolean(buttonText) && !disabledSomeAssets && (
+              <Button
+                type="submit"
+                loading={isLoading}
+                loadingText="Publicando..."
+                bg="textPrimary"
+                color="background"
+                _hover={{ transform: "scale(1.03)" }}
+              >
+                {buttonText}
+              </Button>
+            )}
           </VStack>
         </Box>
       </Card.Body>

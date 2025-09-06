@@ -90,6 +90,10 @@ const customConfig = {
       color: "textPrimary !important",
       backgroundColor: "red.700 !important",
     },
+    ".download-file-button:hover": {
+      color: "background !important",
+      backgroundColor: "textPrimary !important",
+    },
 
   },
 };

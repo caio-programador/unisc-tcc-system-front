@@ -4,11 +4,11 @@ import { useHandleError } from "../use-handle-error";
 import type { TCCResponse } from "../../types";
 import type { AxiosError } from "axios";
 
-export const useTCCRelationship = (studentId: number, enabled: boolean) => {
+export const useTCCRelationship = (studentId: number | undefined, enabled: boolean) => {
   const { data, isLoading, error, refetch } = useQuery<TCCResponse, AxiosError>({
     queryKey: [studentId],
     queryFn: () =>
-      TCCRelationshipsAPI.getOneTCCRelationshipByStudentId(studentId),
+      TCCRelationshipsAPI.getOneTCCRelationshipByStudentId(studentId!),
     enabled,
   });
 

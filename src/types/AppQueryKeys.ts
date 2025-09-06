@@ -12,4 +12,7 @@ export const AppMutationKeys = {
   DELETE_USER: 'delete-user',
   DELETE_TCC: 'delete-tcc',
   UPDATE_CREATE_TCC: 'update-create-tcc',
+  CREATE_DELIVERY: 'create-delivery',
+  UPDATE_DELIVERY: 'update-delivery',
+  DOWNLOAD_FILE: 'download-file',
 } as const;
