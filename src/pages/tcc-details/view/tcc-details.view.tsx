@@ -5,12 +5,15 @@ import { RoutesUrl } from "../../../types/Router";
 import { TCCSteps } from "../components/tcc-steps.component";
 import { ProposalForm } from "../components/proposal-form.component";
 import { FormProvider } from "react-hook-form";
+import { EvaluationForm } from "../components/evaluation-form.component";
 
 export const TCCDetails = ({ 
   redirect, 
-  form, 
+  proposalForm,
+  evaluationProposalForm, 
   selectedFileName, 
-  isLoading, 
+  isLoading,
+  loggedUser, 
   onSubmit, 
   onFileChange, 
   onRemoveFile 
@@ -26,7 +29,7 @@ export const TCCDetails = ({
         <VStack gap={6} align="stretch" mt={6}>
           <TCCSteps />
           
-          <FormProvider {...form}>
+          <FormProvider {...proposalForm}>
             <ProposalForm 
               onSubmit={onSubmit}
               isLoading={isLoading}
@@ -35,7 +38,16 @@ export const TCCDetails = ({
               onRemoveFile={onRemoveFile}
             />
           </FormProvider>
+          
+          <EvaluationForm 
+            onSubmit={evaluationProposalForm.handleSubmit(() => {})}
+            register={evaluationProposalForm.register}
+            errors={evaluationProposalForm.formState.errors}
+            loggedUser={loggedUser}
+          />
         </VStack>
+
+
       </Box>
     </Container>
   );

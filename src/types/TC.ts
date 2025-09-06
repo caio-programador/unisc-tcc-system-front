@@ -24,9 +24,17 @@ export interface TCCCreate {
   studentId: number;
 }
 
-export type DeliveryType = 'PROPOSTA' | 'TC' | 'REELABORACAO_PROPOSTA' | 'REELABORACAO_TC';
+export type DeliveryType =
+  | "PROPOSTA"
+  | "TC"
+  | "REELABORACAO_PROPOSTA"
+  | "REELABORACAO_TC";
 
-export type DeliveryStatus = 'PENDENTE' | 'APROVADO' | 'REPROVADO' | 'AGUARDANDO_AVALIACAO';
+export type DeliveryStatus =
+  | "PENDENTE"
+  | "APROVADO"
+  | "REPROVADO"
+  | "AGUARDANDO_AVALIACAO";
 
 export interface DeliveryTC {
   TC: TCCResponse;
@@ -36,7 +44,7 @@ export interface DeliveryTC {
   deliveryStatus: DeliveryStatus;
 }
 
-export type OpinionStatus = 'FAVORAVEL' | 'DESFAVORAVEL' | 'REVISAR';
+export type OpinionStatus = "FAVORAVEL" | "DESFAVORAVEL" | "REVISAR";
 
 export interface AdmissibilityOpinion {
   id: number;
@@ -48,12 +56,26 @@ export interface AdmissibilityOpinion {
 export interface Assessment {
   id: number;
   delivery: DeliveryTC;
-  introductionAssessment: number;
-  goalsAssessment: number;
-  bibliographicReviewAssessment: number;
-  metodologyAssessment: number;
-  finalScoreAssessment: number;
+  introScore: number;
+  goalsScore: number;
+  references: number;
+  sequenceLogic: number;
+  procedures: number;
+  methodology: number;
+  total: number;
   comments: string;
   assessmentDate: string;
   appraiser: User;
+}
+
+export interface AssessmentBody {
+  deliveryId: number;
+  introScore: number;
+  goalsScore: number;
+  references: number;
+  sequenceLogic: number;
+  procedures: number;
+  methodology: number;
+  total: number;
+  comments?: string;
 }

@@ -53,7 +53,7 @@ const customConfig = {
       color: "textPrimary",
     },
     // Estilos para placeholders do Chakra UI
-    ".chakra-input::placeholder": {
+    ".chakra-input::placeholder, .chakra-textarea::placeholder": {
       color: "textPrimary !important",
       opacity: "0.8 !important",
     },

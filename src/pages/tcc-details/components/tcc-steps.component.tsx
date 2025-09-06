@@ -14,7 +14,7 @@ export const TCCSteps = () => {
       </Steps.List>
 
       {steps.map((step, index) => (
-        <Steps.Content key={index} index={index}>
+        <Steps.Content fontSize="lg" key={index} index={index}>
           {step.description}
         </Steps.Content>
       ))}
