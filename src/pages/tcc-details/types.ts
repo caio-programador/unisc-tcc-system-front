@@ -1,27 +1,68 @@
 import type { RouteUrl } from "../../types/Router";
-import type { FieldErrors, UseFormRegister, UseFormReturn } from "react-hook-form";
-import type { ProposalFormData } from "./hooks/use-proposal-form/schema";
+import type {
+  FieldErrors,
+  UseFormRegister,
+  UseFormReturn,
+} from "react-hook-form";
 import type { EvaluationFormData } from "./hooks/use-evaluation-form/schema";
-import type { User } from "../../types";
+import type { DeliveryTC, DeliveryType, User } from "../../types";
+import type { DeliveryFormData } from "./hooks/use-delivery-form/schema";
 
 export interface TCCDetailsProps {
   redirect: (path: RouteUrl) => void;
-  proposalForm: UseFormReturn<ProposalFormData>;
-  evaluationProposalForm: UseFormReturn<EvaluationFormData>;
+  deliveryForm: UseFormReturn<DeliveryFormData>;
+  evaluationDeliveryForm: UseFormReturn<EvaluationFormData>;
   selectedFileName: string;
   isLoading: boolean;
   loggedUser: User | undefined;
-  onSubmit: (data: ProposalFormData) => void;
+  deliveriesData: DeliveryTC[] | undefined;
+  defaultTitle: string | undefined;
+  onSubmit: (
+    data: DeliveryFormData,
+    actionType?: DeliveryType,
+    deliveryId?: number
+  ) => void;
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemoveFile: () => void;
+  onDownloadFile: (key: string) => void;
 }
 
-export interface ProposalFormProps {
-  onSubmit: (data: ProposalFormData) => void;
+export interface TCCStepsProps {
+  deliveriesData: DeliveryTC[] | undefined;
+  deliveryForm: UseFormReturn<DeliveryFormData>;
+  onSubmit: (
+    data: DeliveryFormData,
+    actionType?: DeliveryType,
+    deliveryId?: number
+  ) => void;
   isLoading?: boolean;
   selectedFileName: string;
+  loggedUser?: User;
+  defaultTitle: string | undefined;
+  evaluationDeliveryForm: UseFormReturn<EvaluationFormData>;
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemoveFile: () => void;
+  onDownloadFile: (key: string) => void;
+}
+
+export interface DeliveryFormProps {
+  onSubmit: (
+    data: DeliveryFormData,
+    actionType?: DeliveryType,
+    deliveryId?: number
+  ) => void;
+  isLoading?: boolean;
+  selectedFileName: string;
+  deliveryData: DeliveryTC | undefined;
+  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onRemoveFile: () => void;
+  onDownloadFile: (key: string) => void;
+  buttonText?: string;
+  descriptionText: string;
+  disabledSomeAssets: boolean;
+  deliveryType?: DeliveryType;
+  deliveryForm: UseFormReturn<DeliveryFormData>;
+  defaultTitle: string | undefined;
 }
 
 export interface LabelInputProps {
@@ -34,9 +75,26 @@ export interface LabelInputProps {
   type: "number" | "text";
 }
 
-export interface EvaluationProposalFormProps {
+export interface EvaluationFormProps {
   onSubmit: () => void;
   register: UseFormRegister<EvaluationFormData>;
   errors: FieldErrors<EvaluationFormData>;
-  loggedUser: User | undefined;
+}
+
+export interface Steps {
+  id: number;
+  title: string;
+  professorTitle: string;
+  description: string;
+  buttonText?: string;
+  deliveryType?: DeliveryType;
+  shouldShowEvaluationDetails: boolean;
+}
+
+
+export interface EvaluationDetailsProps {
+  evaluation: EvaluationFormData;
+  studentName?: string;
+  evaluatorName?: string;
+  evaluationDate?: string;
 }

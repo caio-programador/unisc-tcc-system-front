@@ -7,6 +7,7 @@ import { RoutesUrl } from "../../../types/Router";
 import { useLogin } from "../hooks/use-login";
 import { toaster } from "../../../utils/toaster";
 import type { AuthResponse } from "../../../types";
+import { setCookie } from "../../../utils/set-cookie";
 const TOKEN_COOKIE_NAME = import.meta.env.VITE_COOKIE_KEY;
 
 export default function LoginController() {
@@ -20,8 +21,8 @@ export default function LoginController() {
   const { redirect } = useAppNavigation();
 
   const handleSuccessLogin = useCallback(
-    (data: AuthResponse) => {
-      window.cookieStore.set(TOKEN_COOKIE_NAME, data.token);
+    async (data: AuthResponse) => {
+      await setCookie(TOKEN_COOKIE_NAME, data.token);
       redirect(RoutesUrl.HOME);
     },
     [redirect]

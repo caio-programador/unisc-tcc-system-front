@@ -1,21 +1,102 @@
-import { Steps } from "@chakra-ui/react";
+import { Heading, Steps } from "@chakra-ui/react";
 import { steps } from "../utils/steps";
+import type { TCCStepsProps } from "../types";
+import { getCurrentStep } from "../utils/get-current-step";
+import { DeliveryForm } from "./delivery-form.component";
+import { useScreenSize } from "../../../hooks/use-screen-size";
+import { useMemo } from "react";
+import { EvaluationForm } from "./evaluation-form.component";
+import type { EvaluationFormData } from "../hooks/use-evaluation-form/schema";
+import { EvaluationDetails } from "./evaluation-details.component";
 
-export const TCCSteps = () => {
+const evaluationData: EvaluationFormData | undefined = {
+  introScore: 1.8,
+  goalsScore: 0.9,
+  references: 1.5,
+  sequenceLogic: 0.8,
+  procedures: 1.7,
+  methodology: 1.6,
+  total: 8.3,
+  comments: "Ótimo trabalho!",
+};
+
+export const TCCSteps = ({
+  deliveriesData,
+  deliveryForm,
+  onSubmit,
+  isLoading,
+  selectedFileName,
+  loggedUser,
+  defaultTitle,
+  evaluationDeliveryForm,
+  onFileChange,
+  onRemoveFile,
+  onDownloadFile,
+}: TCCStepsProps) => {
+  const currentStep = useMemo(() => {
+    return getCurrentStep(deliveriesData || []);
+  }, [deliveriesData]);
+
+  const lastDelivery = useMemo(() => {
+    return deliveriesData?.[0];
+  }, [deliveriesData]);
+
+  const { isMobile } = useScreenSize();
+
   return (
-    <Steps.Root mt={6} defaultStep={0} count={steps.length} colorPalette="teal">
-      <Steps.List>
-        {steps.map((_step, index) => (
-          <Steps.Item key={index} index={index}>
+    <Steps.Root
+      mt={6}
+      step={currentStep}
+      count={steps.length}
+      colorPalette="teal"
+      orientation={isMobile ? "vertical" : "horizontal"}
+    >
+      <Steps.List marginRight={isMobile ? 8 : 0}>
+        {steps.map((step) => (
+          <Steps.Item key={step.id} index={step.id}>
             <Steps.Indicator />
             <Steps.Separator />
           </Steps.Item>
         ))}
       </Steps.List>
 
-      {steps.map((step, index) => (
-        <Steps.Content fontSize="lg" key={index} index={index}>
-          {step.description}
+      {steps.map((step) => (
+        <Steps.Content key={step.id} index={step.id}>
+          <Heading size="lg" marginY={6}>
+            {loggedUser?.role !== "ALUNO" ? step.professorTitle : step.title}
+          </Heading>
+          <DeliveryForm
+            deliveryForm={deliveryForm}
+            onDownloadFile={onDownloadFile}
+            onSubmit={onSubmit}
+            isLoading={isLoading}
+            selectedFileName={selectedFileName}
+            onFileChange={onFileChange}
+            onRemoveFile={onRemoveFile}
+            descriptionText={step.description}
+            buttonText={step.buttonText}
+            disabledSomeAssets={loggedUser?.role !== "ALUNO"}
+            deliveryType={step.deliveryType}
+            deliveryData={lastDelivery}
+            defaultTitle={defaultTitle}
+          />
+
+          {loggedUser?.id === deliveriesData?.[0]?.tcc.professor.id ? (
+            <EvaluationForm
+              onSubmit={evaluationDeliveryForm.handleSubmit(() => {})}
+              register={evaluationDeliveryForm.register}
+              errors={evaluationDeliveryForm.formState.errors}
+            />
+          ) : (
+            evaluationData && (
+              <EvaluationDetails
+                evaluation={evaluationData}
+                studentName="João Silva" 
+                evaluatorName="Prof. Dr. Maria Santos"
+                evaluationDate="15/03/2024" 
+              />
+            )
+          )}
         </Steps.Content>
       ))}
     </Steps.Root>

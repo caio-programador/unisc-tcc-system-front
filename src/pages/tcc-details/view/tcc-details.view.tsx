@@ -3,20 +3,20 @@ import { AppBreadcrumbs } from "../../../components/global/app-breadcrumbs";
 import type { TCCDetailsProps } from "../types";
 import { RoutesUrl } from "../../../types/Router";
 import { TCCSteps } from "../components/tcc-steps.component";
-import { ProposalForm } from "../components/proposal-form.component";
-import { FormProvider } from "react-hook-form";
-import { EvaluationForm } from "../components/evaluation-form.component";
 
-export const TCCDetails = ({ 
-  redirect, 
-  proposalForm,
-  evaluationProposalForm, 
-  selectedFileName, 
+export const TCCDetails = ({
+  redirect,
+  deliveryForm,
+  evaluationDeliveryForm,
+  selectedFileName,
   isLoading,
-  loggedUser, 
-  onSubmit, 
-  onFileChange, 
-  onRemoveFile 
+  loggedUser,
+  deliveriesData,
+  defaultTitle,
+  onSubmit,
+  onFileChange,
+  onRemoveFile,
+  onDownloadFile,
 }: TCCDetailsProps) => {
   return (
     <Container maxW="1200px">
@@ -25,29 +25,22 @@ export const TCCDetails = ({
           links={[{ label: "Home", navigate: () => redirect(RoutesUrl.HOME) }]}
           currentLinkLabel="Detalhes do TCC"
         />
-        
+
         <VStack gap={6} align="stretch" mt={6}>
-          <TCCSteps />
-          
-          <FormProvider {...proposalForm}>
-            <ProposalForm 
-              onSubmit={onSubmit}
-              isLoading={isLoading}
-              selectedFileName={selectedFileName}
-              onFileChange={onFileChange}
-              onRemoveFile={onRemoveFile}
-            />
-          </FormProvider>
-          
-          <EvaluationForm 
-            onSubmit={evaluationProposalForm.handleSubmit(() => {})}
-            register={evaluationProposalForm.register}
-            errors={evaluationProposalForm.formState.errors}
+          <TCCSteps
+            evaluationDeliveryForm={evaluationDeliveryForm}
+            defaultTitle={defaultTitle}
+            onDownloadFile={onDownloadFile}
+            deliveriesData={deliveriesData}
+            deliveryForm={deliveryForm}
+            onSubmit={onSubmit}
+            isLoading={isLoading}
+            selectedFileName={selectedFileName}
+            onFileChange={onFileChange}
+            onRemoveFile={onRemoveFile}
             loggedUser={loggedUser}
           />
         </VStack>
-
-
       </Box>
     </Container>
   );

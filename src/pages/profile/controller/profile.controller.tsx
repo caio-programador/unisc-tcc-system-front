@@ -7,6 +7,7 @@ import { usePersonalInfo } from "../../../hooks/use-personal-info";
 import { useUpdateUser } from "../hooks/use-update-user";
 import { toaster } from "../../../utils/toaster";
 import type { AuthResponse } from "../../../types";
+import { setCookie } from "../../../utils/set-cookie";
 
 const TOKEN_COOKIE_NAME = import.meta.env.VITE_COOKIE_KEY;
 
@@ -49,7 +50,7 @@ export default function ProfileController() {
       title: "Perfil atualizado",
       description: "Seu perfil foi atualizado com sucesso",
     });
-    window.cookieStore.set(TOKEN_COOKIE_NAME, data.token);    
+    setCookie(TOKEN_COOKIE_NAME, data.token);    
     refetch();
   }, [refetch]);
 

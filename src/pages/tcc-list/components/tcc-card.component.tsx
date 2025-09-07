@@ -1,6 +1,6 @@
 import { Box, VStack, HStack, Button, Text, Em } from "@chakra-ui/react";
 import type { TCCCardProps } from "../types";
-import { RoutesUrl } from "../../../types/Router";
+import { RoutesUrl, type RouteUrl } from "../../../types/Router";
 
 export const TCCCard = ({
   user,
@@ -21,7 +21,7 @@ export const TCCCard = ({
         transform: "translateY(-2px)",
         boxShadow: "lg",
       }}
-      onClick={() => redirect(RoutesUrl.TCC_DETAILS)}
+      onClick={() => redirect(`${RoutesUrl.TCC_DETAILS}?tccId=${tcc?.id}` as RouteUrl)}
     >
       <VStack align="stretch" gap={4}>
         <HStack justify="space-between" align="start">

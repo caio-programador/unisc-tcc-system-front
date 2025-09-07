@@ -25,6 +25,9 @@ const customConfig = {
         red: {
           500: "#ff0000",
         },
+        waterGreen: {
+          100: "#0d9488",
+        }
       },
       fonts: {
         body: "system-ui, sans-serif",
@@ -40,7 +43,7 @@ const customConfig = {
         textWithGray: { value: "{colors.gray.150}" },
         info: { value: "{colors.darkBlue.500}" },
         placeholder: { value: "{colors.gray.150}" },
-        skeleton: {value: "{colors.darkBlue.1000}"}
+        skeleton: {value: "{colors.darkBlue.1000}"},
       },
     },
     cssVarsRoot: ":host, :root",
@@ -89,6 +92,9 @@ const customConfig = {
     ".remove-file-button:hover": {
       color: "textPrimary !important",
       backgroundColor: "red.700 !important",
+    },
+    ".download-file-button:hover": {
+      backgroundColor: "#125a54 !important",
     },
 
   },

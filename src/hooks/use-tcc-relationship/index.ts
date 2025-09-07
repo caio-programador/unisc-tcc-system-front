@@ -3,16 +3,17 @@ import { TCCRelationshipsAPI } from "../../api/TCCRelationships";
 import { useHandleError } from "../use-handle-error";
 import type { TCCResponse } from "../../types";
 import type { AxiosError } from "axios";
+import { AppQueryKeys } from "../../types/AppQueryKeys";
 
-export const useTCCRelationship = (studentId: number, enabled: boolean) => {
+export const useTCCRelationship = (studentId: number | undefined, enabled: boolean) => {
   const { data, isLoading, error, refetch } = useQuery<TCCResponse, AxiosError>({
-    queryKey: [studentId],
+    queryKey: [studentId, AppQueryKeys.TCC_RELATIONSHIP],
     queryFn: () =>
-      TCCRelationshipsAPI.getOneTCCRelationshipByStudentId(studentId),
+      TCCRelationshipsAPI.getOneTCCRelationshipByStudentId(studentId!),
     enabled,
   });
 
   useHandleError(error);
 
-  return { data, isLoading, refetch };
+  return { data, isLoading, refetch }; 
 };
