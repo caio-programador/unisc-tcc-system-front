@@ -16,6 +16,7 @@ export interface TCCDetailsProps {
   isLoading: boolean;
   loggedUser: User | undefined;
   deliveriesData: DeliveryTC[] | undefined;
+  defaultTitle: string | undefined;
   onSubmit: (
     data: DeliveryFormData,
     actionType?: DeliveryType,
@@ -37,6 +38,8 @@ export interface TCCStepsProps {
   isLoading?: boolean;
   selectedFileName: string;
   loggedUser?: User;
+  defaultTitle: string | undefined;
+  evaluationDeliveryForm: UseFormReturn<EvaluationFormData>;
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemoveFile: () => void;
   onDownloadFile: (key: string) => void;
@@ -59,6 +62,7 @@ export interface DeliveryFormProps {
   disabledSomeAssets: boolean;
   deliveryType?: DeliveryType;
   deliveryForm: UseFormReturn<DeliveryFormData>;
+  defaultTitle: string | undefined;
 }
 
 export interface LabelInputProps {
@@ -71,7 +75,7 @@ export interface LabelInputProps {
   type: "number" | "text";
 }
 
-export interface EvaluationdeliveryFormProps {
+export interface EvaluationFormProps {
   onSubmit: () => void;
   register: UseFormRegister<EvaluationFormData>;
   errors: FieldErrors<EvaluationFormData>;
@@ -84,4 +88,13 @@ export interface Steps {
   description: string;
   buttonText?: string;
   deliveryType?: DeliveryType;
+  shouldShowEvaluationDetails: boolean;
+}
+
+
+export interface EvaluationDetailsProps {
+  evaluation: EvaluationFormData;
+  studentName?: string;
+  evaluatorName?: string;
+  evaluationDate?: string;
 }

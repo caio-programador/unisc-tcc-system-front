@@ -1,6 +1,6 @@
 import { useAppNavigation } from "../../../hooks/use-app-navigation";
 import { TCCDetails } from "../view/tcc-details.view";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useEvaluationForm } from "../hooks/use-evaluation-form";
 import { usePersonalInfo } from "../../../hooks/use-personal-info";
 import { useDeliveries } from "../hooks/use-deliveries";
@@ -19,17 +19,23 @@ export default function TCCDetailsController() {
   const [searchParams] = useSearchParams();
   const tccId = searchParams.get("tccId");
   const { data: loggedUser } = usePersonalInfo();
-  const { deliveriesData } = useDeliveries(Number(tccId));
-  const { data: tccData } = useTCCRelationship(loggedUser?.id, !tccId && loggedUser?.id !== undefined);
+  const [selectedFileName, setSelectedFileName] = useState<string>();
+  const { deliveriesData } = useDeliveries(
+    Number(tccId)
+  );
+  const { data: tccData } = useTCCRelationship(
+    loggedUser?.id,
+    !tccId && loggedUser?.id !== undefined
+  );
   const { handleDownloadFile } = useDownloadFile();
-  
+
   const deliveryForm = useDeliveryForm({
-    file: undefined as unknown as File,
-    title: tccData?.tccTitle as string,
+    file: deliveriesData?.[0]?.bucketFileKey ?  (new File([], deliveriesData?.[0]?.bucketFileKey as string) as File): undefined as unknown as File,
+    title: tccData?.tccTitle || "",
   });
   const file = deliveryForm.watch("file");
   const handleSubmitProposal = useCallback(
-    (
+    async (
       deliveryData: DeliveryFormData,
       deliveryType?: DeliveryType,
       deliveryId?: number
@@ -40,9 +46,10 @@ export default function TCCDetailsController() {
   );
 
   useEffect(() => {
-      if(tccData)
-        deliveryForm.setValue("title", tccData.tccTitle);
-    }, [deliveryForm, tccData]);
+    if (tccData) deliveryForm.setValue("title", tccData.tccTitle);
+    if (file) setSelectedFileName(file.name);
+    if(deliveriesData?.[0]?.bucketFileKey) setSelectedFileName(deliveriesData?.[0]?.bucketFileKey);
+  }, [deliveriesData, deliveryForm, file, tccData]);
 
   const handleFileChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +81,8 @@ export default function TCCDetailsController() {
   );
 
   const handleRemoveFile = useCallback(() => {
-    deliveryForm.setValue("file", null as unknown as File);
+    setSelectedFileName(undefined);
+    deliveryForm.setValue("file", undefined as unknown as File);
   }, [deliveryForm]);
 
   return (
@@ -84,12 +92,13 @@ export default function TCCDetailsController() {
       redirect={redirect}
       deliveryForm={deliveryForm}
       evaluationDeliveryForm={evaluationDeliveryForm}
-      selectedFileName={file?.name ?? deliveriesData?.[0]?.bucketFileKey}
+      selectedFileName={selectedFileName ?? ""}
       isLoading={isLoading}
       onSubmit={handleSubmitProposal}
       onFileChange={handleFileChange}
       onRemoveFile={handleRemoveFile}
       onDownloadFile={handleDownloadFile}
+      defaultTitle={tccData?.tccTitle ?? deliveriesData?.[0]?.tcc?.tccTitle}
     />
   );
 }

@@ -39,7 +39,7 @@ export type DeliveryStatus =
 
 export interface DeliveryTC {
   id: number;
-  TC: TCCResponse;
+  tcc: TCCResponse;
   deliveryType: DeliveryType;
   deliveryDate: string;
   bucketFileKey: string;

@@ -4,6 +4,21 @@ import type { TCCStepsProps } from "../types";
 import { getCurrentStep } from "../utils/get-current-step";
 import { DeliveryForm } from "./delivery-form.component";
 import { useScreenSize } from "../../../hooks/use-screen-size";
+import { useMemo } from "react";
+import { EvaluationForm } from "./evaluation-form.component";
+import type { EvaluationFormData } from "../hooks/use-evaluation-form/schema";
+import { EvaluationDetails } from "./evaluation-details.component";
+
+const evaluationData: EvaluationFormData | undefined = {
+  introScore: 1.8,
+  goalsScore: 0.9,
+  references: 1.5,
+  sequenceLogic: 0.8,
+  procedures: 1.7,
+  methodology: 1.6,
+  total: 8.3,
+  comments: "Ótimo trabalho!",
+};
 
 export const TCCSteps = ({
   deliveriesData,
@@ -12,20 +27,26 @@ export const TCCSteps = ({
   isLoading,
   selectedFileName,
   loggedUser,
+  defaultTitle,
+  evaluationDeliveryForm,
   onFileChange,
   onRemoveFile,
   onDownloadFile,
 }: TCCStepsProps) => {
-  const currentStep = getCurrentStep(deliveriesData || []);
+  const currentStep = useMemo(() => {
+    return getCurrentStep(deliveriesData || []);
+  }, [deliveriesData]);
 
-  const lastDelivery = deliveriesData?.[0];
+  const lastDelivery = useMemo(() => {
+    return deliveriesData?.[0];
+  }, [deliveriesData]);
 
   const { isMobile } = useScreenSize();
 
   return (
     <Steps.Root
       mt={6}
-      defaultStep={currentStep}
+      step={currentStep}
       count={steps.length}
       colorPalette="teal"
       orientation={isMobile ? "vertical" : "horizontal"}
@@ -42,7 +63,7 @@ export const TCCSteps = ({
       {steps.map((step) => (
         <Steps.Content key={step.id} index={step.id}>
           <Heading size="lg" marginY={6}>
-            {loggedUser?.role !== 'ALUNO' ? step.professorTitle : step.title}
+            {loggedUser?.role !== "ALUNO" ? step.professorTitle : step.title}
           </Heading>
           <DeliveryForm
             deliveryForm={deliveryForm}
@@ -54,10 +75,28 @@ export const TCCSteps = ({
             onRemoveFile={onRemoveFile}
             descriptionText={step.description}
             buttonText={step.buttonText}
-            disabledSomeAssets={loggedUser?.role !== 'ALUNO'}
+            disabledSomeAssets={loggedUser?.role !== "ALUNO"}
             deliveryType={step.deliveryType}
             deliveryData={lastDelivery}
+            defaultTitle={defaultTitle}
           />
+
+          {loggedUser?.id === deliveriesData?.[0]?.tcc.professor.id ? (
+            <EvaluationForm
+              onSubmit={evaluationDeliveryForm.handleSubmit(() => {})}
+              register={evaluationDeliveryForm.register}
+              errors={evaluationDeliveryForm.formState.errors}
+            />
+          ) : (
+            evaluationData && (
+              <EvaluationDetails
+                evaluation={evaluationData}
+                studentName="João Silva" 
+                evaluatorName="Prof. Dr. Maria Santos"
+                evaluationDate="15/03/2024" 
+              />
+            )
+          )}
         </Steps.Content>
       ))}
     </Steps.Root>

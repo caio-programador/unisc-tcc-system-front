@@ -1,12 +1,12 @@
 import { Box, Button, Field, Heading, Textarea } from "@chakra-ui/react";
-import type { EvaluationProposalFormProps } from "../types";
+import type { EvaluationFormProps } from "../types";
 import { LabelInput } from "./label-input.component";
 
 export const EvaluationForm = ({
   errors,
   onSubmit,
   register,
-}: EvaluationProposalFormProps) => {
+}: EvaluationFormProps) => {
   return (
     <Box mt="30px">
       <Box>

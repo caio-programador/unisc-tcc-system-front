@@ -3,6 +3,8 @@ export const AppQueryKeys = {
   USERS: 'users',
   ONE_USER: 'one-user',
   TCCS: 'tccs',
+  TCC_RELATIONSHIP: 'tccRelationship',
+  DELIVERIES: 'deliveries',
 } as const;
 
 export const AppMutationKeys = {

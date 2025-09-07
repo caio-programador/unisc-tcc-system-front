@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import type { DeliveryFormProps } from "../types";
+import { MdDownload } from "react-icons/md";
 
 export const DeliveryForm = ({
   onSubmit,
@@ -22,10 +23,14 @@ export const DeliveryForm = ({
   deliveryData,
   deliveryType,
   deliveryForm,
+  defaultTitle,
+  onDownloadFile,
 }: DeliveryFormProps) => {
-
-  const { formState: { errors }, handleSubmit, setValue, getValues } = deliveryForm;
-
+  const {
+    formState: { errors },
+    handleSubmit,
+    setValue,
+  } = deliveryForm;
 
   return (
     <Card.Root
@@ -40,7 +45,12 @@ export const DeliveryForm = ({
         </Text>
       </Card.Header>
       <Card.Body>
-        <Box as="form" onSubmit={handleSubmit((data) => onSubmit(data, deliveryType, deliveryData?.id))}>
+        <Box
+          as="form"
+          onSubmit={handleSubmit((data) =>
+            onSubmit(data, deliveryType, deliveryData?.id)
+          )}
+        >
           <VStack gap={4} align="stretch">
             <Field.Root invalid={Boolean(errors.title)}>
               <Field.Label htmlFor="title" color="textPrimary">
@@ -49,7 +59,7 @@ export const DeliveryForm = ({
               <Input
                 disabled={disabledSomeAssets}
                 id="title"
-                defaultValue={getValues("title")}
+                defaultValue={defaultTitle}
                 placeholder="Digite o título do seu TCC"
                 onChange={(e) => setValue("title", e.target.value)}
                 color="textPrimary"
@@ -63,7 +73,8 @@ export const DeliveryForm = ({
               <Field.Label htmlFor="file" color="textPrimary">
                 Arquivo
               </Field.Label>
-              <Input
+              <Box position="relative" width="100%" height="100px">
+                <Input
                   disabled={disabledSomeAssets}
                   id="file"
                   type="file"
@@ -75,10 +86,8 @@ export const DeliveryForm = ({
                   width="100%"
                   height="80px"
                   cursor="pointer"
-                  zIndex={5}
+                  zIndex={2}
                 />
-              <Box position="relative" width="100%" height="100px">
-                
                 <Box
                   as="div"
                   bg="background"
@@ -117,6 +126,10 @@ export const DeliveryForm = ({
                           zIndex={3}
                           p={0.5}
                           m={0.5}
+                          _hover={{
+                            color: "red.500",
+                            backgroundColor: "red.500",
+                          }}
                           alignItems="center"
                           justifyContent="center"
                         >
@@ -142,6 +155,18 @@ export const DeliveryForm = ({
                 </Field.ErrorText>
               )}
             </Field.Root>
+            {Boolean(deliveryData?.bucketFileKey) && (
+              <Button
+                type="button"
+                className="download-file-button"
+                onClick={() =>
+                  onDownloadFile(deliveryData?.bucketFileKey || "")
+                }
+                _hover={{ background: "#125a54 !important" }}
+              >
+                Baixar <MdDownload />
+              </Button>
+            )}
             {Boolean(buttonText) && !disabledSomeAssets && (
               <Button
                 type="submit"
@@ -149,7 +174,6 @@ export const DeliveryForm = ({
                 loadingText="Publicando..."
                 bg="textPrimary"
                 color="background"
-                _hover={{ transform: "scale(1.03)" }}
               >
                 {buttonText}
               </Button>

@@ -3,7 +3,6 @@ import { AppBreadcrumbs } from "../../../components/global/app-breadcrumbs";
 import type { TCCDetailsProps } from "../types";
 import { RoutesUrl } from "../../../types/Router";
 import { TCCSteps } from "../components/tcc-steps.component";
-import { EvaluationForm } from "../components/evaluation-form.component";
 
 export const TCCDetails = ({
   redirect,
@@ -13,6 +12,7 @@ export const TCCDetails = ({
   isLoading,
   loggedUser,
   deliveriesData,
+  defaultTitle,
   onSubmit,
   onFileChange,
   onRemoveFile,
@@ -28,6 +28,8 @@ export const TCCDetails = ({
 
         <VStack gap={6} align="stretch" mt={6}>
           <TCCSteps
+            evaluationDeliveryForm={evaluationDeliveryForm}
+            defaultTitle={defaultTitle}
             onDownloadFile={onDownloadFile}
             deliveriesData={deliveriesData}
             deliveryForm={deliveryForm}
@@ -38,14 +40,6 @@ export const TCCDetails = ({
             onRemoveFile={onRemoveFile}
             loggedUser={loggedUser}
           />
-
-          {loggedUser?.role === "PROFESSOR" && (
-            <EvaluationForm
-              onSubmit={evaluationDeliveryForm.handleSubmit(() => {})}
-              register={evaluationDeliveryForm.register}
-              errors={evaluationDeliveryForm.formState.errors}
-            />
-          )}
         </VStack>
       </Box>
     </Container>

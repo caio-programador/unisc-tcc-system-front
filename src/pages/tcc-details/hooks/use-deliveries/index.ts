@@ -3,6 +3,7 @@ import { DeliverablesAPI } from "../../../../api/Deliverables";
 import type { DeliveryTC } from "../../../../types";
 import type { AxiosError } from "axios";
 import { useHandleError } from "../../../../hooks/use-handle-error";
+import { AppQueryKeys } from "../../../../types/AppQueryKeys";
 
 const getDeliveries = async (tccId?: number) => {
   if (tccId) {
@@ -16,8 +17,11 @@ export const useDeliveries = (tccId?: number) => {
     DeliveryTC[], 
     AxiosError
   >({
-    queryKey: ["deliveries", tccId],
+    queryKey: [AppQueryKeys.DELIVERIES, tccId],
     queryFn: () => getDeliveries(tccId),
+    staleTime: 0,
+    gcTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: true,
   });
 
   useHandleError(error);
