@@ -11,6 +11,7 @@ import TCCDetailsController from "./pages/tcc-details";
 import UserDetailsController from "./pages/user-details";
 import UserListController from "./pages/user-list";
 import TCCListController from "./pages/tcc-list";
+import MeetingsController from "./pages/meetings";
 
 export const AppRouterProvider = () => {
   const routes: Router[] = [
@@ -47,9 +48,13 @@ export const AppRouterProvider = () => {
       element: <TCCListController />,
     },
     {
+      path: RoutesUrl.MEETINGS,
+      element: <MeetingsController />
+    },
+    {
       path: RoutesUrl.ERROR,
       element: <ErrorController />
-    }
+    },
   ]
   return (
     <BrowserRouter>

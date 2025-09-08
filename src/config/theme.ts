@@ -1,5 +1,8 @@
-import { createSystem, defaultConfig, type SystemConfig } from "@chakra-ui/react";
-
+import {
+  createSystem,
+  defaultConfig,
+  type SystemConfig,
+} from "@chakra-ui/react";
 
 const customConfig = {
   theme: {
@@ -19,7 +22,7 @@ const customConfig = {
           1000: "#020e13ff",
         },
         gray: {
-          150: "#bcbcbc", 
+          150: "#bcbcbc",
           900: "#9b9b9bff",
         },
         red: {
@@ -27,7 +30,7 @@ const customConfig = {
         },
         waterGreen: {
           100: "#0d9488",
-        }
+        },
       },
       fonts: {
         body: "system-ui, sans-serif",
@@ -43,7 +46,7 @@ const customConfig = {
         textWithGray: { value: "{colors.gray.150}" },
         info: { value: "{colors.darkBlue.500}" },
         placeholder: { value: "{colors.gray.150}" },
-        skeleton: {value: "{colors.darkBlue.1000}"},
+        skeleton: { value: "{colors.darkBlue.1000}" },
       },
     },
     cssVarsRoot: ":host, :root",
@@ -60,6 +63,19 @@ const customConfig = {
       color: "textPrimary !important",
       opacity: "0.8 !important",
     },
+    ".meeting-input::placeholder": {
+      color: "placeholder !important",
+      opacity: "0.8 !important",
+      "accent-color": "placeholder !important",
+    },
+    ".meeting-input::-webkit-datetime-edit": {
+      color: "background !important",
+    },
+    ".meeting-input:focus": {
+      borderColor: "#e4e4e7 !important",
+      outline: "none !important",
+    },
+    // Estilos para borda do input quando focado
     // Estilos para Select.ItemText - sempre darkBlue
     ".chakra-select__itemText": {
       color: "darkBlue.900 !important",
@@ -96,12 +112,22 @@ const customConfig = {
     ".download-file-button:hover": {
       backgroundColor: "#125a54 !important",
     },
-
+    ".cancel-button:hover": {
+      backgroundColor: "red.700 !important",
+      color: "textPrimary !important",
+    },
+    ".selection-meeting-not-active": {
+      color: "placeholder !important",
+    },
+    ".selection-meeting-active": {
+      color: "background !important",
+    },
   },
 };
 
-
-const system = createSystem(defaultConfig,
-   customConfig as unknown as SystemConfig);
+const system = createSystem(
+  defaultConfig,
+  customConfig as unknown as SystemConfig
+);
 
 export default system;

@@ -11,6 +11,7 @@ import { QuickSchedule } from "../components/quick-schedule.component";
 import type { HomeProps } from "../types";
 import { Mosaic } from "../components/mosaic.component";
 import { MosaicSkeleton } from "../components/mosaic-skeleton.component";
+import { IoIosLogOut } from "react-icons/io";
 
 export const Home = ({ redirect, user, isLoadingPersonalInfo, logout }: HomeProps) => {
   return (
@@ -31,7 +32,7 @@ export const Home = ({ redirect, user, isLoadingPersonalInfo, logout }: HomeProp
             marginTop={"10px"}
             height={"30px"}
           >
-            Logout
+            Logout <IoIosLogOut />
           </Button>
         </Flex>
 

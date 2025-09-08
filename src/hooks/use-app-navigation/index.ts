@@ -14,7 +14,7 @@ export const useAppNavigation = () => {
         navigate(path, { replace: true });
     }, [navigate]);
 
-    const openWindow = useCallback((path: RouteUrl) => {
+    const openWindow = useCallback((path: string) => {
         window.open(path, "_blank");
     }, []);
 
