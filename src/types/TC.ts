@@ -32,10 +32,9 @@ export type DeliveryType =
 
 export type DeliveryStatus =
   | "APROVADO"
-  | "ADMISSIBILIDADE_REPROVADA"
-  | "AGUARDANDO_ADMISSIBILIDADE"
   | "REPROVADO"
-  | "AGUARDANDO_AVALIACAO";
+  | "AGUARDANDO_AVALIACAO"
+  | "REELABORACAO_REPROVADA";
 
 export interface DeliveryTC {
   id: number;
@@ -62,29 +61,35 @@ export interface AdmissibilityOpinion {
   delivery: DeliveryTC;
 }
 
-export interface Assessment {
+export interface Delivery {
   id: number;
-  delivery: DeliveryTC;
-  introScore: number;
-  goalsScore: number;
-  references: number;
-  sequenceLogic: number;
-  procedures: number;
+  introduction: number;
+  goals: number;
+  bibliographyRevision: number;
   methodology: number;
   total: number;
   comments: string;
-  assessmentDate: string;
-  appraiser: User;
 }
 
-export interface AssessmentBody {
+export interface EvaluationBody {
   deliveryId: number;
-  introScore: number;
-  goalsScore: number;
-  references: number;
-  sequenceLogic: number;
-  procedures: number;
+  introduction: number;
+  goals: number;
+  bibliographyRevision: number;
   methodology: number;
   total: number;
   comments?: string;
+}
+
+export interface EvaluationResponse {
+  id: number;
+  introduction: number;
+  goals: number;
+  bibliographyRevision: number;
+  methodology: number;
+  total: number;
+  comments: string;
+  evaluationDate: string;
+  professor: User;
+  delivery: DeliveryTC;
 }

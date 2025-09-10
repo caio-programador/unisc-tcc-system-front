@@ -19,7 +19,7 @@ export const EvaluationDetails = ({
   evaluatorName,
   evaluationDate,
 }: EvaluationDetailsProps) => {
-  const isApproved = evaluation.total >= 6;
+  const isApproved = evaluation.total >= 7;
   const approvalStatus = isApproved ? "APROVADO" : "REPROVADO";
   const statusColor = isApproved ? "green" : "red";
 
@@ -28,40 +28,28 @@ export const EvaluationDetails = ({
       title: "Introdução",
       description:
         "Justificativa da escolha, relevância do tema e definição clara do problema.",
-      score: evaluation.introScore,
+      score: evaluation.introduction,
       maxScore: 2,
     },
     {
       title: "Definição dos Objetivos",
       description: "Adequação dos objetivos frente ao problema proposto.",
-      score: evaluation.goalsScore,
+      score: evaluation.goals,
       maxScore: 1,
     },
     {
       title: "Revisão Bibliográfica",
       description:
-        "Fundamentação do tema com fontes, citações e atendimentos às normas da UNISC.",
-      score: evaluation.references,
-      maxScore: 2,
-    },
-    {
-      title: "Sequência Lógica",
-      description: "Abordagem sequencial lógica, equilibrada e ordenada.",
-      score: evaluation.sequenceLogic,
-      maxScore: 1,
-    },
-    {
-      title: "Orientação Metodológica - Procedimentos",
-      description: "Procedimentos adequados e bem definidos.",
-      score: evaluation.procedures,
-      maxScore: 2,
+        "Fundamentação do tema com fontes, citações e atendimentos às normas da UNISC. Abordagem sequencial lógica, equilibrada e ordenada.",
+      score: evaluation.bibliographyRevision,
+      maxScore: 3,
     },
     {
       title: "Orientação Metodológica - Coerência",
       description:
-        "Coerência dos objetivos, metodologia e tipo de instrumentos.",
+        "Coerência dos objetivos, metodologia e tipo de instrumentos. Procedimentos adequados e bem definidos",
       score: evaluation.methodology,
-      maxScore: 2,
+      maxScore: 4,
     },
   ];
 
@@ -83,7 +71,7 @@ export const EvaluationDetails = ({
                 <Alert.Description>
                   {isApproved
                     ? "O aluno foi aprovado com a nota obtida."
-                    : "O aluno foi reprovado. Nota mínima necessária: 6.0"}
+                    : "O aluno foi reprovado. Nota mínima necessária: 7.0"}
                 </Alert.Description>
               </Alert.Root>
 
@@ -163,7 +151,11 @@ export const EvaluationDetails = ({
                 <Box key={index}>
                   <HStack justify="space-between" align="start" mb={2}>
                     <VStack align="start" gap={1} flex={1}>
-                      <Text color="textPrimary" fontWeight="semibold" fontSize="md">
+                      <Text
+                        color="textPrimary"
+                        fontWeight="semibold"
+                        fontSize="md"
+                      >
                         {item.title}
                       </Text>
                       <Text fontSize="sm" color="gray.300">
@@ -193,7 +185,7 @@ export const EvaluationDetails = ({
         </Card.Root>
 
         {evaluation.comments && (
-          <Card.Root  background="background" border={0} paddingBottom={10}>
+          <Card.Root background="background" border={0} paddingBottom={10}>
             <Card.Header>
               <Heading size="lg" color="textPrimary">
                 Comentários do Avaliador

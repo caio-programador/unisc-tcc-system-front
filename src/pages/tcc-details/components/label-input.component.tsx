@@ -1,14 +1,14 @@
 import { Input, Field } from "@chakra-ui/react";
 import type { LabelInputProps } from "../types";
+import { Controller } from "react-hook-form";
 
 export const LabelInput = ({
   labelTitle,
   labelDescription,
   id,
   placeholder,
-  register,
   errors,
-  type,
+  control,
 }: LabelInputProps) => {
   const fieldError = errors[id];
   const isInvalid = Boolean(fieldError);
@@ -24,7 +24,18 @@ export const LabelInput = ({
       <Field.Label fontWeight="lighter" mb={2} htmlFor={id}>
         {labelDescription}
       </Field.Label>
-      <Input id={id} {...register(id)} type={type} placeholder={placeholder} />
+      <Controller 
+        control={control}
+        name={id}
+        render={({ field }) => (
+          <Input
+            id={id}
+            placeholder={placeholder}
+            {...field}
+          />
+        )}
+      
+      />
 
       <Field.ErrorText
         animationName="bounce, fade-in"

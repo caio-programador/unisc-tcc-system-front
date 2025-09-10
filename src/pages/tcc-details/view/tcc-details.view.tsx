@@ -3,6 +3,7 @@ import { AppBreadcrumbs } from "../../../components/global/app-breadcrumbs";
 import type { TCCDetailsProps } from "../types";
 import { RoutesUrl } from "../../../types/Router";
 import { TCCSteps } from "../components/tcc-steps.component";
+import { TCCDetailsSkeleton } from "../components/tcc-details-skeleton.component";
 
 export const TCCDetails = ({
   redirect,
@@ -17,7 +18,18 @@ export const TCCDetails = ({
   onFileChange,
   onRemoveFile,
   onDownloadFile,
+  evaluationData,
+  isSubmittingEvaluation,
+  isLoadingAllData,
+  onSubmitEvaluation,
+  evaluationProfessorData,
 }: TCCDetailsProps) => {
+
+  if(isLoadingAllData) {
+    return <TCCDetailsSkeleton />;
+  }
+
+
   return (
     <Container maxW="1200px">
       <Box p={4}>
@@ -39,6 +51,10 @@ export const TCCDetails = ({
             onFileChange={onFileChange}
             onRemoveFile={onRemoveFile}
             loggedUser={loggedUser}
+            evaluationData={evaluationData}
+            isSubmittingEvaluation={isSubmittingEvaluation}
+            onSubmitEvaluation={onSubmitEvaluation}
+            evaluationProfessorData={evaluationProfessorData}
           />
         </VStack>
       </Box>

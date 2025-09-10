@@ -1,11 +1,12 @@
 import type { RouteUrl } from "../../types/Router";
 import type {
+  Control,
   FieldErrors,
   UseFormRegister,
   UseFormReturn,
 } from "react-hook-form";
 import type { EvaluationFormData } from "./hooks/use-evaluation-form/schema";
-import type { DeliveryTC, DeliveryType, User } from "../../types";
+import type { DeliveryTC, DeliveryType, EvaluationResponse, User } from "../../types";
 import type { DeliveryFormData } from "./hooks/use-delivery-form/schema";
 
 export interface TCCDetailsProps {
@@ -25,6 +26,16 @@ export interface TCCDetailsProps {
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemoveFile: () => void;
   onDownloadFile: (key: string) => void;
+  onSubmitEvaluation: (
+    data: EvaluationFormData,
+    deliveryId?: number,
+    thereIsEvaluationData?: boolean,
+    evaluationId?: number,
+  ) => void;
+  isSubmittingEvaluation: boolean;
+  evaluationData: EvaluationResponse[] | undefined;
+  isLoadingAllData: boolean;
+  evaluationProfessorData: EvaluationResponse | undefined;
 }
 
 export interface TCCStepsProps {
@@ -43,6 +54,15 @@ export interface TCCStepsProps {
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemoveFile: () => void;
   onDownloadFile: (key: string) => void;
+  onSubmitEvaluation: (
+    data: EvaluationFormData,
+    deliveryId?: number,
+    thereIsEvaluationData?: boolean,
+    evaluationId?: number,
+  ) => void;
+  isSubmittingEvaluation: boolean;
+  evaluationData: EvaluationResponse[] | undefined;
+  evaluationProfessorData: EvaluationResponse | undefined;
 }
 
 export interface DeliveryFormProps {
@@ -69,16 +89,27 @@ export interface LabelInputProps {
   labelTitle?: string;
   labelDescription: string;
   id: keyof EvaluationFormData & string;
+  control: Control<EvaluationFormData>;
   register: UseFormRegister<EvaluationFormData>;
   errors: FieldErrors<EvaluationFormData>;
   placeholder: string;
-  type: "number" | "text";
 }
 
 export interface EvaluationFormProps {
-  onSubmit: () => void;
+  onSubmitEvaluation: (
+    data: EvaluationFormData,
+    deliveryId?: number,
+    thereIsEvaluationData?: boolean,
+    evaluationId?: number,
+  ) => void;
+  handleSubmit: UseFormReturn<EvaluationFormData>["handleSubmit"];
   register: UseFormRegister<EvaluationFormData>;
+  control: Control<EvaluationFormData>;
   errors: FieldErrors<EvaluationFormData>;
+  isSubmittingEvaluation: boolean;
+  thereIsEvaluationData: boolean;
+  evaluationId?: number;
+  deliveryId?: number;
 }
 
 export interface Steps {
@@ -91,9 +122,8 @@ export interface Steps {
   shouldShowEvaluationDetails: boolean;
 }
 
-
 export interface EvaluationDetailsProps {
-  evaluation: EvaluationFormData;
+  evaluation: EvaluationResponse;
   studentName?: string;
   evaluatorName?: string;
   evaluationDate?: string;

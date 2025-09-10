@@ -66,7 +66,7 @@ const customConfig = {
     ".meeting-input::placeholder": {
       color: "placeholder !important",
       opacity: "0.8 !important",
-      "accent-color": "placeholder !important",
+      "accentColor": "placeholder !important",
     },
     ".meeting-input::-webkit-datetime-edit": {
       color: "background !important",
@@ -122,6 +122,9 @@ const customConfig = {
     ".selection-meeting-active": {
       color: "background !important",
     },
+    ".tcc-details-step div": {
+      color: "background !important",
+    }
   },
 };
 

@@ -11,29 +11,55 @@ import type { DeliveryFormData } from "../hooks/use-delivery-form/schema";
 import { useTCCRelationship } from "../../../hooks/use-tcc-relationship";
 import type { DeliveryType } from "../../../types";
 import { useDownloadFile } from "../hooks/use-download-file";
+import { useGetEvaluation } from "../hooks/use-get-evaluation";
+import { useSubmitEvaluation } from "../hooks/use-submit-evaluation";
+import { useEvaluationProfessor } from "../hooks/use-evaluation-professor";
 
 export default function TCCDetailsController() {
   const { redirect } = useAppNavigation();
-  const evaluationDeliveryForm = useEvaluationForm();
   const { submitDelivery, isLoading } = useSubmitDelivery();
   const [searchParams] = useSearchParams();
   const tccId = searchParams.get("tccId");
-  const { data: loggedUser } = usePersonalInfo();
+  const userId = searchParams.get("userId");
+  const { data: loggedUser, isLoading: isLoadingLoggedUser } =
+    usePersonalInfo();
   const [selectedFileName, setSelectedFileName] = useState<string>();
-  const { deliveriesData } = useDeliveries(
+  const { deliveriesData, isLoading: isLoadingDeliveries } = useDeliveries(
     Number(tccId)
   );
-  const { data: tccData } = useTCCRelationship(
-    loggedUser?.id,
-    !tccId && loggedUser?.id !== undefined
+  const { data: tccData, isLoading: isLoadingTCCData } = useTCCRelationship(
+    Number(userId ?? loggedUser?.id),
+    true
   );
   const { handleDownloadFile } = useDownloadFile();
 
   const deliveryForm = useDeliveryForm({
-    file: deliveriesData?.[0]?.bucketFileKey ?  (new File([], deliveriesData?.[0]?.bucketFileKey as string) as File): undefined as unknown as File,
+    file: deliveriesData?.[0]?.bucketFileKey
+      ? (new File([], deliveriesData?.[0]?.bucketFileKey as string) as File)
+      : (undefined as unknown as File),
     title: tccData?.tccTitle || "",
   });
   const file = deliveryForm.watch("file");
+
+  const { evaluationData, isLoading: isLoadingEvaluationData } =
+    useGetEvaluation(deliveriesData?.[0]?.id);
+
+  const { data: evaluationProfessorData } = useEvaluationProfessor(
+    deliveriesData?.[0]?.id,
+    loggedUser?.id,
+    loggedUser?.id === tccData?.professor.id
+  );
+
+  const evaluationDeliveryForm = useEvaluationForm({
+    bibliographyRevision: evaluationProfessorData?.bibliographyRevision.toString() || "",
+    goals: evaluationProfessorData?.goals.toString() || "",
+    introduction: evaluationProfessorData?.introduction.toString() || "",
+    methodology: evaluationProfessorData?.methodology.toString() || "",
+    total: evaluationProfessorData?.total.toString() || "",
+    comments: evaluationProfessorData?.comments || "",
+  });
+  const { submitEvaluation, isCreating } = useSubmitEvaluation();
+
   const handleSubmitProposal = useCallback(
     async (
       deliveryData: DeliveryFormData,
@@ -48,8 +74,9 @@ export default function TCCDetailsController() {
   useEffect(() => {
     if (tccData) deliveryForm.setValue("title", tccData.tccTitle);
     if (file) setSelectedFileName(file.name);
-    if(deliveriesData?.[0]?.bucketFileKey) setSelectedFileName(deliveriesData?.[0]?.bucketFileKey);
-  }, [deliveriesData, deliveryForm, file, tccData]);
+    if (!selectedFileName && deliveriesData?.[0]?.bucketFileKey)
+      setSelectedFileName(deliveriesData?.[0]?.bucketFileKey);
+  }, [deliveriesData, deliveryForm, file, selectedFileName, tccData]);
 
   const handleFileChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,6 +126,16 @@ export default function TCCDetailsController() {
       onRemoveFile={handleRemoveFile}
       onDownloadFile={handleDownloadFile}
       defaultTitle={tccData?.tccTitle ?? deliveriesData?.[0]?.tcc?.tccTitle}
+      evaluationData={evaluationData}
+      isSubmittingEvaluation={isCreating}
+      onSubmitEvaluation={submitEvaluation}
+      isLoadingAllData={
+        isLoadingLoggedUser ||
+        isLoadingDeliveries ||
+        isLoadingTCCData ||
+        isLoadingEvaluationData
+      }
+      evaluationProfessorData={evaluationProfessorData}
     />
   );
 }

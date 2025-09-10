@@ -6,19 +6,8 @@ import { DeliveryForm } from "./delivery-form.component";
 import { useScreenSize } from "../../../hooks/use-screen-size";
 import { useMemo } from "react";
 import { EvaluationForm } from "./evaluation-form.component";
-import type { EvaluationFormData } from "../hooks/use-evaluation-form/schema";
 import { EvaluationDetails } from "./evaluation-details.component";
-
-const evaluationData: EvaluationFormData | undefined = {
-  introScore: 1.8,
-  goalsScore: 0.9,
-  references: 1.5,
-  sequenceLogic: 0.8,
-  procedures: 1.7,
-  methodology: 1.6,
-  total: 8.3,
-  comments: "Ótimo trabalho!",
-};
+import { formatDate } from "../../../utils/format-date";
 
 export const TCCSteps = ({
   deliveriesData,
@@ -32,6 +21,10 @@ export const TCCSteps = ({
   onFileChange,
   onRemoveFile,
   onDownloadFile,
+  onSubmitEvaluation,
+  isSubmittingEvaluation,
+  evaluationData,
+  evaluationProfessorData,
 }: TCCStepsProps) => {
   const currentStep = useMemo(() => {
     return getCurrentStep(deliveriesData || []);
@@ -54,7 +47,9 @@ export const TCCSteps = ({
       <Steps.List marginRight={isMobile ? 8 : 0}>
         {steps.map((step) => (
           <Steps.Item key={step.id} index={step.id}>
-            <Steps.Indicator />
+            <Steps.Indicator
+              className={currentStep === step.id ? "tcc-details-step" : ""}
+            />
             <Steps.Separator />
           </Steps.Item>
         ))}
@@ -83,19 +78,28 @@ export const TCCSteps = ({
 
           {loggedUser?.id === deliveriesData?.[0]?.tcc.professor.id ? (
             <EvaluationForm
-              onSubmit={evaluationDeliveryForm.handleSubmit(() => {})}
+              control={evaluationDeliveryForm.control}
+              onSubmitEvaluation={onSubmitEvaluation}
+              handleSubmit={evaluationDeliveryForm.handleSubmit}
               register={evaluationDeliveryForm.register}
               errors={evaluationDeliveryForm.formState.errors}
+              isSubmittingEvaluation={isSubmittingEvaluation}
+              thereIsEvaluationData={Boolean(evaluationProfessorData)}
+              evaluationId={evaluationProfessorData?.id}
+              deliveryId={lastDelivery?.id}
             />
           ) : (
-            evaluationData && (
+            evaluationData &&
+            step.shouldShowEvaluationDetails &&
+            evaluationData?.length > 0 ? (
+            evaluationData.map((evaluation) => (
               <EvaluationDetails
-                evaluation={evaluationData}
-                studentName="João Silva" 
-                evaluatorName="Prof. Dr. Maria Santos"
-                evaluationDate="15/03/2024" 
+                evaluation={evaluation}
+                studentName={evaluation.delivery.tcc.student.name}
+                evaluatorName={evaluation.delivery.tcc.professor.name}
+                evaluationDate={formatDate(evaluation.evaluationDate)}
               />
-            )
+            ))) : null
           )}
         </Steps.Content>
       ))}

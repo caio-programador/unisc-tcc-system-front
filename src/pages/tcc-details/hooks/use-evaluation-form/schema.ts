@@ -1,13 +1,27 @@
 import z from "zod";
 
+const createNumberFieldSchema = (min: number, max: number, errorMessage: string) => {
+  return z
+    .string()
+    .refine((val) => val.trim() !== "", "Este campo é obrigatório")
+    .refine((val) => {
+      const normalizedVal = val.replace(",", ".");
+      const num = parseFloat(normalizedVal);
+      return !isNaN(num);
+    }, "Deve ser um número válido")
+    .refine((val) => {
+      const normalizedVal = val.replace(",", ".");
+      const num = parseFloat(normalizedVal);
+      return num >= min && num <= max;
+    }, errorMessage);
+};
+
 export const evaluationFormSchema = z.object({
-  introScore: z.number().min(0).max(2, "A nota deve ser entre 0 e 2"),
-  goalsScore: z.number().min(0).max(1, "A nota deve ser entre 0 e 1"),
-  references: z.number().min(0).max(2, "A nota deve ser entre 0 e 2"),
-  sequenceLogic: z.number().min(0).max(1, "A nota deve ser entre 0 e 1"),
-  procedures: z.number().min(0).max(2, "A nota deve ser entre 0 e 2"),
-  methodology: z.number().min(0).max(2, "A nota deve ser entre 0 e 2"),
-  total: z.number().min(0).max(10, "A nota total deve ser entre 0 e 10"),
+  introduction: createNumberFieldSchema(0, 2, "A nota deve ser entre 0 e 2"),
+  goals: createNumberFieldSchema(0, 1, "A nota deve ser entre 0 e 1"),
+  bibliographyRevision: createNumberFieldSchema(0, 3, "A nota deve ser entre 0 e 3"),
+  methodology: createNumberFieldSchema(0, 4, "A nota deve ser entre 0 e 4"),
+  total: createNumberFieldSchema(0, 10, "A nota total deve ser entre 0 e 10"),
   comments: z.string().optional(),
 });
 
