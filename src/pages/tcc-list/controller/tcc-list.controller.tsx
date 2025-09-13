@@ -6,13 +6,10 @@ import { useTCCs } from "../hooks/use-tccs";
 import { useCallback, useState } from "react";
 import { useDeleteTCC } from "../hooks/use-delete-tcc";
 import { toaster } from "../../../utils/toaster";
-import { useSearchParams } from "react-router-dom";
 
 export default function TCCListController() {
   const { data: currentUser } = usePersonalInfo();
   const { redirect } = useAppNavigation();
-  const [searchParams] = useSearchParams();
-  const isProfessor = searchParams.get("isProfessor") as unknown as boolean;
   const [searchTerm, setSearchTerm] = useState<string>();
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -20,7 +17,7 @@ export default function TCCListController() {
     name: searchTerm,
     page: currentPage - 1,
     size: pageSize,
-  }, isProfessor);
+  });
   const { mutate: deleteTCC } = useDeleteTCC();
 
   const handleSearchChange = useCallback((value: string) => {
@@ -60,7 +57,7 @@ export default function TCCListController() {
       isLoadingTCCData={isLoadingTCCData}
       pageSize={pageSize}
       currentPage={currentPage}
-      isProfessor={isProfessor}
+      isProfessor={currentUser?.role === "PROFESSOR"}
       handleChangeSearchTerm={handleSearchChange}
       redirect={redirect}
       handleDeleteTCC={handleDeleteTCC}

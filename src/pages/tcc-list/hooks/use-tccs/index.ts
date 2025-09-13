@@ -5,20 +5,13 @@ import { useHandleError } from "../../../../hooks/use-handle-error";
 import type { PageableResponse } from "../../../../types/Pageable";
 import type { AxiosError } from "axios";
 
-const getTCCs = async (params: TCCRequest, isProfessor: boolean) => {
-  if (isProfessor) {
-    return TCCRelationshipsAPI.getTCCsByProfessor(params);
-  }
-  return TCCRelationshipsAPI.getAllTCCRelationships(params);
-};
-
-export const useTCCs = (params: TCCRequest, isProfessor: boolean) => {
+export const useTCCs = (params: TCCRequest) => {
   const { data, isLoading, error } = useQuery<
     PageableResponse<TCCResponse>,
     AxiosError
   >({
-    queryKey: [params, isProfessor],
-    queryFn: () => getTCCs(params, isProfessor),
+    queryKey: [params],
+    queryFn: () => TCCRelationshipsAPI.getAllTCCRelationships(params),
     enabled: params.size !== 0,
   });
 
