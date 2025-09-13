@@ -7,7 +7,7 @@ import { AppQueryKeys } from "../../types/AppQueryKeys";
 
 export const useTCCRelationship = (studentId: number | undefined, enabled: boolean) => {
   const { data, isLoading, error, refetch } = useQuery<TCCResponse, AxiosError>({
-    queryKey: [studentId, AppQueryKeys.TCC_RELATIONSHIP],
+    queryKey: [AppQueryKeys.TCC_RELATIONSHIP, studentId],
     queryFn: () =>
       TCCRelationshipsAPI.getOneTCCRelationshipByStudentId(studentId!),
     enabled,

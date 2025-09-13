@@ -44,6 +44,8 @@ export default function UserDetailsController() {
       ? new Date(tccData.tccDeliveryDate)
       : undefined,
     orientador: String(tccData?.professor?.id),
+    professor2: String(tccData?.defensePanel?.professor2Id),
+    professor3: String(tccData?.defensePanel?.professor3Id),
   });
 
   const handleErrorTCC = useCallback(() => {
@@ -77,6 +79,8 @@ export default function UserDetailsController() {
         {
           body: {
             professorId: Number(data.orientador),
+            professor2Id: Number(data.professor2),
+            professor3Id: Number(data.professor3),
             studentId: userData!.id,
             proposalDeliveryDate: data.dataFinalEntregaProposta.toISOString(),
             tccDeliveryDate: data.dataFinalEntregaTCC.toISOString(),

@@ -1,6 +1,6 @@
 import { useAppNavigation } from "../../../hooks/use-app-navigation";
 import { TCCDetails } from "../view/tcc-details.view";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useEvaluationForm } from "../hooks/use-evaluation-form";
 import { usePersonalInfo } from "../../../hooks/use-personal-info";
 import { useDeliveries } from "../hooks/use-deliveries";
@@ -14,6 +14,8 @@ import { useDownloadFile } from "../hooks/use-download-file";
 import { useGetEvaluation } from "../hooks/use-get-evaluation";
 import { useSubmitEvaluation } from "../hooks/use-submit-evaluation";
 import { useEvaluationProfessor } from "../hooks/use-evaluation-professor";
+import { getCurrentStep } from "../utils/get-current-step";
+import { useChangeAdmissibility } from "../hooks/use-change-admissibility";
 
 export default function TCCDetailsController() {
   const { redirect } = useAppNavigation();
@@ -24,38 +26,45 @@ export default function TCCDetailsController() {
   const { data: loggedUser, isLoading: isLoadingLoggedUser } =
     usePersonalInfo();
   const [selectedFileName, setSelectedFileName] = useState<string>();
+  const [isRemoved, setIsRemoved] = useState(false);
   const { deliveriesData, isLoading: isLoadingDeliveries } = useDeliveries(
     Number(tccId)
   );
   const { data: tccData, isLoading: isLoadingTCCData } = useTCCRelationship(
-    Number(userId ?? loggedUser?.id),
-    true
+    userId ? Number(userId) : loggedUser?.id,
+    Boolean(loggedUser) || Boolean(userId)
   );
   const { handleDownloadFile } = useDownloadFile();
 
-  const deliveryForm = useDeliveryForm({
-    file: deliveriesData?.[0]?.bucketFileKey
-      ? (new File([], deliveriesData?.[0]?.bucketFileKey as string) as File)
-      : (undefined as unknown as File),
-    title: tccData?.tccTitle || "",
-  });
-  const file = deliveryForm.watch("file");
+  const { currentStep, isTotallyReproved, thereIsNotTCC } = useMemo(() => {
+    return getCurrentStep({
+      deliveriesData: deliveriesData,
+      tccData: tccData,
+    });
+  }, [deliveriesData, tccData]);
+
+  const deliveryForm = useDeliveryForm();
+
+  const { changeAdmissibility, isPendingChangeAdmissibility } =
+    useChangeAdmissibility(tccData?.id);
 
   const { evaluationData, isLoading: isLoadingEvaluationData } =
-    useGetEvaluation(deliveriesData?.[0]?.id);
+    useGetEvaluation(deliveriesData?.[0]?.id, currentStep === 4);
 
   const { data: evaluationProfessorData } = useEvaluationProfessor(
     deliveriesData?.[0]?.id,
     loggedUser?.id,
-    loggedUser?.id === tccData?.professor.id
+    loggedUser?.id === tccData?.professor.id &&
+      Boolean(loggedUser) &&
+      deliveriesData!.length > 0
   );
 
   const evaluationDeliveryForm = useEvaluationForm({
-    bibliographyRevision: evaluationProfessorData?.bibliographyRevision.toString() || "",
+    bibliographyRevision:
+      evaluationProfessorData?.bibliographyRevision.toString() || "",
     goals: evaluationProfessorData?.goals.toString() || "",
     introduction: evaluationProfessorData?.introduction.toString() || "",
     methodology: evaluationProfessorData?.methodology.toString() || "",
-    total: evaluationProfessorData?.total.toString() || "",
     comments: evaluationProfessorData?.comments || "",
   });
   const { submitEvaluation, isCreating } = useSubmitEvaluation();
@@ -72,11 +81,23 @@ export default function TCCDetailsController() {
   );
 
   useEffect(() => {
-    if (tccData) deliveryForm.setValue("title", tccData.tccTitle);
-    if (file) setSelectedFileName(file.name);
-    if (!selectedFileName && deliveriesData?.[0]?.bucketFileKey)
+    if (
+      currentStep !== 4 &&
+      !selectedFileName &&
+      deliveriesData?.[0]?.bucketFileKey &&
+      !isRemoved
+    )
       setSelectedFileName(deliveriesData?.[0]?.bucketFileKey);
-  }, [deliveriesData, deliveryForm, file, selectedFileName, tccData]);
+  }, [currentStep, deliveriesData, isRemoved, selectedFileName]);
+
+  useEffect(() => {
+    if (currentStep === 4) {
+      deliveryForm.reset();
+      setSelectedFileName(undefined);
+    }
+    if (tccData && tccData.tccTitle)
+      deliveryForm.setValue("title", tccData.tccTitle);
+  }, [currentStep, deliveryForm, tccData]);
 
   const handleFileChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,6 +122,7 @@ export default function TCCDetailsController() {
         }
 
         deliveryForm.setValue("file", file);
+        setSelectedFileName(file.name);
         deliveryForm.clearErrors("file");
       }
     },
@@ -110,10 +132,12 @@ export default function TCCDetailsController() {
   const handleRemoveFile = useCallback(() => {
     setSelectedFileName(undefined);
     deliveryForm.setValue("file", undefined as unknown as File);
+    setIsRemoved(true);
   }, [deliveryForm]);
 
   return (
     <TCCDetails
+      tccData={tccData}
       loggedUser={loggedUser}
       deliveriesData={deliveriesData}
       redirect={redirect}
@@ -125,7 +149,7 @@ export default function TCCDetailsController() {
       onFileChange={handleFileChange}
       onRemoveFile={handleRemoveFile}
       onDownloadFile={handleDownloadFile}
-      defaultTitle={tccData?.tccTitle ?? deliveriesData?.[0]?.tcc?.tccTitle}
+      defaultTitle={tccData?.tccTitle}
       evaluationData={evaluationData}
       isSubmittingEvaluation={isCreating}
       onSubmitEvaluation={submitEvaluation}
@@ -136,6 +160,12 @@ export default function TCCDetailsController() {
         isLoadingEvaluationData
       }
       evaluationProfessorData={evaluationProfessorData}
+      currentStep={currentStep}
+      isTotallyReproved={isTotallyReproved}
+      thereIsNotTCC={thereIsNotTCC}
+      currentAdmissibility={tccData?.admissibility ?? "PENDING"}
+      onChangeAdmissibility={changeAdmissibility}
+      isPendingChangeAdmissibility={isPendingChangeAdmissibility}
     />
   );
 }

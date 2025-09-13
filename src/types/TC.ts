@@ -1,5 +1,17 @@
 import type { User } from ".";
 
+
+export interface DefensePanel {
+  professor1Id: number;
+  professor1Name: string;
+  professor2Id: number;
+  professor2Name: string;
+  professor3Id: number;
+  professor3Name: string;
+}
+
+export type Admissibility = "APPROVED" | "REJECTED" | "PENDING";
+
 export interface TCCResponse {
   id: number;
   tccTitle: string;
@@ -9,6 +21,8 @@ export interface TCCResponse {
   tccAssessmentDate: string;
   professor: User;
   student: User;
+  defensePanel: DefensePanel;
+  admissibility: Admissibility;
 }
 
 export interface TCCRequest {
@@ -22,6 +36,8 @@ export interface TCCCreate {
   tccDeliveryDate: string;
   professorId: number;
   studentId: number;
+  professor2Id: number;
+  professor3Id: number;
 }
 
 export type DeliveryType =
@@ -38,11 +54,13 @@ export type DeliveryStatus =
 
 export interface DeliveryTC {
   id: number;
-  tcc: TCCResponse;
+  tccId: number;
   deliveryType: DeliveryType;
   deliveryDate: string;
   bucketFileKey: string;
   deliveryStatus: DeliveryStatus;
+  quantityEvaluations: number;
+  averageScore: number;
 }
 
 export interface CreateDeliveryTC {
@@ -77,7 +95,6 @@ export interface EvaluationBody {
   goals: number;
   bibliographyRevision: number;
   methodology: number;
-  total: number;
   comments?: string;
 }
 

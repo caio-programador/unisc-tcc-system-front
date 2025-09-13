@@ -7,7 +7,6 @@ import {
   VStack,
   HStack,
   Separator,
-  Alert,
   Grid,
   GridItem,
 } from "@chakra-ui/react";
@@ -20,7 +19,6 @@ export const EvaluationDetails = ({
   evaluationDate,
 }: EvaluationDetailsProps) => {
   const isApproved = evaluation.total >= 7;
-  const approvalStatus = isApproved ? "APROVADO" : "REPROVADO";
   const statusColor = isApproved ? "green" : "red";
 
   const evaluationItems = [
@@ -54,7 +52,7 @@ export const EvaluationDetails = ({
   ];
 
   return (
-    <Box maxW="4xl" mx="auto" p={6} mt={6}>
+    <Box mx="auto" mt={6}>
       <VStack gap={6} align="stretch">
         <Card.Root background="background" border={0}>
           <Card.Body>
@@ -62,22 +60,10 @@ export const EvaluationDetails = ({
               <Heading size="xl" color="textPrimary" textAlign="center">
                 Detalhes da Avaliação
               </Heading>
-
-              <Alert.Root
-                status={isApproved ? "success" : "error"}
-                colorPalette={statusColor}
-              >
-                <Alert.Title>Resultado: {approvalStatus}</Alert.Title>
-                <Alert.Description>
-                  {isApproved
-                    ? "O aluno foi aprovado com a nota obtida."
-                    : "O aluno foi reprovado. Nota mínima necessária: 7.0"}
-                </Alert.Description>
-              </Alert.Root>
-
               <Grid
                 templateColumns="repeat(auto-fit, minmax(200px, 1fr))"
                 gap={4}
+                mt={6}
               >
                 {studentName && (
                   <GridItem>

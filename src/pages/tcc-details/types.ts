@@ -6,7 +6,7 @@ import type {
   UseFormReturn,
 } from "react-hook-form";
 import type { EvaluationFormData } from "./hooks/use-evaluation-form/schema";
-import type { DeliveryTC, DeliveryType, EvaluationResponse, User } from "../../types";
+import type { Admissibility, DeliveryTC, DeliveryType, EvaluationResponse, TCCResponse, User } from "../../types";
 import type { DeliveryFormData } from "./hooks/use-delivery-form/schema";
 
 export interface TCCDetailsProps {
@@ -36,6 +36,13 @@ export interface TCCDetailsProps {
   evaluationData: EvaluationResponse[] | undefined;
   isLoadingAllData: boolean;
   evaluationProfessorData: EvaluationResponse | undefined;
+  currentStep: number;
+  thereIsNotTCC: boolean;
+  isTotallyReproved: boolean;
+  onChangeAdmissibility: (admissibility: Admissibility) => void;
+  currentAdmissibility: Admissibility;
+  isPendingChangeAdmissibility: boolean;
+  tccData: TCCResponse | undefined;
 }
 
 export interface TCCStepsProps {
@@ -63,6 +70,11 @@ export interface TCCStepsProps {
   isSubmittingEvaluation: boolean;
   evaluationData: EvaluationResponse[] | undefined;
   evaluationProfessorData: EvaluationResponse | undefined;
+  currentStep: number;
+  onChangeAdmissibility: (admissibility: Admissibility) => void;
+  currentAdmissibility: Admissibility;
+  isPendingChangeAdmissibility: boolean;
+  tccData: TCCResponse | undefined;
 }
 
 export interface DeliveryFormProps {
@@ -83,6 +95,13 @@ export interface DeliveryFormProps {
   deliveryType?: DeliveryType;
   deliveryForm: UseFormReturn<DeliveryFormData>;
   defaultTitle: string | undefined;
+  onChangeAdmissibility: (admissibility: Admissibility) => void;
+  currentAdmissibility: Admissibility;
+  isPendingChangeAdmissibility: boolean;
+  isAdvisor: boolean;
+  shouldShowDeliveryForm: boolean | undefined;
+  shouldShowChangeAdmissibility: boolean;
+  shouldShowDonwnloadFileButton?: boolean;
 }
 
 export interface LabelInputProps {
@@ -120,6 +139,10 @@ export interface Steps {
   buttonText?: string;
   deliveryType?: DeliveryType;
   shouldShowEvaluationDetails: boolean;
+  shouldShowDeliveryForm?: boolean;
+  shouldShowEvaluationForm?: boolean;
+  shouldShowChangeAdmissibility: boolean;
+  shouldShowDonwnloadFileButton?: boolean;
 }
 
 export interface EvaluationDetailsProps {
@@ -127,4 +150,32 @@ export interface EvaluationDetailsProps {
   studentName?: string;
   evaluatorName?: string;
   evaluationDate?: string;
+}
+
+export interface GetCurrentStepProps {
+  deliveriesData: DeliveryTC[] | undefined;
+  tccData: TCCResponse | undefined;
+}
+
+export interface GetCurrentStepReturn {
+  currentStep: number;
+  isTotallyReproved: boolean;
+  thereIsNotTCC: boolean;
+  shouldUseNewForm?: boolean;
+}
+
+export interface TotallyReprovedProps {
+  deliveryType: DeliveryType;
+}
+
+export interface ChangeAdmissibilityProps {
+  onChangeAdmissibility: (admissibility: Admissibility) => void;
+  currentAdmissibility: Admissibility;
+  isPendingChangeAdmissibility: boolean;
+}
+
+export interface EvaluationSummaryProps {
+  quantityEvaluations?: number;
+  averageScore?: number;
+  maxEvaluations?: number;
 }

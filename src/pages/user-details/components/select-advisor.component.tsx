@@ -3,8 +3,15 @@ import { Controller } from "react-hook-form";
 import type { SelectAdvisorProps } from "../types";
 import { useMemo } from "react";
 
-export const SelectAdvisor = ({ control, errors, advisor, professors }: SelectAdvisorProps) => {
-  const orientadoresCollection = useMemo(() => {    
+export const SelectAdvisor = ({
+  control,
+  errors,
+  advisor,
+  professors,
+  label,
+  id,
+}: SelectAdvisorProps) => {
+  const professoresCollection = useMemo(() => {
     return createListCollection({
       items: professors!.map((professor) => ({
         value: String(professor.id),
@@ -12,16 +19,22 @@ export const SelectAdvisor = ({ control, errors, advisor, professors }: SelectAd
       })),
     });
   }, [professors]);
+
+  const fieldError = errors[id];
+  const placeholderText = id === "orientador" 
+    ? "Selecione o orientador" 
+    : `Selecione o ${label.toLowerCase()}`;
+
   return (
-    <Field.Root invalid={!!errors.orientador}>
-      <Field.Label>Orientador:</Field.Label>
+    <Field.Root invalid={!!fieldError}>
+      <Field.Label>{label}:</Field.Label>
 
       <Controller
         control={control}
-        name="orientador"
+        name={id}
         render={({ field: { onChange, onBlur, value } }) => (
           <Select.Root
-            collection={orientadoresCollection}
+            collection={professoresCollection}
             size="md"
             onValueChange={(details) => onChange(details.value[0])}
             onBlur={onBlur}
@@ -31,7 +44,7 @@ export const SelectAdvisor = ({ control, errors, advisor, professors }: SelectAd
               <Select.Trigger>
                 <Select.ValueText
                   opacity={1}
-                  placeholder={advisor ? advisor : "Selecione o orientador"}
+                  placeholder={advisor ? advisor : placeholderText}
                 />
               </Select.Trigger>
 
@@ -42,7 +55,7 @@ export const SelectAdvisor = ({ control, errors, advisor, professors }: SelectAd
             <Portal>
               <Select.Positioner>
                 <Select.Content>
-                  {orientadoresCollection.items.map((option) => (
+                  {professoresCollection.items.map((option) => (
                     <Select.Item key={option.value} item={option.value}>
                       <Select.ItemText>{option.label}</Select.ItemText>
                     </Select.Item>
@@ -53,8 +66,8 @@ export const SelectAdvisor = ({ control, errors, advisor, professors }: SelectAd
           </Select.Root>
         )}
       />
-      {errors.orientador && (
-        <Field.ErrorText>{errors.orientador.message}</Field.ErrorText>
+      {fieldError && (
+        <Field.ErrorText>{fieldError.message}</Field.ErrorText>
       )}
     </Field.Root>
   );

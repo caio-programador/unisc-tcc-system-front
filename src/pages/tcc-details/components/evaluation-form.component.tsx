@@ -76,15 +76,6 @@ export const EvaluationForm = ({
           labelDescription="Procedimentos adequados e bem definidos. Coerência dos objetivos, metodologia e tipo de instrumentos."
           placeholder="Nota (0 a 4)"
         />
-        <LabelInput
-          errors={errors}
-          id="total"
-          register={register}
-          control={control}
-          labelTitle="Resumo das Notas"
-          labelDescription="Adequação dos objetivos frente ao problema proposto."
-          placeholder="Nota total (0 a 10)"
-        />
         <Field.Root>
           <Field.Label fontSize="medium" mb={3} htmlFor="comments">
             Comentários (opcional)

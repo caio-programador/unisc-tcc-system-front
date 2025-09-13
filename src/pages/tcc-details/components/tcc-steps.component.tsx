@@ -1,13 +1,13 @@
 import { Heading, Steps } from "@chakra-ui/react";
 import { steps } from "../utils/steps";
 import type { TCCStepsProps } from "../types";
-import { getCurrentStep } from "../utils/get-current-step";
 import { DeliveryForm } from "./delivery-form.component";
 import { useScreenSize } from "../../../hooks/use-screen-size";
 import { useMemo } from "react";
 import { EvaluationForm } from "./evaluation-form.component";
 import { EvaluationDetails } from "./evaluation-details.component";
 import { formatDate } from "../../../utils/format-date";
+import { EvaluationSummary } from "./evaluation-summary.component";
 
 export const TCCSteps = ({
   deliveriesData,
@@ -25,16 +25,25 @@ export const TCCSteps = ({
   isSubmittingEvaluation,
   evaluationData,
   evaluationProfessorData,
+  currentStep,
+  currentAdmissibility,
+  onChangeAdmissibility,
+  isPendingChangeAdmissibility,
+  tccData,
 }: TCCStepsProps) => {
-  const currentStep = useMemo(() => {
-    return getCurrentStep(deliveriesData || []);
-  }, [deliveriesData]);
-
   const lastDelivery = useMemo(() => {
     return deliveriesData?.[0];
   }, [deliveriesData]);
 
   const { isMobile } = useScreenSize();
+
+  const defensePanel = [
+    tccData?.defensePanel.professor1Id,
+    tccData?.defensePanel.professor2Id,
+    tccData?.defensePanel.professor3Id,
+  ];
+  const isAtDefensePanel = defensePanel.includes(loggedUser?.id);
+  const isAdvisor = loggedUser?.id === tccData?.professor.id;
 
   return (
     <Steps.Root
@@ -43,8 +52,9 @@ export const TCCSteps = ({
       count={steps.length}
       colorPalette="teal"
       orientation={isMobile ? "vertical" : "horizontal"}
+      justifyContent="center "
     >
-      <Steps.List marginRight={isMobile ? 8 : 0}>
+      <Steps.List marginRight={isMobile ? 8 : 0} flex={1}>
         {steps.map((step) => (
           <Steps.Item key={step.id} index={step.id}>
             <Steps.Indicator
@@ -56,11 +66,12 @@ export const TCCSteps = ({
       </Steps.List>
 
       {steps.map((step) => (
-        <Steps.Content key={step.id} index={step.id}>
+        <Steps.Content key={step.id} index={step.id} flex={6}>
           <Heading size="lg" marginY={6}>
             {loggedUser?.role !== "ALUNO" ? step.professorTitle : step.title}
           </Heading>
           <DeliveryForm
+            shouldShowChangeAdmissibility={step.shouldShowChangeAdmissibility}
             deliveryForm={deliveryForm}
             onDownloadFile={onDownloadFile}
             onSubmit={onSubmit}
@@ -74,9 +85,15 @@ export const TCCSteps = ({
             deliveryType={step.deliveryType}
             deliveryData={lastDelivery}
             defaultTitle={defaultTitle}
+            currentAdmissibility={currentAdmissibility}
+            onChangeAdmissibility={onChangeAdmissibility}
+            isPendingChangeAdmissibility={isPendingChangeAdmissibility}
+            isAdvisor={isAdvisor}
+            shouldShowDeliveryForm={step.shouldShowDeliveryForm}
+            shouldShowDonwnloadFileButton={step.shouldShowDonwnloadFileButton}
           />
 
-          {loggedUser?.id === deliveriesData?.[0]?.tcc.professor.id ? (
+          {isAtDefensePanel && step.shouldShowEvaluationForm ? (
             <EvaluationForm
               control={evaluationDeliveryForm.control}
               onSubmitEvaluation={onSubmitEvaluation}
@@ -88,19 +105,25 @@ export const TCCSteps = ({
               evaluationId={evaluationProfessorData?.id}
               deliveryId={lastDelivery?.id}
             />
-          ) : (
-            evaluationData &&
+          ) : evaluationData &&
             step.shouldShowEvaluationDetails &&
             evaluationData?.length > 0 ? (
-            evaluationData.map((evaluation) => (
-              <EvaluationDetails
-                evaluation={evaluation}
-                studentName={evaluation.delivery.tcc.student.name}
-                evaluatorName={evaluation.delivery.tcc.professor.name}
-                evaluationDate={formatDate(evaluation.evaluationDate)}
+            <>
+              <EvaluationSummary
+                quantityEvaluations={lastDelivery?.quantityEvaluations}
+                averageScore={lastDelivery?.averageScore}
               />
-            ))) : null
-          )}
+              {evaluationData.map((evaluation) => (
+                <EvaluationDetails
+                  key={evaluation.id}
+                  evaluation={evaluation}
+                  studentName={tccData?.student.name}
+                  evaluatorName={evaluation.professor.name}
+                  evaluationDate={formatDate(evaluation.evaluationDate)}
+                />
+              ))}
+            </>
+          ) : null}
         </Steps.Content>
       ))}
     </Steps.Root>

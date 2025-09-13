@@ -23,10 +23,12 @@ export interface ProfileProps {
 }
 
 export interface SelectAdvisorProps {
+  id: Exclude<keyof CreateRelationFormData, "dataFinalEntregaProposta" | "dataFinalEntregaTCC">;
   errors: FieldErrors<CreateRelationFormData>;
   control: Control<CreateRelationFormData>;
   advisor: string;
   professors?: User[];
+  label: string;
 }
 
 export interface DateFieldInputProps {
@@ -35,7 +37,7 @@ export interface DateFieldInputProps {
   errorMessage?: string;
   control: Control<CreateRelationFormData>;
   dateFieldValue: string;
-  controlName: Exclude<keyof CreateRelationFormData, "orientador">;
+  controlName: Exclude<keyof CreateRelationFormData, "orientador" | "professor2" | "professor3">;
 }
 
 

@@ -11,7 +11,6 @@ export const useEvaluationForm = (defaultValues?: Partial<EvaluationFormData>) =
       goals: "",
       bibliographyRevision: "",
       methodology: "",
-      total: "",
       comments: "",
       ...defaultValues,
     },

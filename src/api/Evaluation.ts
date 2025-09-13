@@ -21,7 +21,7 @@ export class EvaluationAPI {
   ): Promise<EvaluationResponse> => {
     const headers = await getAuthorizationHeader();
     const response = await axios.get(
-      `${configURL}/evaluations/${deliveryId}/professor/${professorId}`,
+      `${configURL}/evaluations/${deliveryId}/${professorId}`,
       { headers }
     );
     return response.data;

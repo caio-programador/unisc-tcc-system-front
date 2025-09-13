@@ -3,6 +3,9 @@ import { RoutesUrl } from "../../types/Router";
 import { useEffect } from "react";
 import { toaster } from "../../utils/toaster";
 import { useAppNavigation } from "../use-app-navigation";
+import { deleteCookie } from "../../utils/delete-cookie";
+
+const TOKEN_COOKIE_NAME = import.meta.env.VITE_COOKIE_KEY;
 
 export const useHandleError = (
   error: AxiosError<unknown, unknown> | null,
@@ -13,6 +16,7 @@ export const useHandleError = (
     if (!error) return;
     if (error.status === 403) {
       redirect(RoutesUrl.LOGIN);
+      deleteCookie(TOKEN_COOKIE_NAME)
       toaster.create({
         closable: true,
         description:

@@ -21,7 +21,6 @@ export const evaluationFormSchema = z.object({
   goals: createNumberFieldSchema(0, 1, "A nota deve ser entre 0 e 1"),
   bibliographyRevision: createNumberFieldSchema(0, 3, "A nota deve ser entre 0 e 3"),
   methodology: createNumberFieldSchema(0, 4, "A nota deve ser entre 0 e 4"),
-  total: createNumberFieldSchema(0, 10, "A nota total deve ser entre 0 e 10"),
   comments: z.string().optional(),
 });
 

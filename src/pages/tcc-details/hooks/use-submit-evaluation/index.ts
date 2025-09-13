@@ -42,7 +42,6 @@ export const useSubmitEvaluation = () => {
         bibliographyRevision: Number(data.bibliographyRevision.replace(',', '.')),
         goals: Number(data.goals.replace(',', '.')),
         methodology: Number(data.methodology.replace(',', '.')),
-        total: Number(data.total.replace(',', '.')),
         comments: data.comments,
       };
 
