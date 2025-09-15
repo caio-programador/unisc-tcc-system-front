@@ -73,9 +73,29 @@ export const UserDetails = ({
                 Relação Aluno-Orientador
               </Heading>
               <SelectAdvisor
+                id="orientador"
+                label="Orientador"
                 errors={errors}
                 control={control}
                 advisor={tccData?.professor?.name ?? ""}
+                professors={professors}
+              />
+
+              <SelectAdvisor
+                id="professor2"
+                label="Professor 2 da banca"
+                errors={errors}
+                control={control}
+                advisor={tccData?.defensePanel?.professor2Name ?? ""}
+                professors={professors}
+              />
+
+              <SelectAdvisor
+                id="professor3"
+                label="Professor 3 da banca"
+                errors={errors}
+                control={control}
+                advisor={tccData?.defensePanel?.professor3Name ?? ""}
                 professors={professors}
               />
 

@@ -1,11 +1,12 @@
 import type { RouteUrl } from "../../types/Router";
 import type {
+  Control,
   FieldErrors,
   UseFormRegister,
   UseFormReturn,
 } from "react-hook-form";
 import type { EvaluationFormData } from "./hooks/use-evaluation-form/schema";
-import type { DeliveryTC, DeliveryType, User } from "../../types";
+import type { Admissibility, DeliveryTC, DeliveryType, EvaluationResponse, TCCResponse, User } from "../../types";
 import type { DeliveryFormData } from "./hooks/use-delivery-form/schema";
 
 export interface TCCDetailsProps {
@@ -25,6 +26,23 @@ export interface TCCDetailsProps {
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemoveFile: () => void;
   onDownloadFile: (key: string) => void;
+  onSubmitEvaluation: (
+    data: EvaluationFormData,
+    deliveryId?: number,
+    thereIsEvaluationData?: boolean,
+    evaluationId?: number,
+  ) => void;
+  isSubmittingEvaluation: boolean;
+  evaluationData: EvaluationResponse[] | undefined;
+  isLoadingAllData: boolean;
+  evaluationProfessorData: EvaluationResponse | undefined;
+  currentStep: number;
+  thereIsNotTCC: boolean;
+  isTotallyReproved: boolean;
+  onChangeAdmissibility: (admissibility: Admissibility) => void;
+  currentAdmissibility: Admissibility;
+  isPendingChangeAdmissibility: boolean;
+  tccData: TCCResponse | undefined;
 }
 
 export interface TCCStepsProps {
@@ -43,6 +61,20 @@ export interface TCCStepsProps {
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemoveFile: () => void;
   onDownloadFile: (key: string) => void;
+  onSubmitEvaluation: (
+    data: EvaluationFormData,
+    deliveryId?: number,
+    thereIsEvaluationData?: boolean,
+    evaluationId?: number,
+  ) => void;
+  isSubmittingEvaluation: boolean;
+  evaluationData: EvaluationResponse[] | undefined;
+  evaluationProfessorData: EvaluationResponse | undefined;
+  currentStep: number;
+  onChangeAdmissibility: (admissibility: Admissibility) => void;
+  currentAdmissibility: Admissibility;
+  isPendingChangeAdmissibility: boolean;
+  tccData: TCCResponse | undefined;
 }
 
 export interface DeliveryFormProps {
@@ -63,22 +95,40 @@ export interface DeliveryFormProps {
   deliveryType?: DeliveryType;
   deliveryForm: UseFormReturn<DeliveryFormData>;
   defaultTitle: string | undefined;
+  onChangeAdmissibility: (admissibility: Admissibility) => void;
+  currentAdmissibility: Admissibility;
+  isPendingChangeAdmissibility: boolean;
+  isAdvisor: boolean;
+  shouldShowDeliveryForm: boolean | undefined;
+  shouldShowChangeAdmissibility: boolean;
+  shouldShowDonwnloadFileButton?: boolean;
 }
 
 export interface LabelInputProps {
   labelTitle?: string;
   labelDescription: string;
   id: keyof EvaluationFormData & string;
+  control: Control<EvaluationFormData>;
   register: UseFormRegister<EvaluationFormData>;
   errors: FieldErrors<EvaluationFormData>;
   placeholder: string;
-  type: "number" | "text";
 }
 
 export interface EvaluationFormProps {
-  onSubmit: () => void;
+  onSubmitEvaluation: (
+    data: EvaluationFormData,
+    deliveryId?: number,
+    thereIsEvaluationData?: boolean,
+    evaluationId?: number,
+  ) => void;
+  handleSubmit: UseFormReturn<EvaluationFormData>["handleSubmit"];
   register: UseFormRegister<EvaluationFormData>;
+  control: Control<EvaluationFormData>;
   errors: FieldErrors<EvaluationFormData>;
+  isSubmittingEvaluation: boolean;
+  thereIsEvaluationData: boolean;
+  evaluationId?: number;
+  deliveryId?: number;
 }
 
 export interface Steps {
@@ -89,12 +139,43 @@ export interface Steps {
   buttonText?: string;
   deliveryType?: DeliveryType;
   shouldShowEvaluationDetails: boolean;
+  shouldShowDeliveryForm?: boolean;
+  shouldShowEvaluationForm?: boolean;
+  shouldShowChangeAdmissibility: boolean;
+  shouldShowDonwnloadFileButton?: boolean;
 }
 
-
 export interface EvaluationDetailsProps {
-  evaluation: EvaluationFormData;
+  evaluation: EvaluationResponse;
   studentName?: string;
   evaluatorName?: string;
   evaluationDate?: string;
+}
+
+export interface GetCurrentStepProps {
+  deliveriesData: DeliveryTC[] | undefined;
+  tccData: TCCResponse | undefined;
+}
+
+export interface GetCurrentStepReturn {
+  currentStep: number;
+  isTotallyReproved: boolean;
+  thereIsNotTCC: boolean;
+  shouldUseNewForm?: boolean;
+}
+
+export interface TotallyReprovedProps {
+  deliveryType: DeliveryType;
+}
+
+export interface ChangeAdmissibilityProps {
+  onChangeAdmissibility: (admissibility: Admissibility) => void;
+  currentAdmissibility: Admissibility;
+  isPendingChangeAdmissibility: boolean;
+}
+
+export interface EvaluationSummaryProps {
+  quantityEvaluations?: number;
+  averageScore?: number;
+  maxEvaluations?: number;
 }

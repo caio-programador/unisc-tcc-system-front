@@ -1,5 +1,17 @@
 import type { User } from ".";
 
+
+export interface DefensePanel {
+  professor1Id: number;
+  professor1Name: string;
+  professor2Id: number;
+  professor2Name: string;
+  professor3Id: number;
+  professor3Name: string;
+}
+
+export type Admissibility = "APPROVED" | "REJECTED" | "PENDING";
+
 export interface TCCResponse {
   id: number;
   tccTitle: string;
@@ -9,6 +21,8 @@ export interface TCCResponse {
   tccAssessmentDate: string;
   professor: User;
   student: User;
+  defensePanel: DefensePanel;
+  admissibility: Admissibility;
 }
 
 export interface TCCRequest {
@@ -22,6 +36,8 @@ export interface TCCCreate {
   tccDeliveryDate: string;
   professorId: number;
   studentId: number;
+  professor2Id: number;
+  professor3Id: number;
 }
 
 export type DeliveryType =
@@ -32,18 +48,19 @@ export type DeliveryType =
 
 export type DeliveryStatus =
   | "APROVADO"
-  | "ADMISSIBILIDADE_REPROVADA"
-  | "AGUARDANDO_ADMISSIBILIDADE"
   | "REPROVADO"
-  | "AGUARDANDO_AVALIACAO";
+  | "AGUARDANDO_AVALIACAO"
+  | "REELABORACAO_REPROVADA";
 
 export interface DeliveryTC {
   id: number;
-  tcc: TCCResponse;
+  tccId: number;
   deliveryType: DeliveryType;
   deliveryDate: string;
   bucketFileKey: string;
   deliveryStatus: DeliveryStatus;
+  quantityEvaluations: number;
+  averageScore: number;
 }
 
 export interface CreateDeliveryTC {
@@ -62,29 +79,34 @@ export interface AdmissibilityOpinion {
   delivery: DeliveryTC;
 }
 
-export interface Assessment {
+export interface Delivery {
   id: number;
-  delivery: DeliveryTC;
-  introScore: number;
-  goalsScore: number;
-  references: number;
-  sequenceLogic: number;
-  procedures: number;
+  introduction: number;
+  goals: number;
+  bibliographyRevision: number;
   methodology: number;
   total: number;
   comments: string;
-  assessmentDate: string;
-  appraiser: User;
 }
 
-export interface AssessmentBody {
+export interface EvaluationBody {
   deliveryId: number;
-  introScore: number;
-  goalsScore: number;
-  references: number;
-  sequenceLogic: number;
-  procedures: number;
+  introduction: number;
+  goals: number;
+  bibliographyRevision: number;
+  methodology: number;
+  comments?: string;
+}
+
+export interface EvaluationResponse {
+  id: number;
+  introduction: number;
+  goals: number;
+  bibliographyRevision: number;
   methodology: number;
   total: number;
-  comments?: string;
+  comments: string;
+  evaluationDate: string;
+  professor: User;
+  delivery: DeliveryTC;
 }

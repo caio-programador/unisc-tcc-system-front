@@ -7,7 +7,6 @@ import {
   VStack,
   HStack,
   Separator,
-  Alert,
   Grid,
   GridItem,
 } from "@chakra-ui/react";
@@ -19,8 +18,7 @@ export const EvaluationDetails = ({
   evaluatorName,
   evaluationDate,
 }: EvaluationDetailsProps) => {
-  const isApproved = evaluation.total >= 6;
-  const approvalStatus = isApproved ? "APROVADO" : "REPROVADO";
+  const isApproved = evaluation.total >= 7;
   const statusColor = isApproved ? "green" : "red";
 
   const evaluationItems = [
@@ -28,45 +26,33 @@ export const EvaluationDetails = ({
       title: "Introdução",
       description:
         "Justificativa da escolha, relevância do tema e definição clara do problema.",
-      score: evaluation.introScore,
+      score: evaluation.introduction,
       maxScore: 2,
     },
     {
       title: "Definição dos Objetivos",
       description: "Adequação dos objetivos frente ao problema proposto.",
-      score: evaluation.goalsScore,
+      score: evaluation.goals,
       maxScore: 1,
     },
     {
       title: "Revisão Bibliográfica",
       description:
-        "Fundamentação do tema com fontes, citações e atendimentos às normas da UNISC.",
-      score: evaluation.references,
-      maxScore: 2,
-    },
-    {
-      title: "Sequência Lógica",
-      description: "Abordagem sequencial lógica, equilibrada e ordenada.",
-      score: evaluation.sequenceLogic,
-      maxScore: 1,
-    },
-    {
-      title: "Orientação Metodológica - Procedimentos",
-      description: "Procedimentos adequados e bem definidos.",
-      score: evaluation.procedures,
-      maxScore: 2,
+        "Fundamentação do tema com fontes, citações e atendimentos às normas da UNISC. Abordagem sequencial lógica, equilibrada e ordenada.",
+      score: evaluation.bibliographyRevision,
+      maxScore: 3,
     },
     {
       title: "Orientação Metodológica - Coerência",
       description:
-        "Coerência dos objetivos, metodologia e tipo de instrumentos.",
+        "Coerência dos objetivos, metodologia e tipo de instrumentos. Procedimentos adequados e bem definidos",
       score: evaluation.methodology,
-      maxScore: 2,
+      maxScore: 4,
     },
   ];
 
   return (
-    <Box maxW="4xl" mx="auto" p={6} mt={6}>
+    <Box mx="auto" mt={6}>
       <VStack gap={6} align="stretch">
         <Card.Root background="background" border={0}>
           <Card.Body>
@@ -74,22 +60,10 @@ export const EvaluationDetails = ({
               <Heading size="xl" color="textPrimary" textAlign="center">
                 Detalhes da Avaliação
               </Heading>
-
-              <Alert.Root
-                status={isApproved ? "success" : "error"}
-                colorPalette={statusColor}
-              >
-                <Alert.Title>Resultado: {approvalStatus}</Alert.Title>
-                <Alert.Description>
-                  {isApproved
-                    ? "O aluno foi aprovado com a nota obtida."
-                    : "O aluno foi reprovado. Nota mínima necessária: 6.0"}
-                </Alert.Description>
-              </Alert.Root>
-
               <Grid
                 templateColumns="repeat(auto-fit, minmax(200px, 1fr))"
                 gap={4}
+                mt={6}
               >
                 {studentName && (
                   <GridItem>
@@ -163,7 +137,11 @@ export const EvaluationDetails = ({
                 <Box key={index}>
                   <HStack justify="space-between" align="start" mb={2}>
                     <VStack align="start" gap={1} flex={1}>
-                      <Text color="textPrimary" fontWeight="semibold" fontSize="md">
+                      <Text
+                        color="textPrimary"
+                        fontWeight="semibold"
+                        fontSize="md"
+                      >
                         {item.title}
                       </Text>
                       <Text fontSize="sm" color="gray.300">
@@ -193,7 +171,7 @@ export const EvaluationDetails = ({
         </Card.Root>
 
         {evaluation.comments && (
-          <Card.Root  background="background" border={0} paddingBottom={10}>
+          <Card.Root background="background" border={0} paddingBottom={10}>
             <Card.Header>
               <Heading size="lg" color="textPrimary">
                 Comentários do Avaliador

@@ -21,7 +21,11 @@ export const TCCCard = ({
         transform: "translateY(-2px)",
         boxShadow: "lg",
       }}
-      onClick={() => redirect(`${RoutesUrl.TCC_DETAILS}?tccId=${tcc?.id}` as RouteUrl)}
+      onClick={() =>
+        redirect(
+          `${RoutesUrl.TCC_DETAILS}?tccId=${tcc?.id}&userId=${tcc?.student.id}` as RouteUrl
+        )
+      }
     >
       <VStack align="stretch" gap={4}>
         <HStack justify="space-between" align="start">

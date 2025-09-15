@@ -5,6 +5,9 @@ export const AppQueryKeys = {
   TCCS: 'tccs',
   TCC_RELATIONSHIP: 'tccRelationship',
   DELIVERIES: 'deliveries',
+  EVALUATION: 'evaluation',
+  MEETINGS: 'meetings',
+  NOTIFICATIONS: 'notifications',
 } as const;
 
 export const AppMutationKeys = {
@@ -17,4 +20,8 @@ export const AppMutationKeys = {
   CREATE_DELIVERY: 'create-delivery',
   UPDATE_DELIVERY: 'update-delivery',
   DOWNLOAD_FILE: 'download-file',
+  CREATE_EVALUATION: 'create-evaluation',
+  UPDATE_EVALUATION: 'update-evaluation',
+  CREATE_MEETING: 'create-meeting',
+  CHANGE_ADMISSIBILITY: 'change-admissibility',
 } as const;
