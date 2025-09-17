@@ -91,6 +91,7 @@ export const TCCSteps = ({
             isAdvisor={isAdvisor}
             shouldShowDeliveryForm={step.shouldShowDeliveryForm}
             shouldShowDonwnloadFileButton={step.shouldShowDonwnloadFileButton}
+            tccData={tccData}
           />
 
           {isAtDefensePanel && step.shouldShowEvaluationForm ? (
