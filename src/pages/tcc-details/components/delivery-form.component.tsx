@@ -6,11 +6,15 @@ import {
   Input,
   Text,
   VStack,
+  HStack,
+  Badge,
+  Separator,
 } from "@chakra-ui/react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import type { DeliveryFormProps } from "../types";
 import { MdDownload } from "react-icons/md";
 import { ChangeAdmissibility } from "./change-admissibility.component";
+import { formatDate, formatDateTime } from "../../../utils/format-date";
 
 export const DeliveryForm = ({
   onSubmit,
@@ -33,6 +37,7 @@ export const DeliveryForm = ({
   shouldShowDeliveryForm,
   shouldShowChangeAdmissibility,
   shouldShowDonwnloadFileButton,
+  tccData,
 }: DeliveryFormProps) => {
   const {
     formState: { errors },
@@ -49,6 +54,78 @@ export const DeliveryForm = ({
       width="100%"
     >
       <Card.Header>
+        {/* Seção de Informações de Datas */}
+        {tccData && (
+          <>
+            <Box mb={4} p={3} bg="gray.50" borderRadius="md" border="1px solid" borderColor="gray.200">
+              <Text fontSize="sm" fontWeight="semibold" color="gray.700" mb={2}>
+                📅 Informações de Prazos
+              </Text>
+              <HStack gap={6} flexWrap="wrap">
+                <Box>
+                  <Text fontSize="xs" color="gray.500">Prazo da Proposta:</Text>
+                  <Text fontSize="sm" fontWeight="medium">
+                    {formatDate(tccData.proposalDeliveryDate)}
+                  </Text>
+                </Box>
+                <Box>
+                  <Text fontSize="xs" color="gray.500">Prazo do TCC:</Text>
+                  <Text fontSize="sm" fontWeight="medium">
+                    {formatDate(tccData.tccDeliveryDate)}
+                  </Text>
+                </Box>
+              </HStack>
+            </Box>
+
+            {/* Informações de Entrega Atual */}
+            {deliveryData && (
+              <>
+                <Box mb={4} p={3} bg="blue.50" borderRadius="md" border="1px solid" borderColor="blue.200">
+                  <Text fontSize="sm" fontWeight="semibold" color="blue.700" mb={2}>
+                    📤 Última Entrega
+                  </Text>
+                  <HStack justify="space-between" flexWrap="wrap">
+                    <VStack align="start" gap={1}>
+                      <Text fontSize="xs" color="blue.600">
+                        Tipo: {deliveryData.deliveryType === "PROPOSTA" && "Proposta"}
+                        {deliveryData.deliveryType === "TC" && "TCC Final"}
+                        {deliveryData.deliveryType === "REELABORACAO_PROPOSTA" && "Reelaboração da Proposta"}
+                        {deliveryData.deliveryType === "REELABORACAO_TC" && "Reelaboração do TCC"}
+                      </Text>
+                      <Text fontSize="xs" color="blue.600">
+                        Enviado em: {formatDateTime(deliveryData.updatedAt)}
+                      </Text>
+                      {deliveryData.quantityEvaluations > 0 && (
+                        <Text fontSize="xs" color="blue.600">
+                          Avaliações: {deliveryData.quantityEvaluations}/3 • Média: {deliveryData.averageScore.toFixed(1)}
+                        </Text>
+                      )}
+                    </VStack>
+                    <Badge
+                      colorScheme={
+                        deliveryData.deliveryStatus === "APROVADO"
+                          ? "green"
+                          : deliveryData.deliveryStatus === "REPROVADO"
+                          ? "red"
+                          : deliveryData.deliveryStatus === "AGUARDANDO_AVALIACAO"
+                          ? "yellow"
+                          : "gray"
+                      }
+                      variant="subtle"
+                    >
+                      {deliveryData.deliveryStatus === "APROVADO" && "Aprovado"}
+                      {deliveryData.deliveryStatus === "REPROVADO" && "Reprovado"}
+                      {deliveryData.deliveryStatus === "AGUARDANDO_AVALIACAO" && "Aguardando Avaliação"}
+                      {deliveryData.deliveryStatus === "REELABORACAO_REPROVADA" && "Reelaboração Reprovada"}
+                    </Badge>
+                  </HStack>
+                </Box>
+                <Separator mb={4} />
+              </>
+            )}
+          </>
+        )}
+
         {shouldShowChangeAdmissibility ? (
           isAdvisor ? (
             <ChangeAdmissibility

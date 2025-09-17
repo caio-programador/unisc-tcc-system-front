@@ -6,6 +6,7 @@ import { HeaderProfile } from "../components/header-profile.component";
 import { PersonalInfo } from "../components/personal-info.component";
 import type { ProfileProps } from "../types";
 import { RoutesUrl } from "../../../types/Router";
+import { TCCInfo } from "../components/tcc-info.component";
 
 export const Profile = ({
   errors,
@@ -21,7 +22,7 @@ export const Profile = ({
       <Box p={4}>
         <AppBreadcrumbs
           links={[{ label: "Home", navigate: () => redirect(RoutesUrl.HOME) }]}
-          currentLinkLabel="Perfil"
+          currentLinkLabel="Meu Perfil"
         />
         {user && (
           <>
@@ -35,6 +36,7 @@ export const Profile = ({
               onSubmit={onSubmit}
               setValue={setValue}
             />
+            <TCCInfo tccData={user.tcc} />
             <QuickLinks redirect={redirect} user={user} />
           </>
         )}

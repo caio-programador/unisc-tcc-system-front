@@ -102,6 +102,7 @@ export interface DeliveryFormProps {
   shouldShowDeliveryForm: boolean | undefined;
   shouldShowChangeAdmissibility: boolean;
   shouldShowDonwnloadFileButton?: boolean;
+  tccData?: TCCResponse;
 }
 
 export interface LabelInputProps {

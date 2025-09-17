@@ -1,10 +1,5 @@
 import { Box, Grid, GridItem } from "@chakra-ui/react";
-import {
-  FaUser,
-  FaFileAlt,
-  FaTasks,
-  FaCalendar,
-} from "react-icons/fa";
+import { FaUser, FaFileAlt, FaTasks, FaCalendar } from "react-icons/fa";
 import type { MosaicProps } from "../types";
 import { ActionCard } from "./action-card.component";
 import { RoutesUrl } from "../../../types/Router";
@@ -35,7 +30,7 @@ export const Mosaic = ({ redirect, user }: MosaicProps) => {
         {user?.role === "ALUNO" && (
           <GridItem colSpan={isMobile ? 5 : 3}>
             <ActionCard
-              icon={<FaTasks size={24}  />}
+              icon={<FaTasks size={24} />}
               title="Gerenciar TCC"
               description="Acompanhe o progresso do seu trabalho."
               onClick={() => redirect(RoutesUrl.TCC_DETAILS)}
@@ -53,25 +48,28 @@ export const Mosaic = ({ redirect, user }: MosaicProps) => {
           </GridItem>
         )}
 
-        <GridItem colSpan={isMobile ? 5 : 3}>
-          <ActionCard
-            icon={<FaCalendar size={24} />}
-            title="Reuniões"
-            description="Veja e edite suas reuniões."
-            onClick={() => redirect(RoutesUrl.MEETINGS)}
-          />
-        </GridItem>
-
-        <GridItem colSpan={isMobile ? 5 : 2}>
-          <ActionCard
-            icon={<PiUsersThreeFill size={24} />}
-            title="Listagem de Usuários"
-            description="Visualize os usuários do sistema"
-            onClick={() => redirect(RoutesUrl.USER_LIST)}
-          />
-        </GridItem>
+        {user?.role !== "COORDENADOR" && (
+          <GridItem colSpan={isMobile || user?.role === "ALUNO" ? 5 : 3}>
+            <ActionCard
+              icon={<FaCalendar size={24} />}
+              title="Reuniões"
+              description="Veja e edite suas reuniões."
+              onClick={() => redirect(RoutesUrl.MEETINGS)}
+            />
+          </GridItem>
+        )}
+        {user?.role !== "ALUNO" && (
+          <GridItem colSpan={isMobile ? 5 : 2}>
+            <ActionCard
+              icon={<PiUsersThreeFill size={24} />}
+              title="Listagem de Usuários"
+              description="Visualize os usuários do sistema"
+              onClick={() => redirect(RoutesUrl.USER_LIST)}
+            />
+          </GridItem>
+        )}
         {user?.role === "COORDENADOR" && (
-          <GridItem colSpan={5}>
+          <GridItem colSpan={isMobile ? 5 : 3}>
             <ActionCard
               icon={<HiUserAdd size={24} />}
               title="Cadastre Alunos/Professores"

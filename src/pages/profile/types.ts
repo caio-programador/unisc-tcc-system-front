@@ -1,7 +1,7 @@
 import type { FieldErrors } from "react-hook-form";
 import type { RouteUrl } from "../../types/Router";
 import type { FormData } from "./hooks/use-update-form/schema";
-import type { User } from "../../types";
+import type { TCCResponse, User } from "../../types";
 
 export interface ProfileProps {
   errors: FieldErrors<FormData>; 
@@ -46,4 +46,8 @@ export interface QuickLinksProps {
 
 export interface HeaderProfileProps {
   user: User;
+}
+
+export interface TCCInfoProps {
+  tccData?: TCCResponse;
 }

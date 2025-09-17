@@ -14,7 +14,7 @@ export const HeaderProfile = ({ user }: HeaderProfileProps) => {
         <Icon as={FaUser} boxSize={24} color="gray.500" margin={2} />
       </Box>
       <Box>
-        <Heading size="lg">Perfil do {user.name}</Heading>
+        <Heading size="lg">Perfil de {user.name}</Heading>
         <Text fontSize="md" color="gray.500">
           Aluno
         </Text>

@@ -61,6 +61,7 @@ export interface DeliveryTC {
   deliveryStatus: DeliveryStatus;
   quantityEvaluations: number;
   averageScore: number;
+  updatedAt: string;
 }
 
 export interface CreateDeliveryTC {

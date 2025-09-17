@@ -1,3 +1,5 @@
+import type { TCCResponse } from "./TC";
+
 export type Role = 'ALUNO' | 'PROFESSOR' | 'COORDENADOR';
 
 export interface User {
@@ -5,6 +7,7 @@ export interface User {
   name: string;
   email: string;
   role: Role;
+  tcc?: TCCResponse; 
 }
 
 export interface AuthRequest {
