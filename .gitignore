@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+.dockerignore
+Dockerfile
+nginx.conf

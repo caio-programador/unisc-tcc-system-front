@@ -41,7 +41,7 @@ export const useSubmitDelivery = () => {
         createDelivery(
           {
             title: data.title,
-            file: data.file,
+            file: data.file!,
             deliveryType: deliveryType!,
             tccRelationshipId: tccId,
           },
