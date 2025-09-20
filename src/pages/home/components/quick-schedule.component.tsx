@@ -6,54 +6,83 @@ import {
   TimelineContent,
   TimelineTitle,
   TimelineDescription,
+  VStack,
+  Card,
+  Text,
+  Icon,
 } from "@chakra-ui/react";
+import { MdEventAvailable } from "react-icons/md";
+import type { QuickScheduleProps } from "../types";
+import { formatDateTime } from "../../../utils/format-date";
+import { MeetingsSkeleton } from "./meetings-skeleton.component";
 
-export const QuickSchedule = () => {
-  const mockedEvents = [
-    {
-      title: "Reunião com orientador",
-      description: "Discussão do cronograma",
-      date: "23/08 - 14h",
-    },
-    {
-      title: "Entrega do Capítulo 1",
-      description: "Enviar primeira parte do TCC",
-      date: "30/08 - 23h59",
-    },
-    {
-      title: "Apresentação parcial",
-      description: "Apresentar status intermediário",
-      date: "05/09 - 10h",
-    },
-  ];
+const EmptyMeetings = () => {
+  return (
+    <Card.Root
+      borderRadius="xl"
+      shadow="sm"
+      bg="gray.50"
+      border="2px dashed"
+      borderColor="gray.200"
+      mt={4}
+    >
+      <Card.Body p={6} textAlign="center">
+        <VStack gap={3}>
+          <Icon size="xl" color="gray.400">
+            <MdEventAvailable />
+          </Icon>
+          <Text fontSize="sm" color="gray.600" fontWeight="medium">
+            Nenhuma reunião agendada
+          </Text>
+          <Text fontSize="xs" color="gray.500">
+            Sua agenda está livre!
+          </Text>
+        </VStack>
+      </Card.Body>
+    </Card.Root>
+  );
+};
+
+export const QuickSchedule = ({
+  meetings,
+  isLoadingMeetings,
+}: QuickScheduleProps) => {
+
   return (
     <Box>
       <Heading size="md" mb={4}>
-        Agenda Rápida
+        Agenda Rápida de suas próximas reuniões
       </Heading>
-      <Timeline.Root
-        variant="subtle"
-        size="md"
-        colorPalette="blue"
-        maxW="400px"
-        marginTop={8}
-      >
-        {mockedEvents.map((evt, idx) => (
-          <Timeline.Item key={idx}>
-            <Timeline.Connector>
-              <Timeline.Separator />
-              <Timeline.Indicator />
-              {idx < mockedEvents.length - 1 && <TimelineConnector />}
-            </Timeline.Connector>
-            <TimelineContent>
-              <TimelineTitle>{evt.title}</TimelineTitle>
-              <TimelineDescription color="textWithGray">
-                {evt.date} — {evt.description}
-              </TimelineDescription>
-            </TimelineContent>
-          </Timeline.Item>
-        ))}
-      </Timeline.Root>
+      
+      {isLoadingMeetings ? (
+        <MeetingsSkeleton />
+      ) : meetings?.length === 0 ? (
+        <EmptyMeetings />
+      ) : (
+        <Timeline.Root
+          variant="subtle"
+          size="md"
+          colorPalette="blue"
+          maxW="400px"
+          marginTop={8}
+        >
+          {meetings?.map((meeting, idx) => (
+            <Timeline.Item key={meeting.id}>
+              <Timeline.Connector>
+                <Timeline.Separator />
+                <Timeline.Indicator />
+                {idx < meetings?.length - 1 && <TimelineConnector />}
+              </Timeline.Connector>
+              <TimelineContent>
+                <TimelineTitle>{meeting.subject}</TimelineTitle>
+                <TimelineDescription color="textWithGray">
+                  {formatDateTime(meeting.meetingDate)} — com {meeting.professorName}
+                </TimelineDescription>
+              </TimelineContent>
+            </Timeline.Item>
+          ))}
+        </Timeline.Root>
+      )}
     </Box>
   );
 };

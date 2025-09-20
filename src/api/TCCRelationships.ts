@@ -7,6 +7,7 @@ import type {
   TCCResponse,
 } from "../types";
 import type { PageableResponse } from "../types/Pageable";
+import { MeetingsAPI } from "./Meetings";
 
 const configURL = import.meta.env.VITE_API_URL;
 
@@ -42,6 +43,7 @@ export class TCCRelationshipsAPI {
     );
     return response.data;
   }
+  
   static async getOneTCCRelationshipByStudentId(
     studentId: number
   ): Promise<TCCResponse> {
@@ -52,6 +54,8 @@ export class TCCRelationshipsAPI {
         headers,
       }
     );
+    const { meetingsCount } = await MeetingsAPI.countMeetings();
+    response.data.countMeetings = meetingsCount;
     return response.data;
   }
 

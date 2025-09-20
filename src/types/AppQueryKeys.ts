@@ -9,6 +9,8 @@ export const AppQueryKeys = {
   MEETINGS: 'meetings',
   NOTIFICATIONS: 'notifications',
   MEETINGS_DETAILS: 'meeting-details',
+  LIMITED_NOTIFICATIONS: 'limited-notifications',
+  LIMITED_MEETINGS: 'limited-meetings',
 } as const;
 
 export const AppMutationKeys = {
@@ -27,4 +29,7 @@ export const AppMutationKeys = {
   CHANGE_ADMISSIBILITY: 'change-admissibility',
   CANCEL_MEETING: 'cancel-meeting',
   UPLOAD_DOCUMENT: 'upload-document',
+  MARK_AS_READ: 'mark-as-read',
+  DELETE_NOTIFICATION: 'delete-notification',
+  MARK_ALL_AS_READ: 'mark-all-as-read',
 } as const;

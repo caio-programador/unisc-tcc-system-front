@@ -74,4 +74,20 @@ export class MeetingsAPI {
     );
     return response.data;
   }
+
+  static countMeetings = async (): Promise<{meetingsCount: number}> => {
+    const headers = await getAuthorizationHeader();
+    const response = await axios.get(`${configURL}/meetings/count`, {
+      headers,
+    });
+    return { meetingsCount: response.data.meetingsCount };
+  };
+
+  static getLimitedMeetings = async (): Promise<Meeting[]> => {
+    const headers = await getAuthorizationHeader();
+    const response = await axios.get(`${configURL}/meetings/limited`, {
+      headers,
+    });
+    return response.data;
+  }
 }

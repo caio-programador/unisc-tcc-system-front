@@ -23,6 +23,7 @@ export interface TCCResponse {
   student: User;
   defensePanel: DefensePanel;
   admissibility: Admissibility;
+  countMeetings: number;
 }
 
 export interface TCCRequest {

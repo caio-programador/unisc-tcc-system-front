@@ -1,4 +1,4 @@
-import type { User } from "../../types";
+import type { Alert, Meeting, User } from "../../types";
 import type { RouteUrl } from "../../types/Router";
 
 export interface HomeProps {
@@ -6,6 +6,10 @@ export interface HomeProps {
   logout: () => void;
   isLoadingPersonalInfo: boolean;
   user?: User; 
+  meetings: Meeting[] | undefined;
+  isLoadingMeetings: boolean;
+  notifications: Alert[] | undefined;
+  isLoadingNotifications: boolean;
 }
 
 export interface MosaicProps {
@@ -18,4 +22,15 @@ export interface ActionCardProps {
   title: string;
   description: string;
   onClick: () => void;
+}
+
+export interface AppAlertsProps {
+  redirect: (path: RouteUrl) => void;
+  notifications: Alert[] | undefined;
+  isLoadingNotifications: boolean;
+}
+
+export interface QuickScheduleProps {
+  meetings: Meeting[] | undefined;
+  isLoadingMeetings: boolean;
 }
