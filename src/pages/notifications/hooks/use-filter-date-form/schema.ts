@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const filterDateFomSchema = z
+export const filterDateFormSchema = z
   .object({
     startDate: z.date("Data de início é obrigatória"),
     endDate: z.date("Data de fim é obrigatória"),
@@ -9,4 +9,4 @@ export const filterDateFomSchema = z
     message: "Data de início deve ser anterior à data de fim",
   });
 
-export type FilterDateFormData = z.infer<typeof filterDateFomSchema>;
+export type FilterDateFormData = z.infer<typeof filterDateFormSchema>;

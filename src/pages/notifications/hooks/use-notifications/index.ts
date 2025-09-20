@@ -77,13 +77,11 @@ export const useNotifications = (startDate: Date, endDate: Date) => {
   );
 
   const handleMarkAllAsRead = useCallback(() => {
-    try {
-      notifications?.forEach((notification) => {
-        markAsReadMutation(notification.id);
+    notifications?.forEach((notification) => {
+      markAsReadMutation(notification.id, {
+        onError: handleMarkAsReadError,
       });
-    } catch {
-      handleMarkAsReadError();
-    }
+    });
   }, [handleMarkAsReadError, markAsReadMutation, notifications]);
 
   const handleDeleteNotificationError = useCallback(() => {
