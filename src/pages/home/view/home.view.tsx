@@ -1,11 +1,4 @@
-import {
-  Box,
-  Heading,
-  Container,
-  Flex,
-  Em,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Heading, Container, Flex, Em, Button } from "@chakra-ui/react";
 import { AppAlerts } from "../components/app-alerts.component";
 import { QuickSchedule } from "../components/quick-schedule.component";
 import type { HomeProps } from "../types";
@@ -13,7 +6,12 @@ import { Mosaic } from "../components/mosaic.component";
 import { MosaicSkeleton } from "../components/mosaic-skeleton.component";
 import { IoIosLogOut } from "react-icons/io";
 
-export const Home = ({ redirect, user, isLoadingPersonalInfo, logout }: HomeProps) => {
+export const Home = ({
+  redirect,
+  user,
+  isLoadingPersonalInfo,
+  logout,
+}: HomeProps) => {
   return (
     <Container maxW={1300}>
       <Box p={6}>
@@ -49,7 +47,7 @@ export const Home = ({ redirect, user, isLoadingPersonalInfo, logout }: HomeProp
           )}
 
           <Flex direction="column" gap={6} flex="2" justify="flex-start">
-            <AppAlerts />
+            <AppAlerts redirect={redirect} />
             <QuickSchedule />
           </Flex>
         </Flex>

@@ -19,3 +19,7 @@ export interface ActionCardProps {
   description: string;
   onClick: () => void;
 }
+
+export interface AppAlertsProps {
+  redirect: (path: RouteUrl) => void;
+}
