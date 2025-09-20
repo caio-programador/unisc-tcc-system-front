@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AppMutationKeys } from "../../../../types/AppQueryKeys";
+import { AppMutationKeys, AppQueryKeys } from "../../../../types/AppQueryKeys";
 import { MeetingsAPI } from "../../../../api/Meetings";
 
 export const useUploadDocument = (meetingId: number) => {
@@ -8,7 +8,7 @@ export const useUploadDocument = (meetingId: number) => {
     mutationKey: [AppMutationKeys.UPLOAD_DOCUMENT],
     mutationFn: MeetingsAPI.uploadMeetingDocument,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [AppQueryKeys.MEETING_DETAILS, meetingId] });
+      queryClient.invalidateQueries({ queryKey: [AppQueryKeys.MEETINGS_DETAILS, meetingId] });
     }
   });
 };

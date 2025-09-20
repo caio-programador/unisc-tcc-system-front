@@ -8,6 +8,7 @@ export const AppQueryKeys = {
   EVALUATION: 'evaluation',
   MEETINGS: 'meetings',
   NOTIFICATIONS: 'notifications',
+  MEETINGS_DETAILS: 'meeting-details',
 } as const;
 
 export const AppMutationKeys = {

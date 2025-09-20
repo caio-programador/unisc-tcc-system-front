@@ -102,7 +102,7 @@ export const NewMeetingModal = ({
                     color="background"
                     outline="0"
                     id="link"
-                    placeholder="Assunto da reunião"
+                    placeholder="Link da reunião"
                     {...register("link")}
                   />
                   <Field.ErrorText>
