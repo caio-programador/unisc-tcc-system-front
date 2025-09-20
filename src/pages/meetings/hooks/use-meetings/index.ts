@@ -13,7 +13,6 @@ export const useMeetings = (startDate: Date | undefined) => {
 
   useHandleError(error);
 
-
   return {
     meetingsData: data,
     isLoadingMeetings: isLoading,
