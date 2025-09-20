@@ -12,6 +12,7 @@ import UserDetailsController from "./pages/user-details";
 import UserListController from "./pages/user-list";
 import TCCListController from "./pages/tcc-list";
 import MeetingsController from "./pages/meetings";
+import MeetingDetailsController from "./pages/meeting-details";
 
 export const AppRouterProvider = () => {
   const routes: Router[] = [
@@ -50,6 +51,10 @@ export const AppRouterProvider = () => {
     {
       path: RoutesUrl.MEETINGS,
       element: <MeetingsController />
+    },
+    {
+      path: RoutesUrl.MEETING_DETAILS,
+      element: <MeetingDetailsController />
     },
     {
       path: RoutesUrl.ERROR,

@@ -17,6 +17,8 @@ import { useCallback, useMemo } from "react";
 export const NewMeetingModal = ({
   control,
   errors,
+  students,
+  isPendingCreatingMeeting,
   handleSubmit,
   register,
 }: NewMeetingModalProps) => {
@@ -38,28 +40,21 @@ export const NewMeetingModal = ({
     if (!date || !(date instanceof Date) || isNaN(date.getTime())) {
       return "";
     }
-    const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    const localDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    );
     return localDate.toISOString().slice(0, 16);
   }, []);
 
   const studentsCollection = useMemo(() => {
     return createListCollection({
-      items: [
-        {
-          value: "1",
-          label: "Aluno 1",
-        },
-        {
-          value: "2",
-          label: "Aluno 2",
-        },
-        {
-          value: "3",
-          label: "Aluno 3",
-        },
-      ],
+      items:
+        students?.map((student) => ({
+          value: String(student.id),
+          label: student.name,
+        })) || [],
     });
-  }, []);
+  }, [students]);
 
   return (
     <Dialog.Root size="xl" motionPreset="slide-in-bottom">
@@ -77,13 +72,13 @@ export const NewMeetingModal = ({
         <Box as="form" onSubmit={handleSubmit} className="meeting-form">
           <Dialog.Backdrop />
           <Dialog.Positioner>
-            <Dialog.Content>
+            <Dialog.Content mx={4}>
               <Dialog.Header>
                 <Dialog.Title color="background">Nova reunião</Dialog.Title>
               </Dialog.Header>
               <Dialog.Body>
                 <Field.Root mb={4} invalid={!!errors.subject}>
-                  <Field.Label color="background" htmlFor="title">
+                  <Field.Label color="background" htmlFor="subject">
                     Assunto
                   </Field.Label>
                   <Input
@@ -96,6 +91,22 @@ export const NewMeetingModal = ({
                   />
                   <Field.ErrorText>
                     {errors.subject?.message ?? ""}
+                  </Field.ErrorText>
+                </Field.Root>
+                <Field.Root mb={4} invalid={!!errors.link}>
+                  <Field.Label color="background" htmlFor="link">
+                    Link da reunião
+                  </Field.Label>
+                  <Input
+                    className="meeting-input"
+                    color="background"
+                    outline="0"
+                    id="link"
+                    placeholder="Assunto da reunião"
+                    {...register("link")}
+                  />
+                  <Field.ErrorText>
+                    {errors.link?.message ?? ""}
                   </Field.ErrorText>
                 </Field.Root>
                 <Field.Root mb={4} invalid={!!errors.meetingDate}>
@@ -143,7 +154,11 @@ export const NewMeetingModal = ({
                           <Select.Trigger>
                             <Select.ValueText
                               opacity={1}
-                              className={value ? "selection-meeting-active" : "selection-meeting-not-active"}
+                              className={
+                                value
+                                  ? "selection-meeting-active"
+                                  : "selection-meeting-not-active"
+                              }
                               placeholder="Selecione o aluno"
                             />
                           </Select.Trigger>
@@ -180,12 +195,16 @@ export const NewMeetingModal = ({
                     Cancelar
                   </Button>
                 </Dialog.ActionTrigger>
-                <Button type="submit" background="background">
+                <Button
+                  type="submit"
+                  background="background"
+                  loading={isPendingCreatingMeeting}
+                >
                   Criar reunião
                 </Button>
               </Dialog.Footer>
               <Dialog.CloseTrigger asChild>
-                <CloseButton size="sm" />
+                <CloseButton size="sm" id="close-button"/>
               </Dialog.CloseTrigger>
             </Dialog.Content>
           </Dialog.Positioner>

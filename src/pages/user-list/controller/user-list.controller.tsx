@@ -18,7 +18,7 @@ export default function UserListController() {
     role: selectedRole,
     page: currentPage - 1,
     size: pageSize,
-  });
+  }, pageSize !== 0);
   const { mutate: deleteUser } = useDeleteUser();
 
   const handleSearchChange = useCallback((value: string) => {

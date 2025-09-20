@@ -27,7 +27,7 @@ export default function UserDetailsController() {
   const { data: professors, isLoading: isLoadingProfessor } = useUsers({
     role: "PROFESSOR",
     size: 1000,
-  });
+  }, true);
   const { mutate: createUpdateTCC, isPending: isPendingCreatingUpdatingTCC } =
     useCreateUpdateTCC();
   const tccIsCreated = useMemo(() => Boolean(tccData), [tccData]);

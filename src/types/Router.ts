@@ -7,6 +7,7 @@ export const RoutesUrl = {
   TCC_DETAILS: '/tcc-details',
   NEW_TCC: '/profile/tcc/new',
   MEETINGS: '/meetings',
+  MEETING_DETAILS: '/meeting-details',
   USER_DETAILS: '/user-details',
   USER_LIST: '/user-list',
   ERROR: '/error',

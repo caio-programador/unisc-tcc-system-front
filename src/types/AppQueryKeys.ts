@@ -24,4 +24,6 @@ export const AppMutationKeys = {
   UPDATE_EVALUATION: 'update-evaluation',
   CREATE_MEETING: 'create-meeting',
   CHANGE_ADMISSIBILITY: 'change-admissibility',
+  CANCEL_MEETING: 'cancel-meeting',
+  UPLOAD_DOCUMENT: 'upload-document',
 } as const;
