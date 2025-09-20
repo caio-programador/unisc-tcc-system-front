@@ -9,7 +9,8 @@ export const useMarkAllAsRead = () => {
     mutationKey: [AppMutationKeys.MARK_ALL_AS_READ],
     mutationFn: AlertAPI.markAllAsRead,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [AppQueryKeys.NOTIFICATIONS, AppQueryKeys.LIMITED_NOTIFICATIONS] });
+      queryClient.invalidateQueries({ queryKey: [AppQueryKeys.NOTIFICATIONS] });
+      queryClient.invalidateQueries({ queryKey: [AppQueryKeys.LIMITED_NOTIFICATIONS] })
     },
   });
 };
