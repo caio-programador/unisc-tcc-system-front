@@ -27,8 +27,12 @@ const getNotificationIcon = (type: AlertType) => {
       return <FaExclamationTriangle />;
     case "NOVA_REUNIAO":
       return <FaCalendarAlt />;
+    case "REUNIAO_CANCELADA":
+      return <FaCalendarAlt />;
     case "NOVO_PARECER":
     case "AVALIACAO_DISPONIVEL":
+      return <FaFileAlt />;
+    case "NOVA_ENTREGA":
       return <FaFileAlt />;
     default:
       return <FaBell />;
@@ -42,10 +46,14 @@ const getNotificationColor = (type: AlertType) => {
       return "red";
     case "NOVA_REUNIAO":
       return "blue";
+    case "REUNIAO_CANCELADA":
+      return "orange";
     case "NOVO_PARECER":
       return "green";
     case "AVALIACAO_DISPONIVEL":
       return "purple";
+    case "NOVA_ENTREGA":
+      return "cyan";
     default:
       return "gray";
   }
@@ -59,10 +67,14 @@ const getNotificationTypeLabel = (type: AlertType) => {
       return "Atraso de Avaliação";
     case "NOVA_REUNIAO":
       return "Nova Reunião";
+    case "REUNIAO_CANCELADA":
+      return "Reunião Cancelada";
     case "NOVO_PARECER":
       return "Novo Parecer";
     case "AVALIACAO_DISPONIVEL":
       return "Avaliação Disponível";
+    case "NOVA_ENTREGA":
+      return "Nova Entrega";
     default:
       return "Notificação";
   }

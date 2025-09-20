@@ -8,6 +8,7 @@ import { useHandleError } from "../../../../hooks/use-handle-error";
 import { useDeleteNotification } from "./use-delete-notification";
 import { useMarkAsRead } from "./use-mark-as-read";
 import { toaster } from "../../../../utils/toaster";
+import { useMarkAllAsRead } from "./use-mark-all-read";
 
 export const useNotifications = (startDate: Date, endDate: Date) => {
   const [selectedType, setSelectedType] = useState<string>("all");
@@ -34,6 +35,8 @@ export const useNotifications = (startDate: Date, endDate: Date) => {
     mutate: deleteNotificationMutation,
     isPending: isDeleteNotificationPending,
   } = useDeleteNotification();
+  const { mutate: markAllAsReadMutation, isPending: isMarkAllAsReadPending } =
+    useMarkAllAsRead();
 
   const filteredNotifications = useMemo(() => {
     let filtered = notifications ?? [];
@@ -48,7 +51,7 @@ export const useNotifications = (startDate: Date, endDate: Date) => {
       filtered = filtered.filter((notification) => !notification.isRead);
     }
 
-    return filtered.sort(
+    return filtered?.sort(
       (a, b) =>
         new Date(b.generatedAt).getTime() - new Date(a.generatedAt).getTime()
     );
@@ -77,12 +80,10 @@ export const useNotifications = (startDate: Date, endDate: Date) => {
   );
 
   const handleMarkAllAsRead = useCallback(() => {
-    notifications?.forEach((notification) => {
-      markAsReadMutation(notification.id, {
-        onError: handleMarkAsReadError,
-      });
+    markAllAsReadMutation(undefined, {
+      onError: handleMarkAsReadError,
     });
-  }, [handleMarkAsReadError, markAsReadMutation, notifications]);
+  }, [handleMarkAsReadError, markAllAsReadMutation]);
 
   const handleDeleteNotificationError = useCallback(() => {
     toaster.create({
@@ -119,7 +120,7 @@ export const useNotifications = (startDate: Date, endDate: Date) => {
   return {
     notifications: filteredNotifications,
     allNotifications: notifications ?? [],
-    isLoading: isLoading || isMarkAsReadPending || isDeleteNotificationPending,
+    isLoading: isLoading || isMarkAsReadPending || isDeleteNotificationPending || isMarkAllAsReadPending,
     unreadCount: unreadCount ?? 0,
     selectedType,
     setSelectedType,

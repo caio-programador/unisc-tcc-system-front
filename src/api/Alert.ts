@@ -16,11 +16,22 @@ export class AlertAPI {
 
   static markAsRead = async (alertId: number): Promise<void> => {
     const headers = await getAuthorizationHeader();
-    await axios.patch(`${configURL}/alerts/${alertId}/read`, null, { headers });
+    await axios.patch(`${configURL}/alerts/${alertId}`, null, { headers });
+  };
+
+  static markAllAsRead = async (): Promise<void> => {
+    const headers = await getAuthorizationHeader();
+    await axios.patch(`${configURL}/alerts/mark-all-read`, null, { headers });
   };
 
   static deleteAlert = async (alertId: number): Promise<void> => {
     const headers = await getAuthorizationHeader();
     await axios.delete(`${configURL}/alerts/${alertId}`, { headers });
+  };
+
+  static getLimitAlerts = async (): Promise<Alert[]> => {
+    const headers = await getAuthorizationHeader();
+    const response = await axios.get(`${configURL}/alerts/limited`, { headers });
+    return response.data;
   };
 } 

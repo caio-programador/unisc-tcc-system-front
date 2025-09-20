@@ -11,6 +11,10 @@ export const Home = ({
   user,
   isLoadingPersonalInfo,
   logout,
+  isLoadingMeetings,
+  isLoadingNotifications,
+  meetings,
+  notifications,
 }: HomeProps) => {
   return (
     <Container maxW={1300}>
@@ -47,8 +51,15 @@ export const Home = ({
           )}
 
           <Flex direction="column" gap={6} flex="2" justify="flex-start">
-            <AppAlerts redirect={redirect} />
-            <QuickSchedule />
+            <AppAlerts
+              redirect={redirect}
+              isLoadingNotifications={isLoadingNotifications}
+              notifications={notifications}
+            />
+            <QuickSchedule
+              isLoadingMeetings={isLoadingMeetings}
+              meetings={meetings}
+            />
           </Flex>
         </Flex>
       </Box>

@@ -9,7 +9,7 @@ export const useDeleteNotification = () => {
     mutationKey: [AppMutationKeys.DELETE_NOTIFICATION],
     mutationFn: AlertAPI.deleteAlert,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [AppQueryKeys.NOTIFICATIONS] });
+      queryClient.invalidateQueries({ queryKey: [AppQueryKeys.NOTIFICATIONS, AppQueryKeys.LIMITED_NOTIFICATIONS] });
     },
   });
 };

@@ -8,7 +8,14 @@ export const useCreateMeeting = () => {
     mutationKey: [AppMutationKeys.CREATE_MEETING],
     mutationFn: MeetingsAPI.createMeeting,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [AppQueryKeys.MEETINGS] });
+      queryClient.invalidateQueries({
+        queryKey: [
+          AppQueryKeys.MEETINGS,
+          AppQueryKeys.LIMITED_MEETINGS,
+          AppQueryKeys.LIMITED_NOTIFICATIONS,
+          AppQueryKeys.NOTIFICATIONS,
+        ],
+      });
     }
   });
 }

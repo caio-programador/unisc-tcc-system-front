@@ -8,7 +8,14 @@ export const useCancelMeeting = () => {
     mutationKey: [AppMutationKeys.CANCEL_MEETING],
     mutationFn: MeetingsAPI.deleteMeeting,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [AppQueryKeys.MEETINGS] });
-    }
-  })
+      queryClient.invalidateQueries({
+        queryKey: [
+          AppQueryKeys.MEETINGS,
+          AppQueryKeys.LIMITED_MEETINGS,
+          AppQueryKeys.LIMITED_NOTIFICATIONS,
+          AppQueryKeys.NOTIFICATIONS,
+        ],
+      });
+    },
+  });
 };

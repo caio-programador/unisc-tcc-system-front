@@ -24,6 +24,8 @@ export const NotificationFilters = ({
       { value: "NOVO_PARECER", label: "Novo parecer" },
       { value: "NOVA_REUNIAO", label: "Nova reunião" },
       { value: "AVALIACAO_DISPONIVEL", label: "Avaliação disponível" },
+      { value: "REUNIAO_CANCELADA", label: "Reunião cancelada" },
+      { value: "NOVA_ENTREGA", label: "Nova entrega" },
     ],
   });
 

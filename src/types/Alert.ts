@@ -3,7 +3,9 @@ export type AlertType =
   | 'ATRASO_AVALIACAO'
   | 'NOVO_PARECER'
   | 'NOVA_REUNIAO'
-  | 'AVALIACAO_DISPONIVEL';
+  | 'AVALIACAO_DISPONIVEL'
+  | 'REUNIAO_CANCELADA'
+  | 'NOVA_ENTREGA';
 
 
 export interface Alert {
