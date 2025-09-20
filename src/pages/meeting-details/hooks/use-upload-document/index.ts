@@ -8,7 +8,7 @@ export const useUploadDocument = (meetingId: number) => {
     mutationKey: [AppMutationKeys.UPLOAD_DOCUMENT],
     mutationFn: MeetingsAPI.uploadMeetingDocument,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [meetingId] });
+      queryClient.invalidateQueries({ queryKey: [AppQueryKeys.MEETING_DETAILS, meetingId] });
     }
   });
 };
