@@ -4,6 +4,7 @@ const TOKEN_COOKIE_NAME = import.meta.env.VITE_COOKIE_KEY;
 
 export const getAuthorizationHeader = async () => {
   const cookieToken = await getCookie(TOKEN_COOKIE_NAME);
+  if(!cookieToken) return undefined;
   return {
     Authorization: `Bearer ${cookieToken}`,
   };

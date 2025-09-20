@@ -7,6 +7,7 @@ export const meetingFormSchema = z
     meetingDate: z.date({
       message: "A data da reunião é obrigatória"
     }),
+    link: z.url("O link deve ser uma URL válida").or(z.literal("")),
   })
   .refine(
     (data) => {

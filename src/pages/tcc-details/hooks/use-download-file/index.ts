@@ -18,7 +18,7 @@ export const useDownloadFile = () => {
   const handlerError = useCallback(() => {
     toaster.create({
       type: "error",
-      title: "Algo deu ao baixar o arquivo!",
+      title: "Algo deu errado ao baixar o arquivo!",
       description: "Tente novamente agora ou mais tarde.",
       closable: true,
     });

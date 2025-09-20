@@ -6,14 +6,14 @@ import type { PageableResponse } from "../../types/Pageable";
 import type { AxiosError } from "axios";
 import { useHandleError } from "../use-handle-error";
 
-export const useUsers = (params: UserRequestGetAll) => {
+export const useUsers = (params: UserRequestGetAll, enabled: boolean) => {
   const { data, isLoading, error, refetch } = useQuery<
     PageableResponse<User>,
     AxiosError
   >({
     queryKey: [AppQueryKeys.USERS, params],
     queryFn: () => UserAPI.getAll(params),
-    enabled: params.size !== 0,
+    enabled,
   });
 
   useHandleError(error);
