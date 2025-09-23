@@ -57,25 +57,25 @@ export const UserCard = ({
           {user.email}
         </Text>
 
-       {currentUser?.role === 'COORDENADOR' && (
-         <Button
-          size="sm"
-          mt={8}
-          bg="textPrimary"
-          color="darkBlue.900"
-          border="1px solid"
-          borderColor="textPrimary"
-          onClick={(e) => {
-            e.stopPropagation();
-            onDeleteUser(user.id);
-          }}
-          _hover={{
-            transform: "scale(1.03)",
-          }}
-        >
-          Deletar
-        </Button>
-       )}
+        {currentUser?.role === "COORDENADOR" && (
+          <Button
+            size="sm"
+            mt={8}
+            bg="textPrimary"
+            color="darkBlue.900"
+            border="1px solid"
+            borderColor="textPrimary"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDeleteUser(user.id);
+            }}
+            _hover={{
+              transform: "scale(1.03)",
+            }}
+          >
+            Deletar
+          </Button>
+        )}
       </VStack>
     </Box>
   );
