@@ -46,14 +46,14 @@ const EmptyMeetings = () => {
 export const QuickSchedule = ({
   meetings,
   isLoadingMeetings,
+  currentUser,
 }: QuickScheduleProps) => {
-
   return (
     <Box>
       <Heading size="md" mb={4}>
         Agenda Rápida de suas próximas reuniões
       </Heading>
-      
+
       {isLoadingMeetings ? (
         <MeetingsSkeleton />
       ) : meetings?.length === 0 ? (
@@ -76,7 +76,10 @@ export const QuickSchedule = ({
               <TimelineContent>
                 <TimelineTitle>{meeting.subject}</TimelineTitle>
                 <TimelineDescription color="textWithGray">
-                  {formatDateTime(meeting.meetingDate)} — com {meeting.professorName}
+                  {formatDateTime(meeting.meetingDate)} — com{" "}
+                  {currentUser?.role === "PROFESSOR"
+                    ? meeting.studentName
+                    : meeting.professorName}
                 </TimelineDescription>
               </TimelineContent>
             </Timeline.Item>

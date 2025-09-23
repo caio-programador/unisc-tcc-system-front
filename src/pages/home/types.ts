@@ -33,4 +33,5 @@ export interface AppAlertsProps {
 export interface QuickScheduleProps {
   meetings: Meeting[] | undefined;
   isLoadingMeetings: boolean;
+  currentUser: User | undefined;
 }

@@ -45,7 +45,7 @@ export const NotificationHeader = ({
       </Flex>
 
       <Text fontSize="sm" color="gray.500">
-        {totalNotifications} notificação{totalNotifications !== 1 ? 'ões' : ''} no total
+        {totalNotifications} notificaç{totalNotifications !== 1 ? 'ões' : 'ão'} no total
         {unreadCount > 0 && ` • ${unreadCount} não lida${unreadCount !== 1 ? 's' : ''}`}
       </Text>
     </Flex>

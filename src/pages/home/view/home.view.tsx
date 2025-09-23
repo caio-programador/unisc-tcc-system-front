@@ -59,6 +59,7 @@ export const Home = ({
             <QuickSchedule
               isLoadingMeetings={isLoadingMeetings}
               meetings={meetings}
+              currentUser={user}
             />
           </Flex>
         </Flex>

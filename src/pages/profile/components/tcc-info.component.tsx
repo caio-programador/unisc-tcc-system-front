@@ -28,7 +28,7 @@ export const TCCInfo = ({ tccData }: TCCInfoProps) => {
     const config = configs[admissibility];
     return (
       <Badge colorScheme={config.colorScheme} variant="subtle" px={3} py={1} borderRadius="full">
-        {config.label}
+        Admissibilidade: {config.label}
       </Badge>
     );
   }, []);

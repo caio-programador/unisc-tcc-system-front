@@ -57,12 +57,6 @@ export const UserDetails = ({
 
         <Separator mb={10} />
 
-        {!isLoadingTCC && (!professors || professors.length === 0) && (
-          <Box textAlign="center" py={10}>
-            <Heading size="lg">Nenhum orientador disponível</Heading>
-          </Box>
-        )}
-
         {user?.role === "ALUNO" &&
           !isLoadingTCC &&
           professors &&
