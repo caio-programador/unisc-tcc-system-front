@@ -9,7 +9,7 @@ export interface UserListProps {
   pageSize: number;
   currentPage: number;
   totalElements?: number;
-  currentUser?: User;
+  currentUser: User | undefined;
   changePage: (page: number) => void;
   changePageSize: (pageSize: number) => void;
   onSearchChange: (value: string) => void;
@@ -20,6 +20,7 @@ export interface UserListProps {
 }
 
 export interface UserCardProps {
+  currentUser: User | undefined;
   user: User;
   onUserClick: (userId: number) => void;
   onDeleteUser: (userId: number) => void;

@@ -3,6 +3,7 @@ import type { UserCardProps } from "../types";
 
 export const UserCard = ({
   user,
+  currentUser,
   onUserClick,
   onDeleteUser,
 }: UserCardProps) => {
@@ -56,7 +57,8 @@ export const UserCard = ({
           {user.email}
         </Text>
 
-        <Button
+       {currentUser?.role === 'COORDENADOR' && (
+         <Button
           size="sm"
           mt={8}
           bg="textPrimary"
@@ -73,6 +75,7 @@ export const UserCard = ({
         >
           Deletar
         </Button>
+       )}
       </VStack>
     </Box>
   );

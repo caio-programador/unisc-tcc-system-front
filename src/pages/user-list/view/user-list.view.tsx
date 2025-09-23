@@ -151,6 +151,7 @@ export const UserListView = ({
                   <UserCard
                     key={user.id}
                     user={user}
+                    currentUser={currentUser}
                     onUserClick={onUserClick}
                     onDeleteUser={onDeleteUser}
                   />
