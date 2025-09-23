@@ -6,6 +6,7 @@ import { RoutesUrl, type RouteUrl } from "../../../types/Router";
 import { useUsers } from "../../../hooks/use-users";
 import { useDeleteUser } from "../hooks/use-delete-user";
 import { toaster } from "../../../utils/toaster";
+import { usePersonalInfo } from "../../../hooks/use-personal-info";
 
 export default function UserListController() {
   const { redirect } = useAppNavigation();
@@ -20,6 +21,7 @@ export default function UserListController() {
     size: pageSize,
   }, pageSize !== 0);
   const { mutate: deleteUser } = useDeleteUser();
+  const {data: currentUser} = usePersonalInfo();
 
   const handleSearchChange = useCallback((value: string) => {
     setSearchTerm(value);
@@ -84,6 +86,7 @@ export default function UserListController() {
       changePage={setCurrentPage}
       changePageSize={setPageSize}
       totalElements={users?.totalElements}
+      currentUser={currentUser}
     />
   );
 }

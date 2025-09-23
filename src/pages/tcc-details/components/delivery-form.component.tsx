@@ -15,6 +15,8 @@ import type { DeliveryFormProps } from "../types";
 import { MdDownload } from "react-icons/md";
 import { ChangeAdmissibility } from "./change-admissibility.component";
 import { formatDate, formatDateTime } from "../../../utils/format-date";
+import { useScreenSize } from "../../../hooks/use-screen-size";
+import { useCallback } from "react";
 
 export const DeliveryForm = ({
   onSubmit,
@@ -45,6 +47,15 @@ export const DeliveryForm = ({
     setValue,
   } = deliveryForm;
 
+  const { isMobile } = useScreenSize();
+
+  const truncate = useCallback((text: string, maxLength = 50): string => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength - 3) + "...";
+  }, [])
+
   return (
     <Card.Root
       bg="transparent"
@@ -54,22 +65,32 @@ export const DeliveryForm = ({
       width="100%"
     >
       <Card.Header>
-        {/* Seção de Informações de Datas */}
         {tccData && (
           <>
-            <Box mb={4} p={3} bg="gray.50" borderRadius="md" border="1px solid" borderColor="gray.200">
+            <Box
+              mb={4}
+              p={3}
+              bg="gray.50"
+              borderRadius="md"
+              border="1px solid"
+              borderColor="gray.200"
+            >
               <Text fontSize="sm" fontWeight="semibold" color="gray.700" mb={2}>
                 📅 Informações de Prazos
               </Text>
               <HStack gap={6} flexWrap="wrap">
                 <Box>
-                  <Text fontSize="xs" color="gray.500">Prazo da Proposta:</Text>
+                  <Text fontSize="xs" color="gray.500">
+                    Prazo da Proposta:
+                  </Text>
                   <Text fontSize="sm" fontWeight="medium">
                     {formatDate(tccData.proposalDeliveryDate)}
                   </Text>
                 </Box>
                 <Box>
-                  <Text fontSize="xs" color="gray.500">Prazo do TCC:</Text>
+                  <Text fontSize="xs" color="gray.500">
+                    Prazo do TCC:
+                  </Text>
                   <Text fontSize="sm" fontWeight="medium">
                     {formatDate(tccData.tccDeliveryDate)}
                   </Text>
@@ -77,27 +98,42 @@ export const DeliveryForm = ({
               </HStack>
             </Box>
 
-            {/* Informações de Entrega Atual */}
             {deliveryData && (
               <>
-                <Box mb={4} p={3} bg="blue.50" borderRadius="md" border="1px solid" borderColor="blue.200">
-                  <Text fontSize="sm" fontWeight="semibold" color="blue.700" mb={2}>
+                <Box
+                  mb={4}
+                  p={3}
+                  bg="blue.50"
+                  borderRadius="md"
+                  border="1px solid"
+                  borderColor="blue.200"
+                >
+                  <Text
+                    fontSize="sm"
+                    fontWeight="semibold"
+                    color="blue.700"
+                    mb={2}
+                  >
                     📤 Última Entrega
                   </Text>
                   <HStack justify="space-between" flexWrap="wrap">
                     <VStack align="start" gap={1}>
                       <Text fontSize="xs" color="blue.600">
-                        Tipo: {deliveryData.deliveryType === "PROPOSTA" && "Proposta"}
+                        Tipo:{" "}
+                        {deliveryData.deliveryType === "PROPOSTA" && "Proposta"}
                         {deliveryData.deliveryType === "TC" && "TCC Final"}
-                        {deliveryData.deliveryType === "REELABORACAO_PROPOSTA" && "Reelaboração da Proposta"}
-                        {deliveryData.deliveryType === "REELABORACAO_TC" && "Reelaboração do TCC"}
+                        {deliveryData.deliveryType ===
+                          "REELABORACAO_PROPOSTA" && "Reelaboração da Proposta"}
+                        {deliveryData.deliveryType === "REELABORACAO_TC" &&
+                          "Reelaboração do TCC"}
                       </Text>
                       <Text fontSize="xs" color="blue.600">
                         Enviado em: {formatDateTime(deliveryData.updatedAt)}
                       </Text>
                       {deliveryData.quantityEvaluations > 0 && (
                         <Text fontSize="xs" color="blue.600">
-                          Avaliações: {deliveryData.quantityEvaluations}/3 • Média: {deliveryData.averageScore.toFixed(1)}
+                          Avaliações: {deliveryData.quantityEvaluations}/3 •
+                          Média: {deliveryData.averageScore.toFixed(1)}
                         </Text>
                       )}
                     </VStack>
@@ -107,16 +143,20 @@ export const DeliveryForm = ({
                           ? "green"
                           : deliveryData.deliveryStatus === "REPROVADO"
                           ? "red"
-                          : deliveryData.deliveryStatus === "AGUARDANDO_AVALIACAO"
+                          : deliveryData.deliveryStatus ===
+                            "AGUARDANDO_AVALIACAO"
                           ? "yellow"
                           : "gray"
                       }
                       variant="subtle"
                     >
                       {deliveryData.deliveryStatus === "APROVADO" && "Aprovado"}
-                      {deliveryData.deliveryStatus === "REPROVADO" && "Reprovado"}
-                      {deliveryData.deliveryStatus === "AGUARDANDO_AVALIACAO" && "Aguardando Avaliação"}
-                      {deliveryData.deliveryStatus === "REELABORACAO_REPROVADA" && "Reelaboração Reprovada"}
+                      {deliveryData.deliveryStatus === "REPROVADO" &&
+                        "Reprovado"}
+                      {deliveryData.deliveryStatus === "AGUARDANDO_AVALIACAO" &&
+                        "Aguardando Avaliação"}
+                      {deliveryData.deliveryStatus ===
+                        "REELABORACAO_REPROVADA" && "Reelaboração Reprovada"}
                     </Badge>
                   </HStack>
                 </Box>
@@ -220,10 +260,10 @@ export const DeliveryForm = ({
                       <>
                         <Text
                           color="textPrimary"
-                          fontSize="sm"
+                          fontSize={isMobile ? "xs" : "sm"}
                           fontWeight="medium"
                         >
-                          {selectedFileName}
+                          {truncate(selectedFileName)}
                         </Text>
                         {!disabledSomeAssets && (
                           <Button

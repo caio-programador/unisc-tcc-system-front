@@ -28,6 +28,7 @@ export const UserListView = ({
   currentPage,
   pageSize,
   totalElements,
+  currentUser,
   onSearchChange,
   onRoleChange,
   onUserClick,
@@ -83,49 +84,51 @@ export const UserListView = ({
               />
             </Box>
 
-            <Box flex={3}>
-              <Text mb={2} fontWeight="medium">
-                Filtrar por tipo:
-              </Text>
-              <Select.Root
-                collection={roleOptions}
-                value={selectedRole ? [selectedRole] : []}
-                onValueChange={(details) =>
-                  onRoleChange((details.value[0] as Role) || "")
-                }
-              >
-                <Select.Control>
-                  <Select.Trigger
-                    borderColor={borderColor}
-                    _hover={{ borderColor: "textPrimary" }}
-                  >
-                    <Select.ValueText placeholder="Selecione um tipo" />
-                  </Select.Trigger>
-                </Select.Control>
-                <Select.Positioner>
-                  <Select.Content>
-                    <Select.Item item="">
-                      <Select.ItemText>Todos</Select.ItemText>
-                    </Select.Item>
-                    <Select.Item item="ALUNO">
-                      <Select.ItemText color="textPrimary">
-                        Alunos
-                      </Select.ItemText>
-                    </Select.Item>
-                    <Select.Item item="PROFESSOR">
-                      <Select.ItemText color="textPrimary">
-                        Professores
-                      </Select.ItemText>
-                    </Select.Item>
-                    <Select.Item item="COORDENADOR">
-                      <Select.ItemText color="textPrimary">
-                        Coordenadores
-                      </Select.ItemText>
-                    </Select.Item>
-                  </Select.Content>
-                </Select.Positioner>
-              </Select.Root>
-            </Box>
+            {currentUser?.role === "COORDENADOR" && (
+              <Box flex={3}>
+                <Text mb={2} fontWeight="medium">
+                  Filtrar por tipo:
+                </Text>
+                <Select.Root
+                  collection={roleOptions}
+                  value={selectedRole ? [selectedRole] : []}
+                  onValueChange={(details) =>
+                    onRoleChange((details.value[0] as Role) || "")
+                  }
+                >
+                  <Select.Control>
+                    <Select.Trigger
+                      borderColor={borderColor}
+                      _hover={{ borderColor: "textPrimary" }}
+                    >
+                      <Select.ValueText placeholder="Selecione um tipo" />
+                    </Select.Trigger>
+                  </Select.Control>
+                  <Select.Positioner>
+                    <Select.Content>
+                      <Select.Item item="">
+                        <Select.ItemText>Todos</Select.ItemText>
+                      </Select.Item>
+                      <Select.Item item="ALUNO">
+                        <Select.ItemText color="textPrimary">
+                          Alunos
+                        </Select.ItemText>
+                      </Select.Item>
+                      <Select.Item item="PROFESSOR">
+                        <Select.ItemText color="textPrimary">
+                          Professores
+                        </Select.ItemText>
+                      </Select.Item>
+                      <Select.Item item="COORDENADOR">
+                        <Select.ItemText color="textPrimary">
+                          Coordenadores
+                        </Select.ItemText>
+                      </Select.Item>
+                    </Select.Content>
+                  </Select.Positioner>
+                </Select.Root>
+              </Box>
+            )}
           </HStack>
 
           {(!filteredUsers || filteredUsers?.length === 0) && !isLoading ? (

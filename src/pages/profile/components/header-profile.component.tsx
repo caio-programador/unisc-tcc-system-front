@@ -16,7 +16,7 @@ export const HeaderProfile = ({ user }: HeaderProfileProps) => {
       <Box>
         <Heading size="lg">Perfil de {user.name}</Heading>
         <Text fontSize="md" color="gray.500">
-          Aluno
+          {user.role}
         </Text>
       </Box>
     </Flex>

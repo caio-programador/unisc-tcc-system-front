@@ -36,7 +36,7 @@ export const Profile = ({
               onSubmit={onSubmit}
               setValue={setValue}
             />
-            <TCCInfo tccData={user.tcc} />
+            {user.role === "ALUNO" && <TCCInfo tccData={user.tcc} />}
             <QuickLinks redirect={redirect} user={user} />
           </>
         )}

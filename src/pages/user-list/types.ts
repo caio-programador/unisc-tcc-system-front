@@ -9,6 +9,7 @@ export interface UserListProps {
   pageSize: number;
   currentPage: number;
   totalElements?: number;
+  currentUser?: User;
   changePage: (page: number) => void;
   changePageSize: (pageSize: number) => void;
   onSearchChange: (value: string) => void;
