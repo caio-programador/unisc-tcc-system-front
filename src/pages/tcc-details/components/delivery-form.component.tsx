@@ -17,6 +17,7 @@ import { ChangeAdmissibility } from "./change-admissibility.component";
 import { formatDate, formatDateTime } from "../../../utils/format-date";
 import { useScreenSize } from "../../../hooks/use-screen-size";
 import { truncate } from "../../../utils/truncate";
+import { useState } from "react";
 
 export const DeliveryForm = ({
   onSubmit,
@@ -48,6 +49,8 @@ export const DeliveryForm = ({
   } = deliveryForm;
 
   const { isMobile } = useScreenSize();
+
+  const [key, setKey] = useState(1);
 
 
   return (
@@ -223,6 +226,7 @@ export const DeliveryForm = ({
                   <Input
                     disabled={disabledSomeAssets}
                     id="file"
+                    key={key}
                     type="file"
                     accept=".pdf,.doc,.docx"
                     onChange={onFileChange}
@@ -262,7 +266,10 @@ export const DeliveryForm = ({
                         {!disabledSomeAssets && (
                           <Button
                             className="remove-file-button"
-                            onClick={onRemoveFile}
+                            onClick={() => {
+                              onRemoveFile();
+                              setKey((prev) => prev + 1);
+                            }}
                             variant="ghost"
                             size="sm"
                             color="textPrimary"

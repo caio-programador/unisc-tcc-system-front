@@ -14,6 +14,7 @@ export const useUpdateDelivery = () => {
 
       queryClient.refetchQueries({ queryKey: [AppQueryKeys.DELIVERIES] });
       queryClient.refetchQueries({ queryKey: [AppQueryKeys.TCC_RELATIONSHIP] });
+      window.location.reload();
     },
   })
 }

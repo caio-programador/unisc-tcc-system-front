@@ -13,6 +13,7 @@ export const useCreateDelivery = () => {
       queryClient.invalidateQueries({ queryKey: [AppQueryKeys.TCC_RELATIONSHIP] });
       queryClient.refetchQueries({ queryKey: [AppQueryKeys.DELIVERIES] });
       queryClient.refetchQueries({ queryKey: [AppQueryKeys.TCC_RELATIONSHIP] });
+      window.location.reload();
     },
   });
 };
