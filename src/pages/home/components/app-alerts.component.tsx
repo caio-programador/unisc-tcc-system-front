@@ -17,7 +17,7 @@ import type { AppAlertsProps } from "../types";
 import type { AlertType } from "../../../types/Alert";
 import { RoutesUrl } from "../../../types/Router";
 import { NotificationsSkeleton } from "./notifications-skeleton.component";
-import { useCallback } from "react";
+import { truncate } from "../../../utils/truncate";
 
 const getAlertStatus = (
   type: AlertType
@@ -70,12 +70,6 @@ export const AppAlerts = ({
   notifications,
   isLoadingNotifications,
 }: AppAlertsProps) => {
-  const truncate = useCallback((text: string, maxLength = 50) => {
-    if (text.length <= maxLength) {
-      return text;
-    }
-    return text.substring(0, maxLength - 3) + "...";
-  }, []);
 
   const totalUnreadCount =
     notifications?.filter((notification) => !notification.isRead).length || 0;

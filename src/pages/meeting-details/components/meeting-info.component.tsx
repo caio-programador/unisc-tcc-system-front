@@ -22,6 +22,7 @@ import {
 import { useState } from "react";
 import { formatDateTime } from "../../../utils/format-date";
 import type { MeetingInfoProps } from "../types";
+import { truncate } from "../../../utils/truncate";
 
 export const MeetingInfo = ({
   meeting,
@@ -90,40 +91,40 @@ export const MeetingInfo = ({
               </Text>
               <VStack align="start" gap={2}>
                 <Text fontWeight="semibold" fontSize="md">
-                  <b>Professor:</b> {meeting.professorName}
+                  <b>Professor:</b> {truncate(meeting.professorName)}
                 </Text>
                 <Text fontWeight="semibold" fontSize="md">
-                  <b>Aluno:</b> {meeting.studentName}
+                  <b>Aluno:</b> {truncate(meeting.studentName)}
                 </Text>
               </VStack>
             </VStack>
           </HStack>
-          {currentUser?.role !== "ALUNO" && (
-            <HStack gap={4} align="start">
-              <Icon color="gray.500" boxSize={6}>
-                <FaFileAlt />
-              </Icon>
-              <VStack align="start" gap={2} flex={1}>
-                <Text fontSize="md" color="gray.500" fontWeight="medium">
-                  Documento
-                </Text>
-                {meeting.documentName ? (
-                  <>
-                    {!isEditingDocument ? (
-                      <HStack gap={3} align="center" w="100%">
-                        <Text fontWeight="semibold" fontSize="md" flex={1}>
-                          {meeting.documentName}
-                        </Text>
-                        <Button
-                          size="sm"
-                          colorScheme="blue"
-                          variant="outline"
-                          onClick={() =>
-                            onDownloadDocument?.(meeting.documentName)
-                          }
-                        >
-                          <FaDownload /> Download
-                        </Button>
+          <HStack gap={4} align="start">
+            <Icon color="gray.500" boxSize={6}>
+              <FaFileAlt />
+            </Icon>
+            <VStack align="start" gap={2} flex={1}>
+              <Text fontSize="md" color="gray.500" fontWeight="medium">
+                Documento
+              </Text>
+              {meeting.documentName ? (
+                <>
+                  {!isEditingDocument ? (
+                    <HStack gap={3} align="center" w="100%">
+                      <Text fontWeight="semibold" fontSize="md" flex={1}>
+                        {truncate(meeting.documentName)}
+                      </Text>
+                      <Button
+                        size="sm"
+                        colorScheme="blue"
+                        variant="outline"
+                        onClick={() =>
+                          onDownloadDocument?.(meeting.documentName)
+                        }
+                      >
+                        <FaDownload /> Download
+                      </Button>
+                      {currentUser?.role !== "ALUNO" && (
                         <Button
                           size="sm"
                           colorScheme="gray"
@@ -132,86 +133,86 @@ export const MeetingInfo = ({
                         >
                           <FaEdit /> Editar
                         </Button>
-                      </HStack>
-                    ) : (
-                      <VStack align="start" gap={3} w="100%">
-                        <HStack gap={3} align="center" w="100%">
-                          <Text
-                            fontWeight="semibold"
-                            fontSize="md"
-                            flex={1}
-                            color="gray.600"
-                          >
-                            {meeting.documentName} (atual)
-                          </Text>
-                          <Button
-                            size="sm"
-                            colorScheme="red"
-                            variant="ghost"
-                            onClick={() => setIsEditingDocument(false)}
-                          >
-                            <FaTimes /> Cancelar
-                          </Button>
-                        </HStack>
-
-                        <Box>
-                          <FileUpload.Root
-                            accept=".pdf,.doc,.docx,.ppt,.pptx"
-                            onFileChange={(details) => {
-                              if (details.acceptedFiles.length > 0) {
-                                onReplaceDocument?.(details.acceptedFiles[0]);
-                                setIsEditingDocument(false);
-                              }
-                            }}
-                          >
-                            <FileUpload.Trigger asChild>
-                              <Button
-                                variant="outline"
-                                colorScheme="blue"
-                                loading={isUploadingDocument}
-                                size="sm"
-                              >
-                                <FaUpload /> Substituir Documento
-                              </Button>
-                            </FileUpload.Trigger>
-                            <FileUpload.HiddenInput />
-                          </FileUpload.Root>
-                          <Text fontSize="xs" color="gray.400" mt={1}>
-                            Aceita arquivos PDF, DOC, DOCX, PPT, PPTX
-                          </Text>
-                        </Box>
-                      </VStack>
-                    )}
-                  </>
-                ) : (
-                  <Box>
-                    <FileUpload.Root
-                      accept=".pdf,.doc,.docx,.ppt,.pptx"
-                      onFileChange={(details) => {
-                        if (details.acceptedFiles.length > 0) {
-                          onUploadDocument?.(details.acceptedFiles[0]);
-                        }
-                      }}
-                    >
-                      <FileUpload.Trigger asChild>
-                        <Button
-                          variant="outline"
-                          colorScheme="gray"
-                          loading={isUploadingDocument}
+                      )}
+                    </HStack>
+                  ) : (
+                    <VStack align="start" gap={3} w="100%">
+                      <HStack gap={3} align="center" w="100%">
+                        <Text
+                          fontWeight="semibold"
+                          fontSize="md"
+                          flex={1}
+                          color="gray.600"
                         >
-                          <FaUpload /> Fazer Upload do Documento
+                          {truncate(meeting.documentName)} (atual)
+                        </Text>
+                        <Button
+                          size="sm"
+                          colorScheme="red"
+                          variant="ghost"
+                          onClick={() => setIsEditingDocument(false)}
+                        >
+                          <FaTimes /> Cancelar
                         </Button>
-                      </FileUpload.Trigger>
-                      <FileUpload.HiddenInput />
-                    </FileUpload.Root>
-                    <Text fontSize="xs" color="gray.400" mt={1}>
-                      Aceita arquivos PDF, DOC, DOCX, PPT, PPTX
-                    </Text>
-                  </Box>
-                )}
-              </VStack>
-            </HStack>
-          )}
+                      </HStack>
+
+                      <Box>
+                        <FileUpload.Root
+                          accept=".pdf,.doc,.docx,.ppt,.pptx"
+                          onFileChange={(details) => {
+                            if (details.acceptedFiles.length > 0) {
+                              onReplaceDocument?.(details.acceptedFiles[0]);
+                              setIsEditingDocument(false);
+                            }
+                          }}
+                        >
+                          <FileUpload.Trigger asChild>
+                            <Button
+                              variant="outline"
+                              colorScheme="blue"
+                              loading={isUploadingDocument}
+                              size="sm"
+                            >
+                              <FaUpload /> Substituir Documento
+                            </Button>
+                          </FileUpload.Trigger>
+                          <FileUpload.HiddenInput />
+                        </FileUpload.Root>
+                        <Text fontSize="xs" color="gray.400" mt={1}>
+                          Aceita arquivos PDF, DOC, DOCX, PPT, PPTX
+                        </Text>
+                      </Box>
+                    </VStack>
+                  )}
+                </>
+              ) : (
+                <Box>
+                  <FileUpload.Root
+                    accept=".pdf,.doc,.docx,.ppt,.pptx"
+                    onFileChange={(details) => {
+                      if (details.acceptedFiles.length > 0) {
+                        onUploadDocument?.(details.acceptedFiles[0]);
+                      }
+                    }}
+                  >
+                    <FileUpload.Trigger asChild>
+                      <Button
+                        variant="outline"
+                        colorScheme="gray"
+                        loading={isUploadingDocument}
+                      >
+                        <FaUpload /> Fazer Upload do Documento
+                      </Button>
+                    </FileUpload.Trigger>
+                    <FileUpload.HiddenInput />
+                  </FileUpload.Root>
+                  <Text fontSize="xs" color="gray.400" mt={1}>
+                    Aceita arquivos PDF, DOC, DOCX, PPT, PPTX
+                  </Text>
+                </Box>
+              )}
+            </VStack>
+          </HStack>
 
           <HStack gap={4}>
             <Icon color="gray.500" boxSize={6}>

@@ -15,6 +15,7 @@ import { MdEventAvailable } from "react-icons/md";
 import type { QuickScheduleProps } from "../types";
 import { formatDateTime } from "../../../utils/format-date";
 import { MeetingsSkeleton } from "./meetings-skeleton.component";
+import { truncate } from "../../../utils/truncate";
 
 const EmptyMeetings = () => {
   return (
@@ -78,8 +79,8 @@ export const QuickSchedule = ({
                 <TimelineDescription color="textWithGray">
                   {formatDateTime(meeting.meetingDate)} — com{" "}
                   {currentUser?.role === "PROFESSOR"
-                    ? meeting.studentName
-                    : meeting.professorName}
+                    ? truncate(meeting.professorName)
+                    : truncate(meeting.studentName)}
                 </TimelineDescription>
               </TimelineContent>
             </Timeline.Item>

@@ -16,6 +16,7 @@ export const useCancelMeeting = () => {
           AppQueryKeys.NOTIFICATIONS,
         ],
       });
+      window.location.reload();
     },
   });
 };

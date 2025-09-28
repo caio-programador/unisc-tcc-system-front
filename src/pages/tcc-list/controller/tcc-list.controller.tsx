@@ -27,7 +27,7 @@ export default function TCCListController() {
   const handleErrorDeleteTCC = useCallback(() => {
     toaster.create({
       closable: true,
-      title: "Erro ao deletar usuário",
+      title: "Erro ao deletar TCC",
       description: "Tente novamente mais tarde",
       type: "error",
     });

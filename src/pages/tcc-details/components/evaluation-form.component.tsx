@@ -2,8 +2,9 @@ import { Box, Button, Field, Heading, Textarea } from "@chakra-ui/react";
 import type { EvaluationFormProps } from "../types";
 import { LabelInput } from "./label-input.component";
 import { Controller } from "react-hook-form";
+import { memo } from "react";
 
-export const EvaluationForm = ({
+const EvaluationFormComponent = ({
   errors,
   isSubmittingEvaluation,
   thereIsEvaluationData,
@@ -106,3 +107,5 @@ export const EvaluationForm = ({
     </Box>
   );
 };
+
+export const EvaluationForm = memo(EvaluationFormComponent);

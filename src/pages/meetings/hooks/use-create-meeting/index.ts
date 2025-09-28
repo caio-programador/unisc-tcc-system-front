@@ -16,6 +16,7 @@ export const useCreateMeeting = () => {
           AppQueryKeys.NOTIFICATIONS,
         ],
       });
+      window.location.reload();
     }
   });
 }

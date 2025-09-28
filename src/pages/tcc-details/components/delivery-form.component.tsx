@@ -16,7 +16,7 @@ import { MdDownload } from "react-icons/md";
 import { ChangeAdmissibility } from "./change-admissibility.component";
 import { formatDate, formatDateTime } from "../../../utils/format-date";
 import { useScreenSize } from "../../../hooks/use-screen-size";
-import { useCallback } from "react";
+import { truncate } from "../../../utils/truncate";
 
 export const DeliveryForm = ({
   onSubmit,
@@ -49,12 +49,6 @@ export const DeliveryForm = ({
 
   const { isMobile } = useScreenSize();
 
-  const truncate = useCallback((text: string, maxLength = 50): string => {
-    if (text.length <= maxLength) {
-      return text;
-    }
-    return text.substring(0, maxLength - 3) + "...";
-  }, [])
 
   return (
     <Card.Root

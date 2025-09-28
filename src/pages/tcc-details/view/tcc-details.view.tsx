@@ -43,16 +43,17 @@ export const TCCDetails = ({
         <AppBreadcrumbs
           links={[
             { label: "Home", navigate: () => redirect(RoutesUrl.HOME) },
-            ...(loggedUser?.role !== 'ALUNO' ? [{
-              label: "Todos os TCCs",
-              navigate: () => redirect(RoutesUrl.TCC_LIST),
-            }] : []),
+            ...(loggedUser?.role !== "ALUNO"
+              ? [
+                  {
+                    label: "Todos os TCCs",
+                    navigate: () => redirect(RoutesUrl.TCC_LIST),
+                  },
+                ]
+              : []),
           ]}
           currentLinkLabel="Detalhes do TCC"
         />
-        <Text fontSize="2xl" fontWeight="bold" mt={8}>
-          TCC do {tccData?.student.name}
-        </Text>
         {thereIsNotTCC ? (
           <NoTCC />
         ) : isTotallyReproved ? (
@@ -62,30 +63,35 @@ export const TCCDetails = ({
             }
           />
         ) : (
-          <VStack gap={6} align="center" mt={6}>
-            <TCCSteps
-              currentStep={currentStep}
-              evaluationDeliveryForm={evaluationDeliveryForm}
-              defaultTitle={defaultTitle}
-              onDownloadFile={onDownloadFile}
-              deliveriesData={deliveriesData}
-              deliveryForm={deliveryForm}
-              onSubmit={onSubmit}
-              isLoading={isLoading}
-              selectedFileName={selectedFileName}
-              onFileChange={onFileChange}
-              onRemoveFile={onRemoveFile}
-              loggedUser={loggedUser}
-              evaluationData={evaluationData}
-              isSubmittingEvaluation={isSubmittingEvaluation}
-              onSubmitEvaluation={onSubmitEvaluation}
-              evaluationProfessorData={evaluationProfessorData}
-              currentAdmissibility={currentAdmissibility}
-              onChangeAdmissibility={onChangeAdmissibility}
-              isPendingChangeAdmissibility={isPendingChangeAdmissibility}
-              tccData={tccData}
-            />
-          </VStack>
+          <>
+            <Text fontSize="2xl" fontWeight="bold" mt={8}>
+              TCC do {tccData?.student.name}
+            </Text>
+            <VStack gap={6} align="center" mt={6}>
+              <TCCSteps
+                currentStep={currentStep}
+                evaluationDeliveryForm={evaluationDeliveryForm}
+                defaultTitle={defaultTitle}
+                onDownloadFile={onDownloadFile}
+                deliveriesData={deliveriesData}
+                deliveryForm={deliveryForm}
+                onSubmit={onSubmit}
+                isLoading={isLoading}
+                selectedFileName={selectedFileName}
+                onFileChange={onFileChange}
+                onRemoveFile={onRemoveFile}
+                loggedUser={loggedUser}
+                evaluationData={evaluationData}
+                isSubmittingEvaluation={isSubmittingEvaluation}
+                onSubmitEvaluation={onSubmitEvaluation}
+                evaluationProfessorData={evaluationProfessorData}
+                currentAdmissibility={currentAdmissibility}
+                onChangeAdmissibility={onChangeAdmissibility}
+                isPendingChangeAdmissibility={isPendingChangeAdmissibility}
+                tccData={tccData}
+              />
+            </VStack>
+          </>
         )}
       </Box>
     </Container>

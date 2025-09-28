@@ -5,6 +5,7 @@ import type { HomeProps } from "../types";
 import { Mosaic } from "../components/mosaic.component";
 import { MosaicSkeleton } from "../components/mosaic-skeleton.component";
 import { IoIosLogOut } from "react-icons/io";
+import { truncate } from "../../../utils/truncate";
 
 export const Home = ({
   redirect,
@@ -21,7 +22,7 @@ export const Home = ({
       <Box p={6}>
         <Flex padding="2%" justifyContent="space-between" alignItems="start">
           <Heading mb={6}>
-            Bem vindo ao Dashboard TCC, {user?.role} <Em>{user?.name}</Em>
+            Bem vindo ao Dashboard TCC, {user?.role} <Em>{truncate(user?.name ?? '')}</Em>
           </Heading>
           <Button
             onClick={logout}

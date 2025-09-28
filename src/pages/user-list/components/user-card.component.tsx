@@ -1,5 +1,6 @@
 import { Box, VStack, HStack, Text, Badge, Button } from "@chakra-ui/react";
 import type { UserCardProps } from "../types";
+import { truncate } from "../../../utils/truncate";
 
 export const UserCard = ({
   user,
@@ -38,7 +39,7 @@ export const UserCard = ({
       <VStack align="stretch" gap={4}>
         <HStack justify="space-between" align="start">
           <Text fontSize="lg" fontWeight="bold" color="textPrimary">
-            {user.name}
+            {truncate(user.name)}
           </Text>
           <Badge
             variant="solid"

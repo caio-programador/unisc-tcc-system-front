@@ -45,6 +45,8 @@ export const TCCSteps = ({
   const isAtDefensePanel = defensePanel.includes(loggedUser?.id);
   const isAdvisor = loggedUser?.id === tccData?.professor.id;
 
+  const thereIsEvaluationData = useMemo(() => Boolean(evaluationProfessorData), [evaluationProfessorData]);
+
   return (
     <Steps.Root
       mt={6}
@@ -102,7 +104,7 @@ export const TCCSteps = ({
               register={evaluationDeliveryForm.register}
               errors={evaluationDeliveryForm.formState.errors}
               isSubmittingEvaluation={isSubmittingEvaluation}
-              thereIsEvaluationData={Boolean(evaluationProfessorData)}
+              thereIsEvaluationData={thereIsEvaluationData}
               evaluationId={evaluationProfessorData?.id}
               deliveryId={lastDelivery?.id}
             />
