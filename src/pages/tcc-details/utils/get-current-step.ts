@@ -93,7 +93,8 @@ export const getCurrentStep = ({
     }
     if (
       lastDelivery.deliveryStatus === "APROVADO" &&
-      tccData.admissibility === "PENDING"
+      tccData.admissibility === "PENDING" &&
+      tccData.countMeetings < 6
     )
       return {
         currentStep: 3,
@@ -102,7 +103,18 @@ export const getCurrentStep = ({
       };
     if (
       lastDelivery.deliveryStatus === "APROVADO" &&
-      tccData.admissibility !== "PENDING"
+      tccData.admissibility !== "PENDING" &&
+      tccData.countMeetings < 6
+    )
+      return {
+        currentStep: 3,
+        isTotallyReproved: false,
+        thereIsNotTCC: false,
+      };
+    if (
+      lastDelivery.deliveryStatus === "APROVADO" &&
+      tccData.admissibility !== "PENDING" &&
+      tccData.countMeetings >= 6
     )
       return {
         currentStep: 4,
