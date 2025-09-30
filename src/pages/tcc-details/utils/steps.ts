@@ -108,6 +108,6 @@ export const steps: Steps[] = [
     shouldShowDeliveryForm: true,
     shouldShowEvaluationForm: false,
     shouldShowChangeAdmissibility: true,
-    shouldShowDonwnloadFileButton: false,
+    shouldShowDonwnloadFileButton: true,
   },
 ];
