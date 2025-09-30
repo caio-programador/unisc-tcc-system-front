@@ -54,7 +54,9 @@ export default function TCCDetailsController() {
   const { data: evaluationProfessorData } = useEvaluationProfessor(
     deliveriesData?.[0]?.id,
     loggedUser?.id,
-    loggedUser?.id === tccData?.professor.id &&
+    (loggedUser?.id === tccData?.professor.id ||
+      loggedUser?.id === tccData?.defensePanel.professor2Id ||
+      loggedUser?.id === tccData?.defensePanel.professor3Id) &&
       Boolean(loggedUser) &&
       deliveriesData!.length > 0
   );

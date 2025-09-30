@@ -13,8 +13,8 @@ export const TotallyReproved = ({ deliveryType }: TotallyReprovedProps) => {
           <EmptyState.Title>
             Infelizmente,{" "}
             {deliveryType === "REELABORACAO_PROPOSTA"
-              ? " sua proposta foi reprovada."
-              : " seu TCC foi reprovado."}
+              ? " a proposta foi reprovada."
+              : " o TCC foi reprovado."}
           </EmptyState.Title>
           <EmptyState.Description>
             Entre em contato com seu orientador para mais informações.

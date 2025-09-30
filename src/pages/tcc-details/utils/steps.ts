@@ -31,7 +31,8 @@ export const steps: Steps[] = [
     id: 2,
     title: "Proposta reprovada - Realizar reelaboração da proposta",
     professorTitle: "Proposta reprovada - Aguardando reelaboração de proposta",
-    description: "Atualize os dados da sua proposta e envie novamente para avaliação.",
+    description:
+      "Atualize os dados da sua proposta e envie novamente para avaliação.",
     buttonText: "Reenviar proposta",
     deliveryType: "REELABORACAO_PROPOSTA",
     shouldShowEvaluationDetails: true,
@@ -42,9 +43,12 @@ export const steps: Steps[] = [
   },
   {
     id: 3,
-    title: "Admissibilidade em avaliação pelo Orientador",
-    professorTitle: "TCC disponível para parecer de admissibilidade",
-    description: "Aguarde a avaliação de admissibilidade do seu TCC pelo Orientador.",
+    title:
+      "Admissibilidade em avaliação pelo Orientador ou número mínimo de reuniões não atingido",
+    professorTitle:
+      "TCC disponível para parecer de admissibilidade ou número mínimo de reuniões não atingido",
+    description:
+      "Aguarde a avaliação de admissibilidade do seu TCC pelo Orientador e o mínimo de 6 reuniões de orientação realizada.",
     buttonText: undefined,
     deliveryType: undefined,
     shouldShowEvaluationDetails: true,
@@ -55,7 +59,8 @@ export const steps: Steps[] = [
   {
     id: 4,
     title: "Paracer de Admissibilidade realizado - Realize a entrega do TCC",
-    professorTitle: "Parecer de Admissibilidade realizado - Aguardando entrega de TCC",
+    professorTitle:
+      "Parecer de Admissibilidade realizado - Aguardando entrega de TCC",
     description: "Preencha os dados abaixo para entregar seu TCC.",
     buttonText: "Entregar TCC",
     deliveryType: "TC",
@@ -82,12 +87,13 @@ export const steps: Steps[] = [
     id: 6,
     title: "TCC reprovado - Realizar reelaboração do TCC",
     professorTitle: "TCC reprovado - Aguardando reelaboração do TCC",
-    description: "Atualize os dados do seu TCC e envie novamente para avaliação.",
+    description:
+      "Atualize os dados do seu TCC e envie novamente para avaliação.",
     buttonText: "Reenviar TCC",
     deliveryType: "REELABORACAO_TC",
     shouldShowEvaluationDetails: true,
     shouldShowDeliveryForm: true,
-    shouldShowEvaluationForm: true,
+    shouldShowEvaluationForm: false,
     shouldShowChangeAdmissibility: true,
     shouldShowDonwnloadFileButton: true,
   },
