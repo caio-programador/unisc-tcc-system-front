@@ -78,7 +78,7 @@ export const QuickSchedule = ({
                 <TimelineTitle>{meeting.subject}</TimelineTitle>
                 <TimelineDescription color="textWithGray">
                   {formatDateTime(meeting.meetingDate)} — com{" "}
-                  {currentUser?.role === "PROFESSOR"
+                  {currentUser?.role === "ALUNO"
                     ? truncate(meeting.professorName)
                     : truncate(meeting.studentName)}
                 </TimelineDescription>
